@@ -5,6 +5,7 @@ on:
       - main
 jobs:
   generate_plantuml:
+    permissions: write-all
     runs-on: ubuntu-latest
     name: plantuml
     steps:
