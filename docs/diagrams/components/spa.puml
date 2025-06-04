@@ -5,16 +5,20 @@ Person(businessAdmin, "Administrator")
 
 Container_Boundary(spa, "SPA", "React") {
   Component(dshPage, "Dashboard", "Page")
+
   Component(navMenu, "Navigation Menu", "Component")
+
   Boundary(inventory, "Inventory") {
     Component(inventoryPage, "Inventory", "Page")
     Component(createProductModal, "Create Product", "Modal")
     Component(modifyStockProductModal, "Modify Stock", "Modal")
   }
+
   Boundary(sales, "Sales") {
     Component(salesPage, "Sales", "Page")
     Component(createSaleModal, "Create Sale", "Modal")
   }
+
   Boundary(transactions, "Transactions") {
     Component(transactionsPage, "Transactions", "Page")
     Component(createTransactionModal, "Create Transaction", "Modal")
