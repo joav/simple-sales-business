@@ -3,7 +3,7 @@
 
 Person(businessAdmin, "Administrator")
 
-Container_Boundary(spa, "SPA") {
+Container_Boundary(spa, "SPA", "React") {
   Component(dshPage, "Dashboard", "Page")
   Component(navMenu, "Navigation Menu", "Component")
   Boundary(inventory, "Inventory") {

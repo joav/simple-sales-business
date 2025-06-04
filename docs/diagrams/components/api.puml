@@ -1,7 +1,7 @@
 @startuml API Components
 !include <C4/C4_Component>
 
-Container_Boundary(api, "API") {
+Container_Boundary(api, "API", "NodeJs/ExpressJs") {
   Component(products, "Products")
   Component(sales, "Sales")
   Component(transactions, "Transactions")

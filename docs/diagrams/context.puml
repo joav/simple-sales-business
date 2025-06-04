@@ -1,4 +1,4 @@
-@startuml Context
+@startuml Context Simple Sales Business System
 !include <C4/C4_Context>
 
 Person(businessAdmin, "Administrator", "People that administrates the business")

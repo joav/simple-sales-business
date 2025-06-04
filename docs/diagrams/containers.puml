@@ -7,6 +7,7 @@ System_Boundary(system, "Simple Sales Business System") {
   Container(spa, "SPA", "React")
   Container(api, "API", "NodeJs/ExpressJs")
 }
+
 ContainerDb(db, "DB", "PostgreSQL")
 
 Rel(businessAdmin, spa, "Access to", "http/https")

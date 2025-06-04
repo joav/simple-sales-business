@@ -1,7 +1,7 @@
 @startuml SPA Dashboard Components
 !include <C4/C4_Component>
 
-Container_Boundary(spa, "SPA") {
+Container_Boundary(spa, "SPA", "React") {
   Component(dshPage, "Dashboard", "Page")
   Boundary(inventory, "Inventory") {
     Boundary(inventoryGraphs, "Inventory Graphs") {
