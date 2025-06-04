@@ -1,0 +1,16 @@
+@startuml Containers
+!include <C4/C4_Container>
+
+Person(businessAdmin, "Administrator", "People that administrates the business")
+
+System_Boundary(system, "Simple Sales Business System") {
+  Container(spa, "SPA", "React")
+  Container(api, "API", "NodeJs/ExpressJs")
+}
+ContainerDb(db, "DB", "PostgreSQL")
+
+Rel(businessAdmin, spa, "Access to", "http/https")
+Rel(spa, api, "Make requests to", "http/https")
+Rel(api, db, "Reads/Write")
+
+@enduml

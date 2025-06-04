@@ -1,0 +1,33 @@
+@startuml SPA Dashboard Components
+!include <C4/C4_Component>
+
+Container_Boundary(spa, "SPA") {
+  Component(dshPage, "Dashboard", "Page")
+  Boundary(inventory, "Inventory") {
+    Boundary(inventoryGraphs, "Inventory Graphs") {
+        Component(productsWithStockCard, "Products with Stock", "Card")
+        Component(productsWithoutStockCard, "Products without Stock", "Card")
+    }
+  }
+  Boundary(sales, "Sales") {
+    Boundary(salesGraphs, "Sales Graphs") {
+        Component(monthSalesCard, "Current Month Sales", "Card")
+        Component(monthEarningsCard, "Current Month Earnings", "Card")
+        Component(monthlySalesGraph, "Monthly Sales", "Graph")
+        Component(productsSalesTopTable, "Best Selling Products All Time", "Table")
+        Component(productsSalesTopMonthTable, "Best Selling Products At Current Month", "Table")
+    }
+  }
+  Boundary(transactions, "Transactions") {
+    Boundary(transactionsGraphs, "Transactions Graphs") {
+        Component(balanceCard, "Current Balance", "Card")
+        Component(monthlyBalanceGraph, "Monthly Balance", "Graph")
+    }
+  }
+}
+
+Rel(dshPage, inventoryGraphs, "Uses")
+Rel(dshPage, salesGraphs, "Uses")
+Rel(dshPage, transactionsGraphs, "Uses")
+
+@enduml

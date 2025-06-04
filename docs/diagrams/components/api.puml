@@ -1,0 +1,20 @@
+@startuml API Components
+!include <C4/C4_Component>
+
+Container_Boundary(api, "API") {
+  Component(products, "Products")
+  Component(sales, "Sales")
+  Component(transactions, "Transactions")
+  Component(evb, "Event Bus")
+}
+
+Container(spa, "SPA")
+
+Rel(spa, products, "Make requests", "http/https")
+Rel(spa, sales, "Make requests", "http/https")
+Rel(spa, transactions, "Make requests", "http/https")
+Rel(products, evb, "Publish/Subscribe", "Event")
+Rel(sales, evb, "Publish/Subscribe", "Event")
+Rel(transactions, evb, "Publish/Subscribe", "Event")
+
+@enduml

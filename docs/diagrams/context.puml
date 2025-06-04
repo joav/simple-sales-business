@@ -1,0 +1,10 @@
+@startuml Context
+!include <C4/C4_Context>
+
+Person(businessAdmin, "Administrator", "People that administrates the business")
+
+System(system, "Simple Sales Business System")
+
+Rel(businessAdmin, system, "Uses")
+
+@enduml
