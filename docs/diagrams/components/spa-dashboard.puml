@@ -1,3 +1,4 @@
+' components/spa-dashboard.puml
 @startuml SPA Dashboard Components
 !include <C4/C4_Component>
 
