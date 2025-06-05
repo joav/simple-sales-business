@@ -1,0 +1,655 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "Simple Sales Business API",
+        "version": "0.1.0",
+        "description": "API for administrate Products, Sales and Transactions of a Sales Business",
+        "contact": {
+            "email": "jim.acero.valcarcel@gmail.com"
+        }
+    },
+    "servers": [
+        {
+            "url": "http://localhost:3500/api/v1"
+        }
+    ],
+    "components": {
+        "schemas": {
+            "SuccessResponseDTO": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "object",
+                        "properties": {
+                            "statusCode": {
+                                "type": "integer",
+                                "example": 0
+                            },
+                            "statusMessage": {
+                                "type": "string",
+                                "example": "Ok"
+                            },
+                            "httpStatusCode": {
+                                "type": "integer",
+                                "example": 200
+                            }
+                        }
+                    }
+                }
+            },
+            "InvalidInputResponseDTO": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "object",
+                        "properties": {
+                            "statusCode": {
+                                "type": "integer",
+                                "example": 1
+                            },
+                            "statusMessage": {
+                                "type": "string",
+                                "example": "Failed"
+                            },
+                            "httpStatusCode": {
+                                "type": "integer",
+                                "example": 400
+                            }
+                        }
+                    }
+                }
+            },
+            "NotFoundResponseDTO": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "object",
+                        "properties": {
+                            "statusCode": {
+                                "type": "integer",
+                                "example": 2
+                            },
+                            "statusMessage": {
+                                "type": "string",
+                                "example": "Failed"
+                            },
+                            "httpStatusCode": {
+                                "type": "integer",
+                                "example": 404
+                            }
+                        }
+                    }
+                }
+            },
+            "FailedResponseDTO": {
+                "type": "object",
+                "properties": {
+                    "status": {
+                        "type": "object",
+                        "properties": {
+                            "statusCode": {
+                                "type": "integer",
+                                "example": 40
+                            },
+                            "statusMessage": {
+                                "type": "string",
+                                "example": "Failed"
+                            },
+                            "httpStatusCode": {
+                                "type": "integer",
+                                "example": 500
+                            }
+                        }
+                    }
+                }
+            },
+            "MetricsCategory": {
+                "description": "Metrics category",
+                "type": "string",
+                "enum": [
+                    "products",
+                    "sales",
+                    "transactions"
+                ]
+            },
+            "CategoryAggregate": {
+                "type": "object",
+                "description": "A category aggregate",
+                "properties": {
+                    "aggregateId": {
+                        "type": "string",
+                        "example": "some-count"
+                    },
+                    "category": {
+                        "$ref": "#/components/schemas/MetricsCategory"
+                    },
+                    "aggregateFn": {
+                        "type": "string",
+                        "enum": [
+                            "RECOUNT",
+                            "SUMMATION"
+                        ]
+                    }
+                }
+            },
+            "Date": {
+                "type": "string",
+                "example": "2025-06-05T03:29:00Z"
+            },
+            "AggregateValue": {
+                "description": "An aggregate value",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/CategoryAggregate"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "aggregateValue": {
+                                "type": "number",
+                                "example": 50
+                            },
+                            "lastUpdate": {
+                                "$ref": "#/components/schemas/Date"
+                            }
+                        }
+                    }
+                ]
+            },
+            "CategoryTimeSerie": {
+                "type": "object",
+                "description": "A category time serie",
+                "properties": {
+                    "serieId": {
+                        "type": "string",
+                        "example": "some-time-serie"
+                    },
+                    "category": {
+                        "$ref": "#/components/schemas/MetricsCategory"
+                    }
+                }
+            },
+            "TimeSerie": {
+                "description": "A Time serie",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/CategoryTimeSerie"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "date": {
+                                            "$ref": "#/components/schemas/Date"
+                                        },
+                                        "value": {
+                                            "type": "number",
+                                            "example": 5.3
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            },
+            "CategoryRanking": {
+                "type": "object",
+                "description": "A category ranking",
+                "properties": {
+                    "serieId": {
+                        "type": "string",
+                        "example": "some-ranking"
+                    },
+                    "category": {
+                        "$ref": "#/components/schemas/MetricsCategory"
+                    }
+                }
+            },
+            "Ranking": {
+                "description": "A Ranking",
+                "allOf": [
+                    {
+                        "$ref": "#/components/schemas/CategoryTimeSerie"
+                    },
+                    {
+                        "type": "object",
+                        "properties": {
+                            "data": {
+                                "type": "array",
+                                "items": {
+                                    "type": "object",
+                                    "properties": {
+                                        "lastUpdate": {
+                                            "$ref": "#/components/schemas/Date"
+                                        },
+                                        "valueTitle": {
+                                            "type": "string",
+                                            "example": "Ranking Metric"
+                                        },
+                                        "value": {
+                                            "type": "number",
+                                            "example": 5.3
+                                        },
+                                        "competitor": {
+                                            "type": "string",
+                                            "example": "The First Competitor"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                ]
+            }
+        },
+        "responses": {
+            "404default": {
+                "description": "Not found response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/NotFoundResponseDTO"
+                        }
+                    }
+                }
+            },
+            "400default": {
+                "description": "Invalid input response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/InvalidInputResponseDTO"
+                        }
+                    }
+                }
+            },
+            "500default": {
+                "description": "Failed response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "$ref": "#/components/schemas/FailedResponseDTO"
+                        }
+                    }
+                }
+            },
+            "200getAggregates": {
+                "description": "Aggregates success response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/SuccessResponseDTO"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/CategoryAggregate"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "200getAggregateValue": {
+                "description": "Aggregate value success response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/SuccessResponseDTO"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/AggregateValue"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "200getTimeSeries": {
+                "description": "Time series success response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/SuccessResponseDTO"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/CategoryTimeSerie"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "200getTimeSerie": {
+                "description": "Time serie success response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/SuccessResponseDTO"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/TimeSerie"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "200getRankings": {
+                "description": "Rankings success response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/SuccessResponseDTO"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/CategoryRanking"
+                                            }
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            },
+            "200getRanking": {
+                "description": "Ranking success response",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "allOf": [
+                                {
+                                    "$ref": "#/components/schemas/SuccessResponseDTO"
+                                },
+                                {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/Ranking"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        },
+        "parameters": {
+            "MetricsCategory": {
+                "name": "category",
+                "in": "path",
+                "description": "The metrics category",
+                "required": true,
+                "schema": {
+                    "$ref": "#/components/schemas/MetricsCategory"
+                }
+            }
+        }
+    },
+    "externalDocs": {
+        "description": "Find out more about Simple Sales Business",
+        "url": "https://github.com/joav/simple-sales-business/tree/main/docs/"
+    },
+    "tags": [
+        {
+            "name": "Metrics",
+            "description": "Everything about Metrics"
+        },
+        {
+            "name": "Products",
+            "description": "Everything about Products"
+        },
+        {
+            "name": "Sales",
+            "description": "Everything about Sales"
+        },
+        {
+            "name": "Transactions",
+            "description": "Everything about Transactions"
+        }
+    ],
+    "paths": {
+        "/metrics/{category}/aggregates": {
+            "get": {
+                "tags": [
+                    "Metrics"
+                ],
+                "description": "Get the category available aggregates",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/MetricsCategory"
+                    }
+                ],
+                "operationId": "getAggregates",
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/200getAggregates"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400default"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500default"
+                    }
+                }
+            }
+        },
+        "/metrics/{category}/aggregates/{aggregateId}": {
+            "get": {
+                "tags": [
+                    "Metrics"
+                ],
+                "description": "Get an aggegate of a category",
+                "operationId": "getAggregateValue",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/MetricsCategory"
+                    },
+                    {
+                        "name": "aggregateId",
+                        "in": "path",
+                        "description": "The aggregate id",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/200getAggregateValue"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400default"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404default"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500default"
+                    }
+                }
+            }
+        },
+        "/metrics/{category}/series": {
+            "get": {
+                "tags": [
+                    "Metrics"
+                ],
+                "description": "Get the category available time series",
+                "operationId": "getTimeSeries",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/MetricsCategory"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/200getTimeSeries"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400default"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500default"
+                    }
+                }
+            }
+        },
+        "/metrics/{category}/series/{serieId}": {
+            "get": {
+                "tags": [
+                    "Metrics"
+                ],
+                "description": "Get a category time serie",
+                "operationId": "getTimeSerie",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/MetricsCategory"
+                    },
+                    {
+                        "name": "from",
+                        "in": "query",
+                        "allowEmptyValue": true,
+                        "description": "Exclusive start date",
+                        "schema": {
+                            "$ref": "#/components/schemas/Date"
+                        }
+                    },
+                    {
+                        "name": "to",
+                        "in": "query",
+                        "allowEmptyValue": true,
+                        "description": "Inclusive end date",
+                        "schema": {
+                            "$ref": "#/components/schemas/Date"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/200getTimeSerie"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400default"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404default"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500default"
+                    }
+                }
+            }
+        },
+        "/metrics/{category}/rankings": {
+            "get": {
+                "tags": [
+                    "Metrics"
+                ],
+                "description": "Get the category available rankings",
+                "operationId": "getRankings",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/MetricsCategory"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/200getRankings"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400default"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500default"
+                    }
+                }
+            }
+        },
+        "/metrics/{category}/rankings/{rankingId}": {
+            "get": {
+                "tags": [
+                    "Metrics"
+                ],
+                "description": "Get a category ranking",
+                "operationId": "getRanking",
+                "parameters": [
+                    {
+                        "$ref": "#/components/parameters/MetricsCategory"
+                    },
+                    {
+                        "name": "top",
+                        "in": "query",
+                        "allowEmptyValue": true,
+                        "description": "How much competitors",
+                        "schema": {
+                            "type": "integer",
+                            "example": 3
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "$ref": "#/components/responses/200getRanking"
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400default"
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/404default"
+                    },
+                    "500": {
+                        "$ref": "#/components/responses/500default"
+                    }
+                }
+            }
+        }
+    }
+}
