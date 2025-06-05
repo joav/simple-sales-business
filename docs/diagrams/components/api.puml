@@ -7,6 +7,7 @@ Container_Boundary(api, "API", "NodeJs/ExpressJs") {
   Component(sales, "Sales")
   Component(transactions, "Transactions")
   Component(evb, "Event Bus")
+  Component(metrics, "Metrics")
 }
 
 Container(spa, "SPA")
@@ -14,8 +15,10 @@ Container(spa, "SPA")
 Rel(spa, products, "Make requests", "http/https")
 Rel(spa, sales, "Make requests", "http/https")
 Rel(spa, transactions, "Make requests", "http/https")
+Rel(spa, metrics, "Make requests", "http/https")
 Rel(products, evb, "Publish/Subscribe", "Event")
 Rel(sales, evb, "Publish/Subscribe", "Event")
 Rel(transactions, evb, "Publish/Subscribe", "Event")
+Rel(metrics, evb, "Subscribe", "Event")
 
 @enduml

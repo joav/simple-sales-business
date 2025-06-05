@@ -24,6 +24,8 @@ Container_Boundary(spa, "SPA", "React") {
     Component(transactionsPage, "Transactions", "Page")
     Component(createTransactionModal, "Create Transaction", "Modal")
   }
+
+  Boundary(metrics, "Metrics")
 }
 
 Rel(businessAdmin, spa, "Navigate on")
@@ -38,5 +40,6 @@ Rel(inventoryPage, createProductModal, "Open")
 Rel(inventoryPage, modifyStockProductModal, "Open")
 Rel(salesPage, createSaleModal, "Open")
 Rel(transactionsPage, createTransactionModal, "Open")
+Rel(dshPage, metrics, "Show")
 
 @enduml

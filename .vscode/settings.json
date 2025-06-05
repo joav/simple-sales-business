@@ -1,0 +1,4 @@
+{
+    "plantuml.server": "http://localhost:8001",
+    "plantuml.render": "PlantUMLServer"
+}
