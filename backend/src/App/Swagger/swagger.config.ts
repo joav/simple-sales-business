@@ -1,5 +1,5 @@
-import fs from "node:fs";
-import swaggerJSDoc from "swagger-jsdoc";
+import fs from 'node:fs';
+import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
 import * as OpenApiValidator from 'express-openapi-validator';
 

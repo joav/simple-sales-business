@@ -1,8 +1,8 @@
-import { Container } from "inversify";
-import AppConfig from "./Config/app.config";
+import { Container } from 'inversify';
+import AppConfig from './Config/app.config';
 import express, { Express } from 'express';
-import swaggerConfig from "./Swagger/swagger.config";
-import { Server } from "node:http";
+import swaggerConfig from './Swagger/swagger.config';
+import { Server } from 'node:http';
 
 export class App {
   static config(container: Container) {
@@ -37,27 +37,30 @@ export class App {
   }
 
   private useMiddlewares() {
-    this.app.use(express.urlencoded({
-      extended: false,
-      type: 'application/x-www-form-urlencoded'
-    }));
-    this.app.use(express.text({
-      type: 'text/plain'
-    }));
-    this.app.use(express.json({
-      type: 'application/json'
-    }));
+    this.app.use(
+      express.urlencoded({
+        extended: false,
+        type: 'application/x-www-form-urlencoded'
+      })
+    );
+    this.app.use(
+      express.text({
+        type: 'text/plain'
+      })
+    );
+    this.app.use(
+      express.json({
+        type: 'application/json'
+      })
+    );
   }
 
-  private setRoutes() {
-
-  }
+  private setRoutes() {}
 
   start() {
     this.httpServer = this.app.listen(this.webPort, () => {
       console.log(`Server running on port ${this.webPort}`);
       console.log(`View docs at: http://localhost:${this.webPort}/api-docs`);
-
     });
   }
 

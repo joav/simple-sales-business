@@ -1,6 +1,5 @@
-import { Container } from "inversify";
+import { Container } from 'inversify';
 
 export default {
-  config(container: Container) {
-  }
-}
+  config(container: Container) {}
+};

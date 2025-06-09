@@ -1,6 +1,6 @@
-import path from "node:path";
-import { Container } from "inversify";
-import { App } from "./App";
+import path from 'node:path';
+import { Container } from 'inversify';
+import { App } from './App';
 
 const webPort = +(process.env.PORT || 3500);
 const openapiPath = path.resolve(__dirname, '../openapi.json');
