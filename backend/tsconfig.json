@@ -10,11 +10,14 @@
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     "paths": {
+      "@App": [
+        "src/App/index.ts"
+      ],
       "@App/*": [
-        "./src/App/*"
+        "src/App/*"
       ],
       "@Components/*": [
-        "./src/Components/*"
+        "src/Components/*"
       ]
     }
   }

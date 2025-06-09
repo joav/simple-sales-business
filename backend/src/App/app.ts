@@ -1,5 +1,4 @@
-import { Container, inject } from 'inversify';
-import AppConfig from './Config/app.config';
+import { inject } from 'inversify';
 import express, { Express } from 'express';
 import swaggerConfig from './Swagger/swagger.config';
 import { Server } from 'node:http';
@@ -7,10 +6,6 @@ import { AppRoutes } from './Routes/app.routes';
 import diIdentifiers from './Config/di-identifiers';
 
 export class App {
-  static config(container: Container, appParams: Partial<AppParams>) {
-    AppConfig.config(container, appParams);
-  }
-
   private openapiPath: string;
   private webPort: number;
   private app: Express;
@@ -97,5 +92,9 @@ export class App {
     console.log('Server closed.');
 
     process.exit(0);
+  }
+
+  getApp(): Express {
+    return this.app;
   }
 }
