@@ -1,11 +1,5 @@
 ' database/database-metrics.puml
-@startuml Database
-' Global
-entity MetricsCategory {
-  * category_id : number <<generated>>
-  --
-  * category_name : text
-}
+@startuml Database metrics tables
 
 ' Aggregate
 entity AggregateFN {
@@ -15,55 +9,51 @@ entity AggregateFN {
 }
 
 entity Aggregate {
-  * aggregate_id : number <<generated>>
+  * aggregate_id : text
+  * aggregate_category : enum('products','sales','transactions')
   --
-  * aggregate_name : text
-  * category_id : number <<FK>>
   * aggregate_fn_id : number <<FK>>
   * aggregate_value : number
   aggregate_last_update : date
 }
 
-MetricsCategory ||--|{ Aggregate
 AggregateFN ||--|{ Aggregate
 
 ' TimeSerie
 entity TimeSerie {
-  * time_serie_id : number <<generated>>
+  * time_serie_id : text
+  * time_serie_category : enum('products','sales','transactions')
   --
-  * time_serie_name : text
-  * category_id : number <<FK>>
 }
 
 entity TimeSerieData {
   * time_serie_data_id : number <<generated>>
   --
-  * time_serie_id : number <<FK>>
+  * time_serie_id : text <<FK>>
+  * time_serie_category : text <<FK>>
   * time_serie_data_value : number
   * time_serie_data_date : date
 }
 
-MetricsCategory ||--|{ TimeSerie
 TimeSerie ||--o{ TimeSerieData
 
 ' Ranking
 entity Ranking {
-  * ranking_id : number <<generated>>
+  * ranking_id : text
+  * ranking_category : enum('products','sales','transactions')
   --
-  * ranking_name : text
-  * category_id : number <<FK>>
   * ranking_value_title : text
 }
 
 entity RankingCompetitor {
   * ranking_competitor_id : number <<generated>>
   --
-  * ranking_id : number <<FK>>
+  * ranking_id : text <<FK>>
+  * ranking_category : text <<FK>>
   * ranking_competitor_name : string
   * ranking_competitor_value : number
   * ranking_competitor_last_update : date
 }
 
-MetricsCategory ||--|{ Ranking
 Ranking ||--o{ RankingCompetitor
 @enduml
