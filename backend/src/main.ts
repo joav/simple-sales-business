@@ -6,12 +6,12 @@ const webPort = +(process.env.PORT || 3500);
 const openapiPath = path.resolve(__dirname, '../openapi.json');
 const container: Container = new Container();
 
-App.config(container);
-
-const app = new App({
+App.config(container, {
   openapiPath,
   webPort
 });
+
+const app = container.get(App);
 
 app.start();
 

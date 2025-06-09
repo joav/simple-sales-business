@@ -1,12 +1,14 @@
-import { Container } from 'inversify';
+import { Container, inject } from 'inversify';
 import AppConfig from './Config/app.config';
 import express, { Express } from 'express';
 import swaggerConfig from './Swagger/swagger.config';
 import { Server } from 'node:http';
+import { AppRoutes } from './Routes/app.routes';
+import diIdentifiers from './Config/di-identifiers';
 
 export class App {
-  static config(container: Container) {
-    AppConfig.config(container);
+  static config(container: Container, appParams: Partial<AppParams>) {
+    AppConfig.config(container, appParams);
   }
 
   private openapiPath: string;
@@ -14,7 +16,7 @@ export class App {
   private app: Express;
   private httpServer?: Server;
 
-  constructor(params: Partial<AppParams>) {
+  constructor(@inject(diIdentifiers.APP_PARAMS) params: Partial<AppParams>, @inject(AppRoutes) private readonly appRoutes: AppRoutes) {
     this.openapiPath = params.openapiPath ?? './openapi.json';
     this.webPort = params.webPort ?? 3500;
     this.app = express();
@@ -55,7 +57,9 @@ export class App {
     );
   }
 
-  private setRoutes() {}
+  private setRoutes() {
+    this.appRoutes.setRoutes(this.app);
+  }
 
   start() {
     this.httpServer = this.app.listen(this.webPort, () => {
