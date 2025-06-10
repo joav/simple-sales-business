@@ -9,7 +9,9 @@ const container: Container = new Container();
 
 appConfig.config(container, {
   openapiPath,
-  webPort
+  webPort,
+  closeTimeout: 5000,
+  process
 });
 
 const app = container.get(App);

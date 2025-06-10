@@ -4,7 +4,7 @@ import swaggerUi from 'swagger-ui-express';
 import * as OpenApiValidator from 'express-openapi-validator';
 
 export default {
-  init({ openapiPath, ...flags }: SwaggerConfig) {
+  init({ openapiPath, ...flags }: SwaggerConfigParams) {
     const openapiJson = JSON.parse(fs.readFileSync(openapiPath, 'utf-8'));
 
     const swaggerOptions = {
@@ -23,4 +23,4 @@ export default {
       })
     };
   }
-};
+} satisfies SwaggerConfig;

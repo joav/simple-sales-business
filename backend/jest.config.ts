@@ -8,6 +8,14 @@ const jestConfig: JestConfigWithTsJest = {
   collectCoverage: true,
   coverageDirectory: 'coverage',
   coverageReporters: ['html', 'text', 'text-summary', 'lcov'],
+  coverageThreshold: {
+    global: {
+      branches: 90,
+      functions: 90,
+      lines: 90,
+      statements: -10,
+    }
+  },
   testMatch: ['<rootDir>/test/**/*.test.ts'],
   moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' })
 };

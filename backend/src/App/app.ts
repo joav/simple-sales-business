@@ -1,6 +1,5 @@
 import { inject } from 'inversify';
 import express, { Express } from 'express';
-import swaggerConfig from './Swagger/swagger.config';
 import { Server } from 'node:http';
 import { AppRoutes } from './Routes/app.routes';
 import diIdentifiers from './Config/di-identifiers';
@@ -10,13 +9,18 @@ export class App {
   private webPort: number;
   private app: Express;
   private httpServer?: Server;
+  private closeTimeout: number;
+  private process: NodeJS.Process;
 
   constructor(
     @inject(diIdentifiers.APP_PARAMS) params: Partial<AppParams>,
-    @inject(AppRoutes) private readonly appRoutes: AppRoutes
+    @inject(AppRoutes) private readonly appRoutes: AppRoutes,
+    @inject(diIdentifiers.SWAGGER_CONFIG) private readonly swaggerConfig: SwaggerConfig
   ) {
     this.openapiPath = params.openapiPath ?? './openapi.json';
     this.webPort = params.webPort ?? 3500;
+    this.closeTimeout = params.closeTimeout ?? 5000;
+    this.process = params.process ?? process;
     this.app = express();
     this.initialize();
   }
@@ -28,7 +32,7 @@ export class App {
   }
 
   private initSwagger() {
-    const swaggerHandlers = swaggerConfig.init({
+    const swaggerHandlers = this.swaggerConfig.init({
       openapiPath: this.openapiPath,
       validateRequests: true
     });
@@ -69,35 +73,39 @@ export class App {
   stop = () => {
     console.log('Shutting down gracefully...');
 
-    if (!this.httpServer) this.serverClosedInformation();
+    if (!this.httpServer) return this.serverClosedInformation();
 
-    this.httpServer.close((e) => {
-      if (e) {
-        console.error(e);
-        process.exit(1);
-      }
+    this.httpServer.close(this.handleServerClose);
 
-      console.log('Server closed.');
-
-      // Close any other connections or resources here
-
-      process.exit(0);
-    });
-
-    // Force close the server after 5 seconds
-    setTimeout(() => {
-      console.error('Could not close connections in time, forcefully shutting down');
-      process.exit(1);
-    }, 5000);
+    // Force close the server after timeout
+    setTimeout(this.handleServerCloseTimeout, this.closeTimeout);
   };
 
   private serverClosedInformation() {
     console.log('Server closed.');
 
-    process.exit(0);
+    this.process.exit(0);
   }
 
   getApp(): Express {
     return this.app;
   }
+
+  handleServerClose = (e?: Error) => {
+    if (e) {
+      console.log(e);
+      return this.process.exit(1);
+    }
+
+    console.log('Server closed.');
+
+    // Close any other connections or resources here
+
+    this.process.exit(0);
+  };
+
+  handleServerCloseTimeout = () => {
+    console.log('Could not close connections in time, forcefully shutting down');
+    this.process.exit(1);
+  };
 }
