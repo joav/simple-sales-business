@@ -11,7 +11,10 @@ export class App {
   private app: Express;
   private httpServer?: Server;
 
-  constructor(@inject(diIdentifiers.APP_PARAMS) params: Partial<AppParams>, @inject(AppRoutes) private readonly appRoutes: AppRoutes) {
+  constructor(
+    @inject(diIdentifiers.APP_PARAMS) params: Partial<AppParams>,
+    @inject(AppRoutes) private readonly appRoutes: AppRoutes
+  ) {
     this.openapiPath = params.openapiPath ?? './openapi.json';
     this.webPort = params.webPort ?? 3500;
     this.app = express();

@@ -7,7 +7,7 @@ export class AppRoutes {
     @inject(HomeRoutes) private readonly homeRoutes: HomeRoutes
     // @inject(ApiRoutes) private apiRoutes: ApiRoutes,
     // @inject(StatusRoutes) private statusRoutes: StatusRoutes
-  ) { }
+  ) {}
 
   setRoutes(app: Express) {
     app.use('', this.homeRoutes.getRouter());
