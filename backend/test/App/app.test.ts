@@ -91,6 +91,11 @@ describe('App', () => {
       expect(response.status).toBe(200);
       expect(response.text).toBe('OK');
     });
+    it('GET /status responds with 200 and OK', async () => {
+      const response = await request(app.getApp()).get('/status');
+      expect(response.status).toBe(200);
+      expect(response.text).toBe('OK');
+    });
   });
 
   function setDefaultContainer(params: Partial<AppParams> = {}) {

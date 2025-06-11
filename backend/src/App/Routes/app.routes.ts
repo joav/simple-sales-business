@@ -12,6 +12,8 @@ export class AppRoutes {
   setRoutes(app: Express) {
     app.use('', this.homeRoutes.getRouter());
     // app.use('api/v1');
-    // app.use('status');
+    app.get('/status', (_, res) => {
+      res.status(200).send('OK');
+    });
   }
 }
