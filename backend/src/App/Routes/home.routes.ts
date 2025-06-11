@@ -1,21 +1,15 @@
+import { AbstractRoutes } from '@Components/Shared/infrastructure/web/AbstractRoutes';
 import { HomeController } from '../Controllers/home.controller';
-import { Routes } from '@Components/Shared/infrastructure/web/Routes';
-import { Router } from 'express';
 import { inject, injectable } from 'inversify';
 
 @injectable('Singleton')
-export class HomeRoutes implements Routes {
-  private router: Router;
+export class HomeRoutes extends AbstractRoutes {
   constructor(@inject(HomeController) private readonly homeController: HomeController) {
-    this.router = Router();
+    super();
     this.setRoutes();
   }
 
-  private setRoutes() {
+  protected setRoutes() {
     this.router.get('', this.homeController.handleRequest);
-  }
-
-  getRouter(): Router {
-    return this.router;
   }
 }
