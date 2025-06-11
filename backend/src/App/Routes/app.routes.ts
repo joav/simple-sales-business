@@ -1,8 +1,9 @@
 import { Express } from 'express';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import { HomeRoutes } from './home.routes';
 import { StatusRoutes } from './status.routes';
 
+@injectable('Singleton')
 export class AppRoutes {
   constructor(
     @inject(HomeRoutes) private readonly homeRoutes: HomeRoutes,

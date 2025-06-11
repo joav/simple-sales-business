@@ -1,8 +1,9 @@
 import { StatusController } from '@App/Controllers/status.controller';
 import { Routes } from '@Components/Shared/infrastructure/web/Routes';
 import { Router } from 'express';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 
+@injectable('Singleton')
 export class StatusRoutes implements Routes {
   private router: Router;
   constructor(@inject(StatusController) private readonly statusController: StatusController) {

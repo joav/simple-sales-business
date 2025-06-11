@@ -1,9 +1,10 @@
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 import express, { Express } from 'express';
 import { Server } from 'node:http';
 import { AppRoutes } from './Routes/app.routes';
 import diIdentifiers from './Config/di-identifiers';
 
+@injectable('Singleton')
 export class App {
   private openapiPath: string;
   private webPort: number;

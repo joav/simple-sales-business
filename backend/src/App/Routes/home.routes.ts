@@ -1,8 +1,9 @@
 import { HomeController } from '../Controllers/home.controller';
 import { Routes } from '@Components/Shared/infrastructure/web/Routes';
 import { Router } from 'express';
-import { inject } from 'inversify';
+import { inject, injectable } from 'inversify';
 
+@injectable('Singleton')
 export class HomeRoutes implements Routes {
   private router: Router;
   constructor(@inject(HomeController) private readonly homeController: HomeController) {
