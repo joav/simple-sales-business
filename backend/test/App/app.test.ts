@@ -2,9 +2,22 @@ import { App } from '@App';
 import appConfig from '@App/Config/app.config';
 import diIdentifiers from '@App/Config/di-identifiers';
 import { AppRoutes } from '@App/Routes/app.routes';
-import { Container } from 'inversify';
+import { AbstractRoutes } from '@Components/Shared/infrastructure/web/AbstractRoutes';
+import { ComponentRoute } from '@Components/Shared/infrastructure/web/ComponentRoutes';
+import { Container, injectable } from 'inversify';
 import path from 'node:path';
 import request from 'supertest';
+
+@injectable('Singleton')
+class MyComponentRoute extends AbstractRoutes implements ComponentRoute {
+  path = '/my-component';
+  constructor() {
+    super();
+    this.router.get('', (_, res) => {
+      res.status(200).send('My Component OK');
+    });
+  }
+}
 
 describe('App', () => {
   let container: Container;
@@ -84,6 +97,7 @@ describe('App', () => {
         webPort: 3500,
         process
       });
+      container.bind(diIdentifiers.COMPONENT_ROUTES).to(MyComponentRoute);
       setApp();
     });
     it('GET / responds with 200 and OK', async () => {
@@ -95,6 +109,15 @@ describe('App', () => {
       const response = await request(app.getApp()).get('/status');
       expect(response.status).toBe(200);
       expect(response.text).toBe('OK');
+    });
+    it('GET /api/v1 responds with 302', async () => {
+      const response = await request(app.getApp()).get('/api/v1');
+      expect(response.status).toBe(302);
+    });
+    it('GET /api/v1/my-component responds with 200 and OK', async () => {
+      const response = await request(app.getApp()).get('/api/v1/my-component');
+      expect(response.status).toBe(200);
+      expect(response.text).toBe('My Component OK');
     });
   });
 
