@@ -41,4 +41,25 @@ describe('Metrics Aggregate', () => {
       expect(error).toBeInstanceOf(Error);
     }
   });
+  it('should throws InvalidInputException for empty aggregateFn', () => {
+    try {
+      Aggregate.fromPrimitives({
+        aggregateId: 'some-count',
+        category: 'products'
+      } as any);
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+    }
+  });
+  it('should throws InvalidInputException for invalid aggregateFn', () => {
+    try {
+      Aggregate.fromPrimitives({
+        aggregateId: 'some-count',
+        category: 'products',
+        aggregateFn: 'invalid-fn'
+      });
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+    }
+  });
 });
