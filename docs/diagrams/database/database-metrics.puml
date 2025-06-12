@@ -2,17 +2,11 @@
 @startuml Database metrics tables
 
 ' Aggregate
-entity AggregateFN {
-  * aggregate_fn_id : number <<generated>>
-  --
-  * aggregate_fn_name : text
-}
-
 entity Aggregate {
   * aggregate_id : text
   * aggregate_category : enum('products','sales','transactions')
   --
-  * aggregate_fn_id : number <<FK>>
+  * aggregate_fn : enum('RECOUNT','SUMMATION')
   * aggregate_value : number
   aggregate_last_update : date
 }
