@@ -22,4 +22,23 @@ describe('Metrics Aggregate', () => {
       expect(error).toBeInstanceOf(Error);
     }
   });
+  it('should throws InvalidInputException for empty category', () => {
+    try {
+      Aggregate.fromPrimitives({
+        aggregateId: 'some-count'
+      } as any);
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+    }
+  });
+  it('should throws InvalidInputException for invalid category', () => {
+    try {
+      Aggregate.fromPrimitives({
+        aggregateId: 'some-count',
+        category: 'invalid-category'
+      } as any);
+    } catch (error) {
+      expect(error).toBeInstanceOf(Error);
+    }
+  });
 });
