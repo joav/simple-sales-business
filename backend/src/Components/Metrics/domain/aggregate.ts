@@ -25,6 +25,13 @@ export class Aggregate {
     public readonly category: Category,
     public readonly aggregateFn: AggregateFn
   ) {}
+  toPrimitives() {
+    return {
+      aggregateId: this.aggregateId,
+      aggregateFn: this.aggregateFn as string,
+      category: this.category as string
+    };
+  }
   static fromPrimitives(values: { aggregateId: string; category: string; aggregateFn: string }) {
     const aggregateId = Aggregate.verifyAggregateId(values.aggregateId);
     const category = Aggregate.verifyCategory(values.category);
