@@ -5,16 +5,18 @@ import { InvalidInputException } from "@Components/Shared/domain/exceptions/inva
 
 describe('Metrics Aggregate', () => {
   it('should create from primitives', () => {
-    const aggregate = Aggregate.fromPrimitives({
+    const values = {
       aggregateId: 'some-count',
       category: 'products',
       aggregateFn: 'RECOUNT'
-    });
+    };
+    const aggregate = Aggregate.fromPrimitives(values);
 
     expect(aggregate).toBeTruthy();
     expect(aggregate.aggregateId).toBe('some-count');
     expect(aggregate.category).toBe(Category.PRODUCTS);
     expect(aggregate.aggregateFn).toBe(AggregateFn.RECOUNT);
+    expect(aggregate.toPrimitives()).toEqual(values);
   });
   it('should throws InvalidInputException for invalid aggregateId', () => {
     try {
