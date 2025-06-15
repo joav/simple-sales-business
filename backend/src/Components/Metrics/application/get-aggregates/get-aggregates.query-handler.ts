@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import { QueryHandler } from '@Components/Shared/domain/query-handler';
 import { AggregatesGetter } from './aggregates-getter';
 import { GetAggregatesResponse } from './get-aggregates.response';
