@@ -5,7 +5,7 @@ import { GetAggregatesQuery } from './get-aggregates.query';
 
 export class GetAggregatesQueryHandler implements QueryHandler<GetAggregatesQuery, GetAggregatesResponse> {
   constructor(private getter: AggregatesGetter) {}
-  async handle(_query: GetAggregatesQuery) {
+  async handle() {
     const aggregates = await this.getter.run();
     return new GetAggregatesResponse(aggregates);
 }
