@@ -10,7 +10,6 @@ type AggregateResponse = {
 export class GetAggregatesResponse implements Response {
   readonly aggregates: AggregateResponse[];
   constructor(aggregates: Aggregate[]) {
-    this.aggregates = aggregates.map(a => a.toPrimitives());
+    this.aggregates = aggregates.map((a) => a.toPrimitives());
   }
 }
-
