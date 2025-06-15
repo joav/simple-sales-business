@@ -1,6 +1,6 @@
 import { Query } from './query';
 import { Response } from './response';
 
-export interface QueryHandler {
-  handle(query: Query): Response;
+export interface QueryHandler<Q extends Query, R extends Response> {
+  handle(query: Q): R;
 }
