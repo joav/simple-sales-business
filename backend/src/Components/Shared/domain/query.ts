@@ -1,3 +1,3 @@
 import { Response } from './response';
 
-export interface Query<T extended Response> {}
+export interface Query<T extends Response> {}
