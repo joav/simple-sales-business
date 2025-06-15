@@ -9,4 +9,7 @@ export class GetAggregatesQueryHandler implements QueryHandler<GetAggregatesQuer
     const aggregates = await this.getter.run();
     return new GetAggregatesResponse(aggregates);
 }
+  subscribedTo() {
+    return GetAggregatesQuery;
+  }
 }
