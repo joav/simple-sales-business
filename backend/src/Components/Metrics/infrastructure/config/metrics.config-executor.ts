@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { ConfigExecutor } from '@Components/Shared/infrastrucure/config-executor';
+import { ConfigExecutor } from '@Components/Shared/infrastructure/config-executor';
 import AggregatesContainerModuleCreator from './aggregates.container-module-creator';
 
 export default {
