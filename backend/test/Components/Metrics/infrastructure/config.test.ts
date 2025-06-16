@@ -1,6 +1,7 @@
 import { Container } from 'inversify';
 import MetrictsConfigExecutor from '@Components/Metrics/infrastructure/config/metrics.config-executor';
 import { GetAggregatesQueryHandler } from '@Components/Metrics/application/get-aggregates/get-aggregates.query-handler';
+import sharedIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
 
 
 describe('Metrics Config', () => {
