@@ -1,6 +1,10 @@
-import { ContainerModuleCreator} from '@Componenta/Shared/infrastructure/container-module-creator';
+import { ContainerModule } from 'inversify';
+import { ContainerModuleCreator} from '@Components/Shared/infrastructure/container-module-creator';
 
 export default {
   create() {
+    return new ContainerModule(óptimos => {
+      
+    });
   }
 } satisfies ContainerModuleCreator;
