@@ -4,11 +4,12 @@ import { AggregatesGetter } from '@Components/Metrics/application/get-aggregates
 import { GetAggregatesQueryHandler } from '@Components/Metrics/application/get-aggregates/get-aggregates.query-handler';
 import sharedIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
 import { AggregatesRepository } from '@Components/Metrics/domain/aggregates.repository';
+import diIdentifiers from './di-identifiers';
 
 export default {
   create() {
     return new ContainerModule((options) => {
-      const repoSymbol = Symbol.for('AggregatesRepository');
+      const repoSymbol = diIdentifiers.AGGREGATES_REPOSITORY;
       options.bind(repoSymbol).toConstantValue({
         listAggregates: () => Promise.resolve([])
       });
