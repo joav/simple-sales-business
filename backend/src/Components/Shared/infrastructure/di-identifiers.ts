@@ -1,3 +1,3 @@
 export default {
-  QUERY_HANDLER: Symbol.from('QueryHandler')
+  QUERY_HANDLER: Symbol.for('QueryHandler')
 };
