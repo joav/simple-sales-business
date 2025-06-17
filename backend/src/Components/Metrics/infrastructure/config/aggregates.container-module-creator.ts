@@ -8,7 +8,9 @@ export default {
   create() {
     return new ContainerModule(options => {
       const repoSymbol = Symbol.for('AggregatesRepository');
-      options.bind(repoSymbol).toConstantValue({});
+      options.bind(repoSymbol).toConstantValue({
+      listAggregates: () => Promise.resolve([])
+});
       options.bind(AggregatesGetter).toResolvedValue((repo) => new AggregatesGetter(repo), [repoSymbol]);
       options.bind(GetAggregatesQueryHandler).toResolvedValue((getter) => new GetAggregatesQueryHandler(getter), [AggregatesGetter]);
       options.bind(sharedIdentifiers.QUERY_HANDLER).toResolvedValue(handler => handler, [GetAggregatesQueryHandler]);
