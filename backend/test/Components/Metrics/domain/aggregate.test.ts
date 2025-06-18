@@ -1,6 +1,7 @@
 import { Aggregate, AGGREGATE_EXCEPTIONS } from "@Components/Metrics/domain/aggregate";
 import { AggregateFn } from "@Components/Metrics/domain/aggregate-fn";
 import { Category } from "@Components/Metrics/domain/category";
+import { INVALID_CATEGORY } from "@Components/Metrics/domain/category-from-primitive";
 import { InvalidInputException } from "@Components/Shared/domain/exceptions/invalid-input.exception";
 
 describe('Metrics Aggregate', () => {
@@ -34,8 +35,8 @@ describe('Metrics Aggregate', () => {
       } as any);
     } catch (error) {
       expect(error).toBeInstanceOf(InvalidInputException);
-      expect(error.status.statusCode).toBe(AGGREGATE_EXCEPTIONS.InvalidCategory.statusCode);
-      expect(error.status.statusMessage).toBe(AGGREGATE_EXCEPTIONS.InvalidCategory.statusMessage);
+      expect(error.status.statusCode).toBe(INVALID_CATEGORY.statusCode);
+      expect(error.status.statusMessage).toBe(INVALID_CATEGORY.statusMessage);
     }
   });
   it('should throws InvalidInputException for invalid category', () => {
@@ -46,8 +47,8 @@ describe('Metrics Aggregate', () => {
       } as any);
     } catch (error) {
       expect(error).toBeInstanceOf(InvalidInputException);
-      expect(error.status.statusCode).toBe(AGGREGATE_EXCEPTIONS.InvalidCategory.statusCode);
-      expect(error.status.statusMessage).toBe(AGGREGATE_EXCEPTIONS.InvalidCategory.statusMessage);
+      expect(error.status.statusCode).toBe(INVALID_CATEGORY.statusCode);
+      expect(error.status.statusMessage).toBe(INVALID_CATEGORY.statusMessage);
     }
   });
   it('should throws InvalidInputException for empty aggregateFn', () => {

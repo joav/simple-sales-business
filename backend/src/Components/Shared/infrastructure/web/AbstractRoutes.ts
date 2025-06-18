@@ -5,7 +5,7 @@ export abstract class AbstractRoutes implements Routes {
   protected router: Router;
 
   constructor() {
-    this.router = Router();
+    this.router = Router({ mergeParams: true });
   }
 
   getRouter(): Router {

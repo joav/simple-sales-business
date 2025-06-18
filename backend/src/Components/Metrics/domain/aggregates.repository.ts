@@ -1,5 +1,6 @@
 import { Aggregate } from './aggregate';
+import { Category } from './category';
 
 export interface AggregatesRepository {
-  listAggregates(): Promise<Aggregate[]>;
+  listAggregates(category: Category): Promise<Aggregate[]>;
 }

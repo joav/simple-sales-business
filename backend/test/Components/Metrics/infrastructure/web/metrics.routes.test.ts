@@ -3,6 +3,7 @@ import { GetAggregatesQueryHandler } from '@Components/Metrics/application/get-a
 import { AggregatesInMemoryRepository } from '@Components/Metrics/infrastructure/data/in-memory/aggregates.in-memory.repository';
 import { GetAggregatesController } from '@Components/Metrics/infrastructure/web/Controllers/get-aggregates.controller';
 import { AggregatesRoutes } from '@Components/Metrics/infrastructure/web/Routes/aggregates.routes';
+import { MetricsRoutes } from '@Components/Metrics/infrastructure/web/Routes/metrics.routes';
 import sharedDiIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
 import { QueryBusInMemory } from '@Components/Shared/infrastructure/Query-Bus/query-bus.in-memory';
 import { QueryHandlersRepository } from '@Components/Shared/infrastructure/Query-Bus/query-handlers.repository';
@@ -10,7 +11,7 @@ import express from 'express';
 import { Container } from 'inversify';
 import request from 'supertest';
 
-describe('Metrics Aggregates API', () => {
+describe('Metrics API', () => {
   let app: express.Express;
 
   beforeEach(() => {
@@ -24,26 +25,30 @@ describe('Metrics Aggregates API', () => {
 
     container.bind(GetAggregatesController).toSelf();
     container.bind(AggregatesRoutes).toSelf();
+    container.bind(MetricsRoutes).toSelf();
     app = express();
-    app.use(container.get(AggregatesRoutes).getRouter());
+    app.use('/metrics', container.get(MetricsRoutes).getRouter());
   });
 
-  it('should GET / return 200 with aggregates', async () => {
-    const response = await request(app).get('/');
-    expect(response.status).toBe(200);
-    expect(response.body).toEqual({
-      status: {
-        statusCode: 0,
-        statusMessage: "Ok",
-        httpStatusCode: 200
-      },
-      data: [
-        {
-          aggregateId: "some-count",
-          category: "products",
-          aggregateFn: "RECOUNT"
-        }
-      ]
+  describe('Aggregates API', () => {
+    it('should GET /metrics/products/aggregates return 200 with aggregates', async () => {
+      const response = await request(app).get('/metrics/products/aggregates');
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({
+        status: {
+          statusCode: 0,
+          statusMessage: "Ok",
+          httpStatusCode: 200
+        },
+        data: [
+          {
+            aggregateId: "some-count",
+            category: "products",
+            aggregateFn: "RECOUNT"
+          }
+        ]
+      });
     });
-  });
+  })
+
 });
