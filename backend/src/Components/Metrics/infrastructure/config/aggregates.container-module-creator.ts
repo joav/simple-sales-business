@@ -5,6 +5,8 @@ import { GetAggregatesQueryHandler } from '@Components/Metrics/application/get-a
 import sharedIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
 import { AggregatesRepository } from '@Components/Metrics/domain/aggregates.repository';
 import diIdentifiers from './di-identifiers';
+import { GetAggregatesController } from '@Components/Metrics/infrastructure/web/Controllers/get-aggregates.controller';
+import { AggregatesRoutes } from '@Components/Metrics/infrastructure/web/Routes/aggregates.routes';
 
 export default {
   create() {
@@ -28,6 +30,12 @@ export default {
           (handler: GetAggregatesQueryHandler) => handler,
           [GetAggregatesQueryHandler]
         );
+      options
+        .bind(GetAggregatesController)
+        .toSelf();
+      options.
+        .bind(AggregatesRoutes)
+        .toSelf();
     });
   }
 } satisfies ContainerModuleCreator;
