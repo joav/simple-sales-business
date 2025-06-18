@@ -5,7 +5,7 @@ import { AggregatesRoutes } from './aggregates.routes';
 
 @injectable('Singleton')
 export class MetricsRoutes extends AbstractRoutes implements ComponentRoute {
-  path = 'metrics';
+  path = '/metrics';
 
   constructor(@inject(AggregatesRoutes) private readonly aggregatesRoutes: AggregatesRoutes) {
     super();
