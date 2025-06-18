@@ -4,14 +4,9 @@ import { GetAggregatesQueryHandler } from '@Components/Metrics/application/get-a
 import sharedIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
 import metricsDiIdentifiers from '@Components/Metrics/infrastructure/config/di-identifiers';
 import { AggregatesInMemoryRepository } from '@Components/Metrics/infrastructure/data/in-memory/aggregates.in-memory.repository';
-import { QueryBus } from '@Components/Shared/domain/query-bus';
 import { AggregatesRoutes } from '@Components/Metrics/infrastructure/web/Routes/aggregates.routes';
 
-class MyQueryBus implements QueryBus {
-  ask() {
-    return Promise.resolve();
-  }
-}
+class MyQueryBus {}
 
 describe('Metrics Config', () => {
   let container: Container;
