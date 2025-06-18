@@ -30,12 +30,8 @@ export default {
           (handler: GetAggregatesQueryHandler) => handler,
           [GetAggregatesQueryHandler]
         );
-      options
-        .bind(GetAggregatesController)
-        .toSelf();
-      options
-        .bind(AggregatesRoutes)
-        .toSelf();
+      options.bind(GetAggregatesController).toSelf();
+      options.bind(AggregatesRoutes).toSelf();
     });
   }
 } satisfies ContainerModuleCreator;
