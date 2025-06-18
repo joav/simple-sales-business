@@ -33,7 +33,7 @@ export default {
       options
         .bind(GetAggregatesController)
         .toSelf();
-      options.
+      options
         .bind(AggregatesRoutes)
         .toSelf();
     });
