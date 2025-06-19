@@ -16,6 +16,6 @@ export class GetAggregatesController implements Controller {
     const query = new GetAggregatesQuery(req.params.category);
     const result = await this.queryBus.ask<GetAggregatesResponse>(query);
     const response = successResponse(result.aggregates, StatusCodes.OK);
-    res.status(response.status.httpStatusCode).send(response);
+    res.status(response.status.httpStatusCode).json(response);
   };
 }

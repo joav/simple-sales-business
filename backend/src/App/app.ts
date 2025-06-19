@@ -3,6 +3,8 @@ import express, { Express } from 'express';
 import { Server } from 'node:http';
 import { AppRoutes } from './Routes/app.routes';
 import diIdentifiers from './Config/di-identifiers';
+import { OpenApiRequestHandler } from 'express-openapi-validator/dist/framework/types';
+import { appErrorHandler } from './app.error-handler';
 
 @injectable('Singleton')
 export class App {
@@ -27,9 +29,10 @@ export class App {
   }
 
   private initialize() {
-    this.initSwagger();
-    this.useMiddlewares();
+    const swaggerValidator = this.initSwagger();
+    this.useMiddlewares(swaggerValidator);
     this.setRoutes();
+    this.setErrorHandler();
   }
 
   private initSwagger() {
@@ -39,9 +42,11 @@ export class App {
     });
 
     this.app.use('/api-docs', swaggerHandlers.serve, swaggerHandlers.docsHandler);
+
+    return swaggerHandlers.validator;
   }
 
-  private useMiddlewares() {
+  private useMiddlewares(swaggerValidator: unknown) {
     this.app.use(
       express.urlencoded({
         extended: false,
@@ -58,10 +63,15 @@ export class App {
         type: 'application/json'
       })
     );
+    this.app.use(swaggerValidator as OpenApiRequestHandler[]);
   }
 
   private setRoutes() {
     this.appRoutes.setRoutes(this.app);
+  }
+
+  private setErrorHandler() {
+    this.app.use(appErrorHandler);
   }
 
   start() {

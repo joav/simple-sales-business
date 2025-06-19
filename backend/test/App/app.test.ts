@@ -10,7 +10,7 @@ import request from 'supertest';
 
 @injectable('Singleton')
 class MyComponentRoute extends AbstractRoutes implements ComponentRoute {
-  path = '/my-component';
+  path = '/metrics/products/aggregates';
   constructor() {
     super();
     this.router.get('', (_, res) => {
@@ -114,8 +114,8 @@ describe('App', () => {
       const response = await request(app.getApp()).get('/api/v1');
       expect(response.status).toBe(302);
     });
-    it('GET /api/v1/my-component responds with 200 and OK', async () => {
-      const response = await request(app.getApp()).get('/api/v1/my-component');
+    it('GET /api/v1/metrics/products/aggregates responds with 200 and OK', async () => {
+      const response = await request(app.getApp()).get('/api/v1/metrics/products/aggregates');
       expect(response.status).toBe(200);
       expect(response.text).toBe('My Component OK');
     });
@@ -128,7 +128,8 @@ describe('App', () => {
     container.bind(diIdentifiers.SWAGGER_CONFIG).toConstantValue({
       init: () => ({
         serve: jest.fn(),
-        docsHandler: jest.fn()
+        docsHandler: jest.fn(),
+        validator: jest.fn()
       })
     } as any);
     container.bind<Partial<AppParams>>(diIdentifiers.APP_PARAMS).toConstantValue(params);
