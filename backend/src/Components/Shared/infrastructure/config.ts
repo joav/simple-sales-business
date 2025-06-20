@@ -10,7 +10,9 @@ export default {
   config(container: Container) {
     container.bind(diIdentifiers.QUERY_BUS).to(QueryBusInMemory);
     container.bind(QueryHandlersRepository).toSelf();
-    container.bind<DataSourceConfig>(diIdentifiers.DATA_SOURCE_CONFIG).toConstantValue(dataSourceConfig);
+    container
+      .bind<DataSourceConfig>(diIdentifiers.DATA_SOURCE_CONFIG)
+      .toConstantValue(dataSourceConfig);
     container.bind(DataSourceWrapper).toSelf();
   }
 } satisfies ConfigExecutor;
