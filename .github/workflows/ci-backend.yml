@@ -35,6 +35,8 @@ jobs:
 
       - name: Sync Schema
         run: npm run typeorm -- schema:sync
+        env:
+          DATABASE_URL: postgresql://postgres:postgres@postgres:5432/postgres
 
       - name: Run Tests
         run: npm run test
