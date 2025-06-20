@@ -19,6 +19,9 @@
       "@Components/*": [
         "src/Components/*"
       ]
-    }
+    },
+    "lib": [
+      "es2022"
+    ]
   }
 }

@@ -1,2 +1,2 @@
 /* eslint-disable */
-export interface Response extends object {}
+export interface Response extends Object {}

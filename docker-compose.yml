@@ -1,0 +1,18 @@
+version: "3.1"
+services:
+
+  db:
+    image: postgres
+    restart: always
+    volumes:
+      - ./docker-volumes/postgres:/var/lib/postgresql
+    environment:
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - 3501:5432
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 3502:8080
