@@ -1,8 +1,10 @@
 import { DataSource } from 'typeorm';
 
+export type SharedDataSource = Promise<DataSource>;
+
 export interface DataSourceConfig {
   create: () => DataSource;
-  init: () => Promise<DataSource>;
+  init: () => SharedDataSource;
 }
 
 export default {

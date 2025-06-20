@@ -17,7 +17,8 @@ const jestConfig: JestConfigWithTsJest = {
     }
   },
   testMatch: ['<rootDir>/test/**/*.test.ts'],
-  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' })
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths, { prefix: '<rootDir>/' }),
+  coveragePathIgnorePatterns: ["<rootDir>/dist/", "<rootDir>/src/Components/Shared/infrastructure/data/typeorm/data-source.config.ts"]
 };
 
 export default jestConfig;
