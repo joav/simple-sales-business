@@ -1,6 +1,7 @@
 import { Entity, Column } from 'typeorm';
 import { Category } from '@Components/Metrics/domain/category';
 import { AggregateFn } from '@Components/Metrics/domain/aggregate-fn';
+import { Aggregate } from '@Components/Metrics/domain/aggregate';
 
 @Entity('metrics_aggregates')
 export class AggregateEntity {
@@ -10,4 +11,12 @@ export class AggregateEntity {
   category: string;
   @Column({ type: 'enum', enum: AggregateFn })
   aggregateFn: string;
+
+  toDomain(): Aggregate {
+    return Aggregate.fromPrimitives({
+      aggregateId: this.aggregateId,
+      category: this.category,
+      aggregateFn: this.aggregateFn
+    });
+  }
 }
