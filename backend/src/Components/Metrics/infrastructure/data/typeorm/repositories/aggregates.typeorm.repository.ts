@@ -12,7 +12,8 @@ import { Category } from '@Components/Metrics/domain/category';
 })
 export class AggregatesTypeormRepository
   extends TypeormRepository<AggregateEntity>
-  implements AggregatesRepository {
+  implements AggregatesRepository
+{
   protected entity = AggregateEntity;
 
   async listAggregates(category: Category): Promise<Aggregate[]> {
