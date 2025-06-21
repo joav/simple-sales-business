@@ -5,6 +5,7 @@ import { QueryBusInMemory } from './Query-Bus/query-bus.in-memory';
 import { QueryHandlersRepository } from './Query-Bus/query-handlers.repository';
 import dataSourceConfig, { DataSourceConfig } from './data/typeorm/data-source.config';
 import { DataSourceWrapper } from './data/typeorm/data-source-wrapper';
+import { TypeormRepository } from "@Components/Shared/infrastructure/data/typeorm/typeorm.repository";
 
 export default {
   config(container: Container) {
@@ -14,5 +15,6 @@ export default {
       .bind<DataSourceConfig>(diIdentifiers.DATA_SOURCE_CONFIG)
       .toConstantValue(dataSourceConfig);
     container.bind(DataSourceWrapper).toSelf();
+    container.bind(TypeormRepository).toSelf();
   }
 } satisfies ConfigExecutor;
