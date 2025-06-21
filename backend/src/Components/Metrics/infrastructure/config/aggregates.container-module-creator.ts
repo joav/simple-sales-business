@@ -7,13 +7,13 @@ import { AggregatesRepository } from '@Components/Metrics/domain/aggregates.repo
 import diIdentifiers from './di-identifiers';
 import { GetAggregatesController } from '@Components/Metrics/infrastructure/web/Controllers/get-aggregates.controller';
 import { AggregatesRoutes } from '@Components/Metrics/infrastructure/web/Routes/aggregates.routes';
-import { AggregatesInMemoryRepository } from '../data/in-memory/aggregates.in-memory.repository';
+import { AggregatesTypeormRepository } from "@Components/Metrics/infrastructure/data/typeorm/repositories/aggregates.typeorm.repository";
 
 export default {
   create() {
     return new ContainerModule((options) => {
       const repoSymbol = diIdentifiers.AGGREGATES_REPOSITORY;
-      options.bind(repoSymbol).to(AggregatesInMemoryRepository);
+      options.bind(repoSymbol).toAggregatesTypeormRepository);
       options
         .bind(AggregatesGetter)
         .toResolvedValue((repo: AggregatesRepository) => new AggregatesGetter(repo), [repoSymbol]);
