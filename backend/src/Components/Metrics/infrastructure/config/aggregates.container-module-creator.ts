@@ -7,7 +7,7 @@ import { AggregatesRepository } from '@Components/Metrics/domain/aggregates.repo
 import diIdentifiers from './di-identifiers';
 import { GetAggregatesController } from '@Components/Metrics/infrastructure/web/Controllers/get-aggregates.controller';
 import { AggregatesRoutes } from '@Components/Metrics/infrastructure/web/Routes/aggregates.routes';
-import { AggregatesTypeormRepository } from "@Components/Metrics/infrastructure/data/typeorm/repositories/aggregates.typeorm.repository";
+import { AggregatesTypeormRepository } from '@Components/Metrics/infrastructure/data/typeorm/repositories/aggregates.typeorm.repository';
 
 export default {
   create() {
