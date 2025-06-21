@@ -13,7 +13,7 @@ export default {
   create() {
     return new ContainerModule((options) => {
       const repoSymbol = diIdentifiers.AGGREGATES_REPOSITORY;
-      options.bind(repoSymbol).toAggregatesTypeormRepository);
+      options.bind(repoSymbol).to(AggregatesTypeormRepository);
       options
         .bind(AggregatesGetter)
         .toResolvedValue((repo: AggregatesRepository) => new AggregatesGetter(repo), [repoSymbol]);
