@@ -8,6 +8,11 @@ import diIdentifiers from './di-identifiers';
 import { GetAggregatesController } from '@Components/Metrics/infrastructure/web/Controllers/get-aggregates.controller';
 import { AggregatesRoutes } from '@Components/Metrics/infrastructure/web/Routes/aggregates.routes';
 import { AggregatesTypeormRepository } from '@Components/Metrics/infrastructure/data/typeorm/repositories/aggregates.typeorm.repository';
+import { AggregateValueGetter } from '@Components/Metrics/application/get-aggregate-value/aggregate-value-getter';
+import { GetAggregateValueQueryHandler } from '@Components/Metrics/application/get-aggregate-value/get-aggregate-value.query-handler';
+import { AggregateValuesRepository } from '@Components/Metrics/domain/aggregate-values.repository';
+
+type Repository = AggregatesRepository & AggregateValuesRepository;
 
 export default {
   create() {
