@@ -23,7 +23,7 @@ describe('Metrics API', () => {
     const getter = new AggregatesGetter(new AggregatesInMemoryRepository());
     const handler = new GetAggregatesQueryHandler(getter);
     const getterValue = new AggregateValueGetter(new AggregatesInMemoryRepository());
-    const handlerValue = new GetAggregateValueQueryHandler(getter);
+    const handlerValue = new GetAggregateValueQueryHandler(getterValue);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(handler);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(handlerValue);
     container.bind(QueryHandlersRepository).toSelf();
