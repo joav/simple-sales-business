@@ -1,6 +1,8 @@
 import { Aggregate } from './aggregate';
 import { strToDateOrError } from './str-to-date-or-error';
 import { InvalidInputException } from '@Components/Shared/domain/exceptions/invalid-input.exception';
+import { Category } from './category';
+import { categoryFromPrimitive } from './category-from-primitive';
 
 export const AGGREGATE_VALUE_EXCEPTIONS = {
   InvalidAggregateValue: {
