@@ -6,7 +6,7 @@ import { StatusCodes } from 'http-status-codes';
 import sharedDiIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
 import { QueryBus } from '@Components/Shared/domain/query-bus';
 import { GetAggregateValueQuery } from '@Components/Metrics/application/get-aggregate-value/get-aggregate-value.query';
-import { GetAggregateValueResponse } from '@Components/Metrics/application/get-aggregates/get-aggregate-value.response';
+import { GetAggregateValueResponse } from '@Components/Metrics/application/get-aggregate-value/get-aggregate-value.response';
 
 @injectable('Singleton')
 export class GetAggregateValueController implements Controller {
