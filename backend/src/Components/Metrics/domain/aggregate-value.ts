@@ -18,7 +18,7 @@ export class AggregateValue extends Aggregate {
     public readonly aggregateId: string,
     public readonly category: Category,
     public readonly aggregateFn: AggregateFn,
-    public readonly aggregateValue: number;
+    public readonly aggregateValue: number,
     public readonly lastUpdate: Date
   ) {
     super(
