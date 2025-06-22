@@ -24,11 +24,7 @@ export class AggregateValue extends Aggregate {
     public readonly aggregateValue: number,
     public readonly lastUpdate: Date
   ) {
-    super(
-      aggregateId,
-      category,
-      aggregateFn
-    );
+    super(aggregateId, category, aggregateFn);
   }
   toPrimitives() {
     return {
@@ -39,7 +35,13 @@ export class AggregateValue extends Aggregate {
       lastUpdate: this.lastUpdate.toISOString()
     };
   }
-  static fromPrimitives(values: { aggregateId: string; category: string; aggregateFn: string, aggregateValue: number, lastUpdate: string }) {
+  static fromPrimitives(values: {
+    aggregateId: string;
+    category: string;
+    aggregateFn: string;
+    aggregateValue: number;
+    lastUpdate: string;
+  }) {
     const aggregateId = Aggregate.verifyAggregateId(values.aggregateId);
     const category = categoryFromPrimitive(values.category);
     const aggregateFn = Aggregate.verifyAggregateFn(values.aggregateFn);
@@ -50,7 +52,9 @@ export class AggregateValue extends Aggregate {
 
   private static verifyAggregateValue(aggregateValue: number) {
     if (isNaN(aggregateValue))
-      throw InvalidInputException.fromStatusParams(AGGREGATE_VALUE_EXCEPTIONS.InvalidAggregateValue);
+      throw InvalidInputException.fromStatusParams(
+        AGGREGATE_VALUE_EXCEPTIONS.InvalidAggregateValue
+      );
     return +aggregateValue;
   }
 
@@ -58,4 +62,3 @@ export class AggregateValue extends Aggregate {
     return InvalidInputException.fromStatusParams(AGGREGATE_VALUE_EXCEPTIONS.InvalidLastUpdate);
   }
 }
-
