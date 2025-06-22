@@ -15,7 +15,7 @@ describe('Get AggregateValue', () => {
     const query = new GetAggregateValueQuery(values.category, values.aggregateId);
 
     const result = await handler.handle(query);
-    expect(result.aggregate).toBeTruthy();
+    expect(result.aggregateValue).toBeTruthy();
     expect(result.aggregateValue).toEqual(values);
   });
 });
