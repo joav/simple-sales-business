@@ -3,7 +3,7 @@ import { DomainException } from '@Components/Shared/domain/exceptions/domain-exc
 export const strToDateOrError = (dateStr: string, errorFactory: () => DomainException) => {
   const dateObject = new Date(dateStr);
 
-  if (isNaN(dateObject.getTime()) || dateObject.toISOString() === dateStr) {
+  if (isNaN(dateObject.getTime()) || dateObject.toISOString() !== dateStr) {
     throw errorFactory();
   }
 
