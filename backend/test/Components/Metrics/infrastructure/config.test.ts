@@ -1,6 +1,7 @@
 import { Container } from 'inversify';
 import MetrictsConfigExecutor from '@Components/Metrics/infrastructure/config/metrics.config-executor';
 import { GetAggregatesQueryHandler } from '@Components/Metrics/application/get-aggregates/get-aggregates.query-handler';
+import { GetAggregateValueQueryHandler } from '@Components/Metrics/application/get-aggregate-value/get-aggregate-value.query-handler';
 import sharedIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
 import metricsDiIdentifiers from '@Components/Metrics/infrastructure/config/di-identifiers';
 import { AggregatesInMemoryRepository } from '@Components/Metrics/infrastructure/data/in-memory/aggregates.in-memory.repository';
@@ -30,5 +31,9 @@ describe('Metrics Config', () => {
   it('should AggregatesRoutes resolved', () => {
     const routes = container.get(AggregatesRoutes);
     expect(routes).toBeTruthy();
+  });
+  it('should GetAggregateValueQueryHandler resolved', () => {
+    const handler = container.get(GetAggregateValueQueryHandler);
+    expect(handler).toBeTruthy();
   });
 });
