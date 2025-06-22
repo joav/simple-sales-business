@@ -12,8 +12,6 @@ import { AggregateValueGetter } from '@Components/Metrics/application/get-aggreg
 import { GetAggregateValueQueryHandler } from '@Components/Metrics/application/get-aggregate-value/get-aggregate-value.query-handler';
 import { AggregateValuesRepository } from '@Components/Metrics/domain/aggregate-values.repository';
 
-type Repository = AggregatesRepository & AggregateValuesRepository;
-
 export default {
   create() {
     return new ContainerModule((options) => {
@@ -33,6 +31,21 @@ export default {
         .toResolvedValue(
           (handler: GetAggregatesQueryHandler) => handler,
           [GetAggregatesQueryHandler]
+        );
+      options
+        .bind(AggregateValueGetter)
+        .toResolvedValue((repo: AggregateValuesRepository) => new AggregateValueGetter(repo), [repoSymbol]);
+      options
+        .bind(GetAggregateValueQueryHandler)
+        .toResolvedValue(
+          (getter: AggregateValueGetter) => new GetAggregateValueQueryHandler(getter),
+          [AggregatesGetter]
+        );
+      options
+        .bind(sharedIdentifiers.QUERY_HANDLER)
+        .toResolvedValue(
+          (handler: GetAggregateValueQueryHandler) => handler,
+          [GetAggregateValueQueryHandler]
         );
       options.bind(GetAggregatesController).toSelf();
       options.bind(AggregatesRoutes).toSelf();
