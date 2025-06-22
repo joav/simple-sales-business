@@ -44,7 +44,7 @@ export class AggregateValue extends Aggregate {
     const category = categoryFromPrimitive(values.category);
     const aggregateFn = Aggregate.verifyAggregateFn(values.aggregateFn);
     const aggregateValue = AggregateValue.verifyAggregateValue(values.aggregateValue);
-    const lastUpdate = strToDateOrError(valides.lastUpdate, AggregateValue.lastUpdateErrorFactory);
+    const lastUpdate = strToDateOrError(values.lastUpdate, AggregateValue.lastUpdateErrorFactory);
     return new AggregateValue(aggregateId, category, aggregateFn, aggregateValue, lastUpdate);
   }
 
