@@ -16,7 +16,7 @@ export const AGGREGATE_EXCEPTIONS = {
 };
 
 export class Aggregate {
-  private constructor(
+  protected constructor(
     public readonly aggregateId: string,
     public readonly category: Category,
     public readonly aggregateFn: AggregateFn
@@ -35,13 +35,13 @@ export class Aggregate {
     return new Aggregate(aggregateId, category, aggregateFn);
   }
 
-  private static verifyAggregateId(aggregateId: string): string {
+  protected static verifyAggregateId(aggregateId: string): string {
     if (!aggregateId)
       throw InvalidInputException.fromStatusParams(AGGREGATE_EXCEPTIONS.InvalidAggregateId);
     return aggregateId;
   }
 
-  private static verifyAggregateFn(aggregateFn: string): AggregateFn {
+  protected static verifyAggregateFn(aggregateFn: string): AggregateFn {
     if (!isAggregateFn(aggregateFn))
       throw InvalidInputException.fromStatusParams(AGGREGATE_EXCEPTIONS.InvalidAggregateFn);
     return aggregateFn;
