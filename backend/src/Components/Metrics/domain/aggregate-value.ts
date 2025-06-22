@@ -1,6 +1,17 @@
 import { Aggregate } from './aggregate';
 import { strToDateOrError } from './str-to-date-or-error';
 
+export const AGGREGATE_VALUE_EXCEPTIONS = {
+  InvalidAggregateValue: {
+    statusCode: 1003,
+    statusMessage: 'Metrics:Domain:AggregateValue:InvalidAggregateValue'
+  },
+  InvalidAggregateFn: {
+    statusCode: 1004,
+    statusMessage: 'Metrics:Domain:AggregateValue:InvalidLastUpdate'
+  }
+};
+
 export class AggregateValue extends Aggregate {
   private constructor(
     public readonly aggregateId: string,
