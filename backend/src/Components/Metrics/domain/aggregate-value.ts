@@ -6,7 +6,7 @@ export const AGGREGATE_VALUE_EXCEPTIONS = {
     statusCode: 1003,
     statusMessage: 'Metrics:Domain:AggregateValue:InvalidAggregateValue'
   },
-  InvalidAggregateFn: {
+  InvalidLastUpdate: {
     statusCode: 1004,
     statusMessage: 'Metrics:Domain:AggregateValue:InvalidLastUpdate'
   }
@@ -45,12 +45,13 @@ export class AggregateValue extends Aggregate {
   }
 
   private static verifyAggregateValue(aggregateValue: number) {
-    if (isNaN(aggregateValue)) throw new Error();
+    if (isNaN(aggregateValue))
+      throw InvalidInputException.fromStatusParams(AGGREGATE_VALUE_EXCEPTIONS.InvalidAggregateValue);
     return +aggregateValue;
   }
 
   private static lastUpdateErrorFactory() {
-    return new Error
+    return InvalidInputException.fromStatusParams(AGGREGATE_VALUE_EXCEPTIONS.InvalidLastUpdate);
   }
 }
 
