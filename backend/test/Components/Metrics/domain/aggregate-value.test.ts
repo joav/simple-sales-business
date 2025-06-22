@@ -77,4 +77,19 @@ describe('Metrics AggregateValue', () => {
       expect(error.status.statusMessage).toBe(AGGREGATE_VALUE_EXCEPTIONS.InvalidLastUpdate.statusMessage);
     }
   });
+  it('should throws InvalidInputException for invalid lastUpdate format', () => {
+    try {
+      AggregateValue.fromPrimitives({
+        aggregateId: 'some-count',
+        category: 'products',
+        aggregateFn: 'RECOUNT',
+        aggregateValue: 5,
+        lastUpdate: '2025-06-21'
+      } as any);
+    } catch (error) {
+      expect(error).toBeInstanceOf(InvalidInputException);
+      expect(error.status.statusCode).toBe(AGGREGATE_VALUE_EXCEPTIONS.InvalidLastUpdate.statusCode);
+      expect(error.status.statusMessage).toBe(AGGREGATE_VALUE_EXCEPTIONS.InvalidLastUpdate.statusMessage);
+    }
+  });
 });
