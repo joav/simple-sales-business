@@ -18,7 +18,7 @@ export class AggregatesInMemoryRepository
     aggregateFn: 'RECOUNT',
     category: 'products',
     aggregateValue: 5,
-    lastUpdate: new Date().toISOString()
+    lastUpdate: '2025-06-21T08:08:08.060Z'
   });
 
   listAggregates(): Promise<Aggregate[]> {
