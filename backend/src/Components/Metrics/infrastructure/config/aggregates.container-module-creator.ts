@@ -6,6 +6,7 @@ import sharedIdentifiers from '@Components/Shared/infrastructure/di-identifiers'
 import { AggregatesRepository } from '@Components/Metrics/domain/aggregates.repository';
 import diIdentifiers from './di-identifiers';
 import { GetAggregatesController } from '@Components/Metrics/infrastructure/web/Controllers/get-aggregates.controller';
+import { GetAggregateValueController } from '@Components/Metrics/infrastructure/web/Controllers/get-aggregate-value.controller';
 import { AggregatesRoutes } from '@Components/Metrics/infrastructure/web/Routes/aggregates.routes';
 import { AggregatesTypeormRepository } from '@Components/Metrics/infrastructure/data/typeorm/repositories/aggregates.typeorm.repository';
 import { AggregateValueGetter } from '@Components/Metrics/application/get-aggregate-value/aggregate-value-getter';
@@ -51,6 +52,7 @@ export default {
           [GetAggregateValueQueryHandler]
         );
       options.bind(GetAggregatesController).toSelf();
+      options.bind(GetAggregateValueController).toSelf();
       options.bind(AggregatesRoutes).toSelf();
     });
   }
