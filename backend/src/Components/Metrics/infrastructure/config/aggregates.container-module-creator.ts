@@ -34,7 +34,10 @@ export default {
         );
       options
         .bind(AggregateValueGetter)
-        .toResolvedValue((repo: AggregateValuesRepository) => new AggregateValueGetter(repo), [repoSymbol]);
+        .toResolvedValue(
+          (repo: AggregateValuesRepository) => new AggregateValueGetter(repo),
+          [repoSymbol]
+        );
       options
         .bind(GetAggregateValueQueryHandler)
         .toResolvedValue(
