@@ -2,6 +2,7 @@ import { appErrorHandler } from "@App/app.error-handler";
 import { InvalidInputException } from "@Components/Shared/domain/exceptions/invalid-input.exception";
 import { BadRequest, NotFound } from "express-openapi-validator/dist/openapi.validator";
 import { StatusCodes } from "http-status-codes";
+import { EntityNotFoundError } from "typeorm";
 
 describe('AppErrorHandler', () => {
   it('should return error response with message Bad Request', () => {
@@ -37,7 +38,26 @@ describe('AppErrorHandler', () => {
     expect(res.json).toHaveBeenCalledWith({
       status: {
         statusCode: 2,
-        statusMessage: "Not Found",
+        statusMessage: "Not Found Resource",
+        httpStatusCode: StatusCodes.NOT_FOUND
+      }
+    });
+  });
+  it('should return error response with message Not Found Data', () => {
+    const req: any = {};
+    const res: any = {
+      status: jest.fn(function () { return res }),
+      json: jest.fn(function () { return res })
+    };
+    const err = new EntityNotFoundError('SomeEntity', 'SomeCriteria');
+
+    appErrorHandler(err, req, res, undefined);
+
+    expect(res.status).toHaveBeenCalledWith(StatusCodes.NOT_FOUND);
+    expect(res.json).toHaveBeenCalledWith({
+      status: {
+        statusCode: 3,
+        statusMessage: "Not Found Data",
         httpStatusCode: StatusCodes.NOT_FOUND
       }
     });

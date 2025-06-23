@@ -5,6 +5,7 @@ import { StdResponseBuilder } from '@Components/Shared/infrastructure/web/respon
 import { NextFunction, Request, Response } from 'express';
 import { BadRequest, NotFound } from 'express-openapi-validator/dist/openapi.validator';
 import { StatusCodes } from 'http-status-codes';
+import { EntityNotFoundError } from 'typeorm';
 
 export const appErrorHandler = (
   err: unknown,
@@ -26,7 +27,15 @@ export const appErrorHandler = (
   if (err instanceof NotFound) {
     response = builder
       .withStatusCode(2)
-      .withStatusMessage('Not Found')
+      .withStatusMessage('Not Found Resource')
+      .withHttpStatusCode(StatusCodes.NOT_FOUND)
+      .build();
+  }
+
+  if (err instanceof EntityNotFoundError) {
+    response = builder
+      .withStatusCode(3)
+      .withStatusMessage('Not Found Data')
       .withHttpStatusCode(StatusCodes.NOT_FOUND)
       .build();
   }
