@@ -43,7 +43,7 @@ export default {
         .bind(GetAggregateValueQueryHandler)
         .toResolvedValue(
           (getter: AggregateValueGetter) => new GetAggregateValueQueryHandler(getter),
-          [AggregatesGetter]
+          [AggregateValueGetter]
         );
       options
         .bind(sharedIdentifiers.QUERY_HANDLER)

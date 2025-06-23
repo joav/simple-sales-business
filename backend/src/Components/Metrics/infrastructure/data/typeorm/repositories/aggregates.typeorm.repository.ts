@@ -2,7 +2,9 @@ import { TypeormRepository } from '@Components/Shared/infrastructure/data/typeor
 import { injectable, injectFromBase } from 'inversify';
 import { AggregateEntity } from '../entities/aggregate.entity';
 import { AggregatesRepository } from '@Components/Metrics/domain/aggregates.repository';
+import { AggregateValuesRepository } from '@Components/Metrics/domain/aggregate-values.repository';
 import { Aggregate } from '@Components/Metrics/domain/aggregate';
+import { AggregateValue } from '@Components/Metrics/domain/aggregate-value';
 import { Category } from '@Components/Metrics/domain/category';
 
 @injectable()
@@ -12,7 +14,7 @@ import { Category } from '@Components/Metrics/domain/category';
 })
 export class AggregatesTypeormRepository
   extends TypeormRepository<AggregateEntity>
-  implements AggregatesRepository
+  implements AggregatesRepository, AggregateValuesRepository
 {
   protected entity = AggregateEntity;
 
@@ -30,5 +32,15 @@ export class AggregatesTypeormRepository
     });
 
     return entities.map((e) => e.toDomain());
+  }
+
+  async get(category: Category, aggregateId: string): Promise<AggregateValue> {
+    const repository = await this.repository;
+    const aggregate = await repository.findOneByOrFail({
+      category,
+      aggregateId
+    });
+
+    return aggregate.toAggregateValue();
   }
 }

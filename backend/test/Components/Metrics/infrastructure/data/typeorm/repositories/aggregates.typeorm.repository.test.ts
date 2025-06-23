@@ -1,4 +1,5 @@
 import { Aggregate } from "@Components/Metrics/domain/aggregate";
+import { AggregateValue } from "@Components/Metrics/domain/aggregate-value";
 import { Category } from "@Components/Metrics/domain/category";
 import { AggregateEntity } from "@Components/Metrics/infrastructure/data/typeorm/entities/aggregate.entity";
 import { AggregatesTypeormRepository } from "@Components/Metrics/infrastructure/data/typeorm/repositories/aggregates.typeorm.repository";
@@ -25,6 +26,13 @@ describe("AggregateTypeormRepository", () => {
     expect(aggregates).toBeDefined();
     expect(aggregates[0].constructor).toBe(Aggregate);
     expect(aggregates[0].category).toEqual(Category.PRODUCTS);
+  });
+
+  it('should get', async () => {
+    const aggregate = await aggregateTypeormRepository.get(Category.PRODUCTS, 'with-stock');
+
+    expect(aggregate).toBeDefined();
+    expect(aggregate.constructor).toBe(AggregateValue);
   });
 
   afterAll(async () => {
