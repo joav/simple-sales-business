@@ -1,6 +1,4 @@
-import { GetAggregatesQuery } from '@Components/Metrics/application/get-aggregates/get-aggregates.query';
-import { GetAggregatesQueryHandler } from '@Components/Metrics/application/get-aggregates/get-aggregates.query-handler';
-import { AggregatesGetter } from '@Components/Metrics/application/get-aggregates/aggregates-getter';
+import { GetAggregatesQuery, GetAggregatesQueryHandler, AggregatesGetter } from '@Metrics/Aggregates/application';
 import { Aggregate, AggregatesRepository } from '@Metrics/Aggregates/domain';
 
 describe('Get Aggregates', () => {

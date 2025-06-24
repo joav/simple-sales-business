@@ -5,8 +5,7 @@ import { inject, injectable } from 'inversify';
 import { StatusCodes } from 'http-status-codes';
 import sharedDiIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
 import { QueryBus } from '@Components/Shared/domain/query-bus';
-import { GetAggregateValueQuery } from '@Components/Metrics/application/get-aggregate-value/get-aggregate-value.query';
-import { GetAggregateValueResponse } from '@Components/Metrics/application/get-aggregate-value/get-aggregate-value.response';
+import { GetAggregateValueQuery, GetAggregateValueResponse } from '@Metrics/Aggregates/application';
 
 @injectable('Singleton')
 export class GetAggregateValueController implements Controller {

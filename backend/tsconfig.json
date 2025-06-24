@@ -24,6 +24,9 @@
       ],
       "@Metrics/Aggregates/domain": [
         "src/Components/Metrics/Aggregates/domain/index.ts"
+      ],
+      "@Metrics/Aggregates/application": [
+        "src/Components/Metrics/Aggregates/application/index.ts"
       ]
     },
     "lib": [

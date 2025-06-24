@@ -1,7 +1,4 @@
-import { AggregatesGetter } from '@Components/Metrics/application/get-aggregates/aggregates-getter';
-import { GetAggregatesQueryHandler } from '@Components/Metrics/application/get-aggregates/get-aggregates.query-handler';
-import { AggregateValueGetter } from '@Components/Metrics/application/get-aggregate-value/aggregate-value-getter';
-import { GetAggregateValueQueryHandler } from '@Components/Metrics/application/get-aggregate-value/get-aggregate-value.query-handler';
+import { AggregatesGetter, GetAggregatesQueryHandler, AggregateValueGetter, GetAggregateValueQueryHandler } from '@Metrics/Aggregates/application';
 import { AggregatesInMemoryRepository } from '@Components/Metrics/infrastructure/data/in-memory/aggregates.in-memory.repository';
 import { GetAggregatesController } from '@Components/Metrics/infrastructure/web/Controllers/get-aggregates.controller';
 import { GetAggregateValueController } from '@Components/Metrics/infrastructure/web/Controllers/get-aggregate-value.controller';
@@ -65,15 +62,14 @@ describe('Metrics API', () => {
           statusMessage: "Ok",
           httpStatusCode: 200
         },
-        data: 
-          {
-            aggregateId: "some-count",
-            category: "products",
-            aggregateFn: "RECOUNT",
-            aggregateValue: 5,
-            lastUpdate: '2025-06-21T08:08:08.060Z'
-          }
-        
+        data:
+        {
+          aggregateId: "some-count",
+          category: "products",
+          aggregateFn: "RECOUNT",
+          aggregateValue: 5,
+          lastUpdate: '2025-06-21T08:08:08.060Z'
+        }
       });
     });
   })

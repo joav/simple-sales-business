@@ -1,6 +1,4 @@
-import { GetAggregateValueQuery } from '@Components/Metrics/application/get-aggregate-value/get-aggregate-value.query';
-import { GetAggregateValueQueryHandler } from '@Components/Metrics/application/get-aggregate-value/get-aggregate-value.query-handler';
-import { AggregateValueGetter } from '@Components/Metrics/application/get-aggregate-value/aggregate-value-getter';
+import { GetAggregateValueQuery, GetAggregateValueQueryHandler, AggregateValueGetter } from '@Metrics/Aggregates/application';
 import { AggregateValuesRepository, AggregateValue } from '@Metrics/Aggregates/domain';
 
 describe('Get AggregateValue', () => {
