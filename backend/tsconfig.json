@@ -36,6 +36,9 @@
       ],
       "@Metrics/Aggregates/infrastructure": [
         "src/Components/Metrics/Aggregates/infrastructure/index.ts"
+      ],
+      "@Metrics/TimeSeries/domain": [
+        "src/Components/Metrics/TimeSeries/domain/index.ts"
       ]
     },
     "lib": [

@@ -3,7 +3,7 @@ import { isCategory } from './is-category';
 
 export const INVALID_CATEGORY = {
   statusCode: 2000,
-  statusMessage: 'Metrics:Domain:Aggregate:InvalidCategory'
+  statusMessage: 'Metrics:Domain:Shared:InvalidCategory'
 };
 
 export const categoryFromPrimitive = (category: string) => {
