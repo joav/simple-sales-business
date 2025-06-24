@@ -1,7 +1,6 @@
 import { Aggregate } from './aggregate';
-import { strToDateOrError } from './str-to-date-or-error';
 import { InvalidInputException } from '@Components/Shared/domain/exceptions/invalid-input.exception';
-import { Category, categoryFromPrimitive } from '@Metrics/Shared/domain';
+import { Category, categoryFromPrimitive, strToDateOrError } from '@Metrics/Shared/domain';
 import { AggregateFn } from './aggregate-fn';
 
 export const AGGREGATE_VALUE_EXCEPTIONS = {
