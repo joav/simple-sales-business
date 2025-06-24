@@ -1,4 +1,4 @@
-import metricsConfigExecutor from '@Components/Metrics/infrastructure/config/metrics.config-executor';
+import { metricsConfigExecutor } from '@Metrics/Shared/infrastructure';
 import config from '@Components/Shared/infrastructure/config';
 import { ConfigExecutor } from '@Components/Shared/infrastructure/config-executor';
 import { Container } from 'inversify';

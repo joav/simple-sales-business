@@ -8,7 +8,7 @@ import {
 } from '@Metrics/Aggregates/application';
 import sharedIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
 import { AggregatesRepository, AggregateValuesRepository } from '@Metrics/Aggregates/domain';
-import diIdentifiers from './di-identifiers';
+import { metricsSharedDiIdentifiers } from '@Metrics/Shared/infrastructure';
 import { GetAggregatesController } from '@Components/Metrics/infrastructure/web/Controllers/get-aggregates.controller';
 import { GetAggregateValueController } from '@Components/Metrics/infrastructure/web/Controllers/get-aggregate-value.controller';
 import { AggregatesRoutes } from '@Components/Metrics/infrastructure/web/Routes/aggregates.routes';
@@ -17,7 +17,7 @@ import { AggregatesTypeormRepository } from '@Components/Metrics/infrastructure/
 export default {
   create() {
     return new ContainerModule((options) => {
-      const repoSymbol = diIdentifiers.AGGREGATES_REPOSITORY;
+      const repoSymbol = metricsSharedDiIdentifiers.AGGREGATES_REPOSITORY;
       options.bind(repoSymbol).to(AggregatesTypeormRepository);
       options
         .bind(AggregatesGetter)

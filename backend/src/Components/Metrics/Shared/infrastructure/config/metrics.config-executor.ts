@@ -1,12 +1,12 @@
 import { Container } from 'inversify';
 import { ConfigExecutor } from '@Components/Shared/infrastructure/config-executor';
-import AggregatesContainerModuleCreator from './aggregates.container-module-creator';
 import appDiIdentifiers from '@App/Config/di-identifiers';
-import { MetricsRoutes } from '../web/Routes/metrics.routes';
+import { MetricsRoutes } from '../web';
+import aggregatesContainerModuleCreator from '@Components/Metrics/infrastructure/config/aggregates.container-module-creator';
 
-export default {
+export const metricsConfigExecutor = {
   config(container: Container) {
     container.bind(appDiIdentifiers.COMPONENT_ROUTES).to(MetricsRoutes);
-    container.loadSync(AggregatesContainerModuleCreator.create());
+    container.loadSync(aggregatesContainerModuleCreator.create());
   }
 } satisfies ConfigExecutor;

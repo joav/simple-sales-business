@@ -22,6 +22,9 @@
       "@Metrics/Shared/domain": [
         "src/Components/Metrics/Shared/domain/index.ts"
       ],
+      "@Metrics/Shared/infrastructure": [
+        "src/Components/Metrics/Shared/infrastructure/index.ts"
+      ],
       "@Metrics/Aggregates/domain": [
         "src/Components/Metrics/Aggregates/domain/index.ts"
       ],

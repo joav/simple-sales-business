@@ -1,7 +1,7 @@
+import { AggregatesRoutes } from '@Components/Metrics/infrastructure/web/Routes/aggregates.routes';
 import { AbstractRoutes } from '@Components/Shared/infrastructure/web/AbstractRoutes';
 import { ComponentRoute } from '@Components/Shared/infrastructure/web/ComponentRoutes';
 import { inject, injectable } from 'inversify';
-import { AggregatesRoutes } from './aggregates.routes';
 
 @injectable('Singleton')
 export class MetricsRoutes extends AbstractRoutes implements ComponentRoute {

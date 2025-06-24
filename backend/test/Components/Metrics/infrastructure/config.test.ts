@@ -1,8 +1,8 @@
 import { Container } from 'inversify';
-import MetrictsConfigExecutor from '@Components/Metrics/infrastructure/config/metrics.config-executor';
+import { metricsConfigExecutor } from '@Metrics/Shared/infrastructure';
 import { GetAggregatesQueryHandler, GetAggregateValueQueryHandler } from '@Metrics/Aggregates/application';
 import sharedIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
-import metricsDiIdentifiers from '@Components/Metrics/infrastructure/config/di-identifiers';
+import { metricsSharedDiIdentifiers } from '@Metrics/Shared/infrastructure';
 import { AggregatesInMemoryRepository } from '@Components/Metrics/infrastructure/data/in-memory/aggregates.in-memory.repository';
 import { AggregatesRoutes } from '@Components/Metrics/infrastructure/web/Routes/aggregates.routes';
 
@@ -14,9 +14,9 @@ describe('Metrics Config', () => {
     container = new Container();
 
     container.bind(sharedIdentifiers.QUERY_BUS).to(MyQueryBus);
-    MetrictsConfigExecutor.config(container);
-    container.unbind(metricsDiIdentifiers.AGGREGATES_REPOSITORY);
-    container.bind(metricsDiIdentifiers.AGGREGATES_REPOSITORY).to(AggregatesInMemoryRepository);
+    metricsConfigExecutor.config(container);
+    container.unbind(metricsSharedDiIdentifiers.AGGREGATES_REPOSITORY);
+    container.bind(metricsSharedDiIdentifiers.AGGREGATES_REPOSITORY).to(AggregatesInMemoryRepository);
   });
   it('should QUERY_HANDLER resolved', () => {
     const handlers = container.getAll(sharedIdentifiers.QUERY_HANDLER);
