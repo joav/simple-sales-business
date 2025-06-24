@@ -5,6 +5,7 @@ import { metricsSharedDiIdentifiers } from '@Metrics/Shared/infrastructure';
 import { AggregatesInMemoryRepository, AggregatesRoutes } from '@Metrics/Aggregates/infrastructure';
 import { sharedDiIdentifiers } from '@Shared/infrastructure';
 import { GetTimeSeriesQueryHandler } from '@Metrics/TimeSeries/application';
+import { TimeSeriesInMemoryRepository } from '@Metrics/TimeSeries/infrastructure';
 
 class MyQueryBus { }
 
@@ -17,6 +18,8 @@ describe('Metrics Config', () => {
     metricsConfigExecutor.config(container);
     container.unbind(metricsSharedDiIdentifiers.AGGREGATES_REPOSITORY);
     container.bind(metricsSharedDiIdentifiers.AGGREGATES_REPOSITORY).to(AggregatesInMemoryRepository);
+    container.unbind(metricsSharedDiIdentifiers.TIME_SERIES_REPOSITORY);
+    container.bind(metricsSharedDiIdentifiers.TIME_SERIES_REPOSITORY).to(TimeSeriesInMemoryRepository);
   });
   it('should QUERY_HANDLER resolved', () => {
     const handlers = container.getAll(sharedDiIdentifiers.QUERY_HANDLER);
