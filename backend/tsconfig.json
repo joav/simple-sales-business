@@ -18,6 +18,9 @@
       ],
       "@Components/*": [
         "src/Components/*"
+      ],
+      "@Metrics/Shared/domain": [
+        "src/Components/Metrics/Shared/domain/index.ts"
       ]
     },
     "lib": [

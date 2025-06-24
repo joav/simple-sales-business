@@ -5,7 +5,7 @@ import { AggregatesRepository } from '@Components/Metrics/domain/aggregates.repo
 import { AggregateValuesRepository } from '@Components/Metrics/domain/aggregate-values.repository';
 import { Aggregate } from '@Components/Metrics/domain/aggregate';
 import { AggregateValue } from '@Components/Metrics/domain/aggregate-value';
-import { Category } from '@Components/Metrics/domain/category';
+import { Category } from '@Metrics/Shared/domain';
 
 @injectable()
 @injectFromBase({

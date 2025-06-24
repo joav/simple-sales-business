@@ -1,6 +1,6 @@
 import { AggregateValue, AGGREGATE_VALUE_EXCEPTIONS } from "@Components/Metrics/domain/aggregate-value";
 import { AggregateFn } from "@Components/Metrics/domain/aggregate-fn";
-import { Category } from "@Components/Metrics/domain/category";
+import { Category } from "@Metrics/Shared/domain";
 import { InvalidInputException } from "@Components/Shared/domain/exceptions/invalid-input.exception";
 
 describe('Metrics AggregateValue', () => {

@@ -1,8 +1,7 @@
 import { InvalidInputException } from '@Components/Shared/domain/exceptions/invalid-input.exception';
+import { Category, categoryFromPrimitive } from '@Metrics/Shared/domain';
 import { AggregateFn } from './aggregate-fn';
-import { Category } from './category';
 import { isAggregateFn } from './is-aggregate-fn';
-import { categoryFromPrimitive } from './category-from-primitive';
 
 export const AGGREGATE_EXCEPTIONS = {
   InvalidAggregateId: {

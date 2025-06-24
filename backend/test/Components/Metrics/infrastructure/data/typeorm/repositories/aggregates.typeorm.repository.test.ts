@@ -1,6 +1,6 @@
 import { Aggregate } from "@Components/Metrics/domain/aggregate";
 import { AggregateValue } from "@Components/Metrics/domain/aggregate-value";
-import { Category } from "@Components/Metrics/domain/category";
+import { Category } from "@Metrics/Shared/domain";
 import { AggregateEntity } from "@Components/Metrics/infrastructure/data/typeorm/entities/aggregate.entity";
 import { AggregatesTypeormRepository } from "@Components/Metrics/infrastructure/data/typeorm/repositories/aggregates.typeorm.repository";
 import { DataSourceWrapper } from "@Components/Shared/infrastructure/data/typeorm/data-source-wrapper";

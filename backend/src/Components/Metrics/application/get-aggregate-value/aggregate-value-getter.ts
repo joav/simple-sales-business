@@ -1,5 +1,5 @@
 import { AggregateValuesRepository } from '@Components/Metrics/domain/aggregate-values.repository';
-import { Category } from '@Components/Metrics/domain/category';
+import { Category } from '@Metrics/Shared/domain';
 
 export class AggregateValueGetter {
   constructor(private repository: AggregateValuesRepository) {}

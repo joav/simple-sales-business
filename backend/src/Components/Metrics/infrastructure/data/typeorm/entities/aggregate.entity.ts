@@ -1,5 +1,5 @@
 import { Entity, Column } from 'typeorm';
-import { Category } from '@Components/Metrics/domain/category';
+import { Category } from '@Metrics/Shared/domain';
 import { AggregateFn } from '@Components/Metrics/domain/aggregate-fn';
 import { Aggregate } from '@Components/Metrics/domain/aggregate';
 import { AggregateValue } from '@Components/Metrics/domain/aggregate-value';
