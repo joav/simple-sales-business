@@ -35,7 +35,7 @@ TimeSerie ||--o{ TimeSerieData
 entity Ranking {
   * ranking_id : number <<generated>>
   --
-  * ranking_id : text
+  * ranking_slug : text
   * ranking_category : enum('products','sales','transactions')
   * ranking_value_title : text
 }
