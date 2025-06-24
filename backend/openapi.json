@@ -160,7 +160,7 @@
         "type": "object",
         "description": "A category time serie",
         "properties": {
-          "serieSlug": {
+          "timeSerieSlug": {
             "type": "string",
             "example": "some-time-serie"
           },
@@ -201,7 +201,7 @@
         "type": "object",
         "description": "A category ranking",
         "properties": {
-          "serieSlug": {
+          "rankingSlug": {
             "type": "string",
             "example": "some-ranking"
           },
@@ -214,7 +214,7 @@
         "description": "A Ranking",
         "allOf": [
           {
-            "$ref": "#/components/schemas/CategoryTimeSerie"
+            "$ref": "#/components/schemas/CategoryRanking"
           },
           {
             "type": "object",
