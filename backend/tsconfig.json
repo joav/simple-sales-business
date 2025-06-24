@@ -39,6 +39,9 @@
       ],
       "@Metrics/TimeSeries/domain": [
         "src/Components/Metrics/TimeSeries/domain/index.ts"
+      ],
+      "@Metrics/TimeSeries/application": [
+        "src/Components/Metrics/TimeSeries/application/index.ts"
       ]
     },
     "lib": [
