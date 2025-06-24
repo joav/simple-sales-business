@@ -160,7 +160,7 @@
         "type": "object",
         "description": "A category time serie",
         "properties": {
-          "serieId": {
+          "serieSlug": {
             "type": "string",
             "example": "some-time-serie"
           },
@@ -201,7 +201,7 @@
         "type": "object",
         "description": "A category ranking",
         "properties": {
-          "serieId": {
+          "serieSlug": {
             "type": "string",
             "example": "some-ranking"
           },
@@ -542,7 +542,7 @@
         }
       }
     },
-    "/metrics/{category}/series/{serieId}": {
+    "/metrics/{category}/series/{serieSlug}": {
       "get": {
         "tags": [
           "Metrics"
@@ -613,7 +613,7 @@
         }
       }
     },
-    "/metrics/{category}/rankings/{rankingId}": {
+    "/metrics/{category}/rankings/{rankingSlug}": {
       "get": {
         "tags": [
           "Metrics"
