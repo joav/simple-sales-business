@@ -4,6 +4,7 @@ import { GetAggregatesQueryHandler, GetAggregateValueQueryHandler } from '@Metri
 import { metricsSharedDiIdentifiers } from '@Metrics/Shared/infrastructure';
 import { AggregatesInMemoryRepository, AggregatesRoutes } from '@Metrics/Aggregates/infrastructure';
 import { sharedDiIdentifiers } from '@Shared/infrastructure';
+import { GetTimeSeriesQueryHandler } from '@Metrics/TimeSeries/application';
 
 class MyQueryBus { }
 
@@ -32,6 +33,10 @@ describe('Metrics Config', () => {
   });
   it('should GetAggregateValueQueryHandler resolved', () => {
     const handler = container.get(GetAggregateValueQueryHandler);
+    expect(handler).toBeTruthy();
+  });
+  it('should GetTimeSeriesQueryHandler resolved', () => {
+    const handler = container.get(GetTimeSeriesQueryHandler);
     expect(handler).toBeTruthy();
   });
 });
