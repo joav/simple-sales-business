@@ -1,5 +1,5 @@
 import { Aggregate } from './aggregate';
-import { InvalidInputException } from '@Components/Shared/domain/exceptions/invalid-input.exception';
+import { InvalidInputException } from '@Shared/domain';
 import { Category, categoryFromPrimitive, strToDateOrError } from '@Metrics/Shared/domain';
 import { AggregateFn } from './aggregate-fn';
 

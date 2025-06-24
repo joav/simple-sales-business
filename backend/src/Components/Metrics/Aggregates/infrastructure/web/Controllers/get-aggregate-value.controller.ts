@@ -1,11 +1,9 @@
-import { Controller } from '@Components/Shared/infrastructure/web/Controller';
-import { successResponse } from '@Components/Shared/infrastructure/web/responses/success-response';
 import { Request, Response } from 'express';
 import { inject, injectable } from 'inversify';
 import { StatusCodes } from 'http-status-codes';
-import sharedDiIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
-import { QueryBus } from '@Components/Shared/domain/query-bus';
 import { GetAggregateValueQuery, GetAggregateValueResponse } from '@Metrics/Aggregates/application';
+import { QueryBus } from '@Shared/domain';
+import { Controller, sharedDiIdentifiers, successResponse } from '@Shared/infrastructure';
 
 @injectable('Singleton')
 export class GetAggregateValueController implements Controller {

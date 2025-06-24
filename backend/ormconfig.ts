@@ -1,3 +1,3 @@
-import dataSourceConfig from "@Components/Shared/infrastructure/data/typeorm/data-source.config";
+import { dataSourceConfig } from "@Shared/infrastructure";
 
 export default dataSourceConfig.create();

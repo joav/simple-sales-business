@@ -7,7 +7,7 @@ export interface DataSourceConfig {
   init: () => SharedDataSource;
 }
 
-export default {
+export const dataSourceConfig = {
   create() {
     return new DataSource({
       type: 'postgres',

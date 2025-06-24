@@ -1,4 +1,4 @@
-import { DomainException } from '@Components/Shared/domain/exceptions/domain-exception';
+import { DomainException } from '@Shared/domain';
 
 export const strToDateOrError = (dateStr: string, errorFactory: () => DomainException) => {
   const dateObject = new Date(dateStr);

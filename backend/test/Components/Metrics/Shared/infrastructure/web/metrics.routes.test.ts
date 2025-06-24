@@ -1,12 +1,10 @@
 import { AggregatesGetter, GetAggregatesQueryHandler, AggregateValueGetter, GetAggregateValueQueryHandler } from '@Metrics/Aggregates/application';
 import { MetricsRoutes } from '@Metrics/Shared/infrastructure';
-import sharedDiIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
-import { QueryBusInMemory } from '@Components/Shared/infrastructure/Query-Bus/query-bus.in-memory';
-import { QueryHandlersRepository } from '@Components/Shared/infrastructure/Query-Bus/query-handlers.repository';
 import express from 'express';
 import { Container } from 'inversify';
 import request from 'supertest';
-import { AggregatesInMemoryRepository, GetAggregatesController, GetAggregateValueController, AggregatesRoutes } from '@Components/Metrics/Aggregates/infrastructure';
+import { AggregatesInMemoryRepository, GetAggregatesController, GetAggregateValueController, AggregatesRoutes } from '@Metrics/Aggregates/infrastructure';
+import { sharedDiIdentifiers, QueryHandlersRepository, QueryBusInMemory } from '@Shared/infrastructure';
 
 describe('Metrics API', () => {
   let app: express.Express;

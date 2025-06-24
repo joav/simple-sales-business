@@ -1,4 +1,4 @@
-import { Query } from '@Components/Shared/domain/query';
+import { Query } from '@Shared/domain';
 import { GetAggregatesResponse } from './get-aggregates.response';
 
 export class GetAggregatesQuery implements Query<GetAggregatesResponse> {

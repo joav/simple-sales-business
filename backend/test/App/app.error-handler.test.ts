@@ -1,5 +1,5 @@
 import { appErrorHandler } from "@App/app.error-handler";
-import { InvalidInputException } from "@Components/Shared/domain/exceptions/invalid-input.exception";
+import { InvalidInputException } from "@Shared/domain";
 import { BadRequest, NotFound } from "express-openapi-validator/dist/openapi.validator";
 import { StatusCodes } from "http-status-codes";
 import { EntityNotFoundError } from "typeorm";

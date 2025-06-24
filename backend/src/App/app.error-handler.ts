@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-import { InvalidInputException } from '@Components/Shared/domain/exceptions/invalid-input.exception';
-import { StdResponse } from '@Components/Shared/infrastructure/web/responses/std-response';
-import { StdResponseBuilder } from '@Components/Shared/infrastructure/web/responses/std-response.builder';
+import { InvalidInputException } from '@Shared/domain';
+import { StdResponse, StdResponseBuilder } from '@Shared/infrastructure';
 import { NextFunction, Request, Response } from 'express';
 import { BadRequest, NotFound } from 'express-openapi-validator/dist/openapi.validator';
 import { StatusCodes } from 'http-status-codes';

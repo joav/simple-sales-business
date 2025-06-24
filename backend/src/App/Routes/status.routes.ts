@@ -1,5 +1,5 @@
 import { StatusController } from '@App/Controllers/status.controller';
-import { AbstractRoutes } from '@Components/Shared/infrastructure/web/AbstractRoutes';
+import { AbstractRoutes } from '@Shared/infrastructure';
 import { inject, injectable } from 'inversify';
 
 @injectable('Singleton')

@@ -1,6 +1,5 @@
 import diIdentifiers from '@App/Config/di-identifiers';
-import { AbstractRoutes } from '@Components/Shared/infrastructure/web/AbstractRoutes';
-import { ComponentRoute } from '@Components/Shared/infrastructure/web/ComponentRoutes';
+import { AbstractRoutes, ComponentRoute } from '@Shared/infrastructure';
 import { injectable, multiInject } from 'inversify';
 
 @injectable('Singleton')

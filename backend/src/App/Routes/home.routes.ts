@@ -1,4 +1,4 @@
-import { AbstractRoutes } from '@Components/Shared/infrastructure/web/AbstractRoutes';
+import { AbstractRoutes } from '@Shared/infrastructure';
 import { HomeController } from '../Controllers/home.controller';
 import { inject, injectable } from 'inversify';
 

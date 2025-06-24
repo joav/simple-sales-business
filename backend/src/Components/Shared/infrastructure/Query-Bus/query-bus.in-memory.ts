@@ -1,6 +1,4 @@
-import { Query } from '@Components/Shared/domain/query';
-import { QueryBus } from '@Components/Shared/domain/query-bus';
-import { Response } from '@Components/Shared/domain/response';
+import { QueryBus, Query, Response } from '@Shared/domain';
 import { QueryHandlersRepository } from './query-handlers.repository';
 import { inject, injectable } from 'inversify';
 

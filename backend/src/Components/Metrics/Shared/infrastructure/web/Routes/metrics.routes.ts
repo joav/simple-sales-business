@@ -1,6 +1,5 @@
 import { AggregatesRoutes } from '@Metrics/Aggregates/infrastructure';
-import { AbstractRoutes } from '@Components/Shared/infrastructure/web/AbstractRoutes';
-import { ComponentRoute } from '@Components/Shared/infrastructure/web/ComponentRoutes';
+import { AbstractRoutes, ComponentRoute } from '@Shared/infrastructure';
 import { inject, injectable } from 'inversify';
 
 @injectable('Singleton')

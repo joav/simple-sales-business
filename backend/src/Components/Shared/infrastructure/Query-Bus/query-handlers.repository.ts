@@ -1,7 +1,6 @@
-import { Query } from '@Components/Shared/domain/query';
-import { QueryHandler } from '@Components/Shared/domain/query-handler';
 import { injectable, multiInject } from 'inversify';
-import diIdentifiers from '../di-identifiers';
+import { sharedDiIdentifiers } from '../di-identifiers';
+import { Query, QueryHandler } from '@Shared/domain';
 
 @injectable('Singleton')
 export class QueryHandlersRepository extends Map<
@@ -9,7 +8,7 @@ export class QueryHandlersRepository extends Map<
   QueryHandler<Query<Response>, Response>
 > {
   constructor(
-    @multiInject(diIdentifiers.QUERY_HANDLER)
+    @multiInject(sharedDiIdentifiers.QUERY_HANDLER)
     queryHandlers: QueryHandler<Query<Response>, Response>[]
   ) {
     super();

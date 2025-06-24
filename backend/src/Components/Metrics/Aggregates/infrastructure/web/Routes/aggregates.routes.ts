@@ -1,4 +1,4 @@
-import { AbstractRoutes } from '@Components/Shared/infrastructure/web/AbstractRoutes';
+import { AbstractRoutes } from '@Shared/infrastructure';
 import { inject, injectable } from 'inversify';
 import { GetAggregatesController } from '../Controllers/get-aggregates.controller';
 import { GetAggregateValueController } from '../Controllers/get-aggregate-value.controller';

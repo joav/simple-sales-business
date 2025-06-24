@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 import { stdResponse } from './std-response';
-import { DomainStatus } from '@Components/Shared/domain/domain-status';
+import { DomainStatus } from '@Shared/domain';
 
 export class StdResponseBuilder {
   private data: unknown = undefined;

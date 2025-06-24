@@ -1,4 +1,4 @@
-import { InvalidInputException } from '@Components/Shared/domain/exceptions/invalid-input.exception';
+import { InvalidInputException } from '@Shared/domain';
 import { Category, categoryFromPrimitive } from '@Metrics/Shared/domain';
 import { AggregateFn } from './aggregate-fn';
 import { isAggregateFn } from './is-aggregate-fn';

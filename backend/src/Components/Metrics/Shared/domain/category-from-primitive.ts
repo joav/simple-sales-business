@@ -1,4 +1,4 @@
-import { InvalidInputException } from '@Components/Shared/domain/exceptions/invalid-input.exception';
+import { InvalidInputException } from '@Shared/domain';
 import { isCategory } from './is-category';
 
 export const INVALID_CATEGORY = {

@@ -1,4 +1,4 @@
-import { QueryHandler } from '@Components/Shared/domain/query-handler';
+import { QueryHandler } from '@Shared/domain';
 import { AggregateValueGetter } from './aggregate-value-getter';
 import { GetAggregateValueResponse } from './get-aggregate-value.response';
 import { GetAggregateValueQuery } from './get-aggregate-value.query';

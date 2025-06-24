@@ -1,4 +1,4 @@
-import { Response } from '@Components/Shared/domain/response';
+import { Response } from '@Shared/domain';
 import { AggregateValue } from '@Metrics/Aggregates/domain';
 
 type AggregateValueResponse = {

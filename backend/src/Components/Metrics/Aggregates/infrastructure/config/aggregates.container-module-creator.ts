@@ -1,16 +1,15 @@
 import { ContainerModule } from 'inversify';
-import { ContainerModuleCreator } from '@Components/Shared/infrastructure/container-module-creator';
 import {
   AggregatesGetter,
   GetAggregatesQueryHandler,
   AggregateValueGetter,
   GetAggregateValueQueryHandler
 } from '@Metrics/Aggregates/application';
-import sharedIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
 import { AggregatesRepository, AggregateValuesRepository } from '@Metrics/Aggregates/domain';
 import { metricsSharedDiIdentifiers } from '@Metrics/Shared/infrastructure';
 import { AggregatesTypeormRepository } from '../data';
 import { GetAggregatesController, GetAggregateValueController, AggregatesRoutes } from '../web';
+import { ContainerModuleCreator, sharedDiIdentifiers } from '@Shared/infrastructure';
 
 export const aggregatesContainerModuleCreator = {
   create() {
@@ -27,7 +26,7 @@ export const aggregatesContainerModuleCreator = {
           [AggregatesGetter]
         );
       options
-        .bind(sharedIdentifiers.QUERY_HANDLER)
+        .bind(sharedDiIdentifiers.QUERY_HANDLER)
         .toResolvedValue(
           (handler: GetAggregatesQueryHandler) => handler,
           [GetAggregatesQueryHandler]
@@ -45,7 +44,7 @@ export const aggregatesContainerModuleCreator = {
           [AggregateValueGetter]
         );
       options
-        .bind(sharedIdentifiers.QUERY_HANDLER)
+        .bind(sharedDiIdentifiers.QUERY_HANDLER)
         .toResolvedValue(
           (handler: GetAggregateValueQueryHandler) => handler,
           [GetAggregateValueQueryHandler]

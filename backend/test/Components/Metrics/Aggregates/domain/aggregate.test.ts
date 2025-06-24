@@ -1,6 +1,6 @@
 import { AggregateFn, Aggregate, AGGREGATE_EXCEPTIONS } from "@Metrics/Aggregates/domain";
 import { Category, INVALID_CATEGORY } from "@Metrics/Shared/domain";
-import { InvalidInputException } from "@Components/Shared/domain/exceptions/invalid-input.exception";
+import { InvalidInputException } from "@Shared/domain";
 
 describe('Metrics Aggregate', () => {
   it('should create from primitives', () => {

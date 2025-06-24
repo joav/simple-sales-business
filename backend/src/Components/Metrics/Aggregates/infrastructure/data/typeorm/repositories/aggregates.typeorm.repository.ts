@@ -1,4 +1,4 @@
-import { TypeormRepository } from '@Components/Shared/infrastructure/data/typeorm/typeorm.repository';
+import { TypeormRepository } from '@Shared/infrastructure';
 import { injectable, injectFromBase } from 'inversify';
 import { AggregateEntity } from '../entities/aggregate.entity';
 import {

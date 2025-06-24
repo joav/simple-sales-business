@@ -1,4 +1,4 @@
-import { Controller } from '@Components/Shared/infrastructure/web/Controller';
+import { Controller } from '@Shared/infrastructure';
 import { Response } from 'express';
 import { injectable } from 'inversify';
 

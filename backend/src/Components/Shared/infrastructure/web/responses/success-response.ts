@@ -1,4 +1,4 @@
-import { DomainStatus } from '@Components/Shared/domain/domain-status';
+import { DomainStatus } from '@Shared/domain';
 import { stdResponse } from './std-response';
 
 export const successResponse = (data: unknown, httpStatusCode: number) =>

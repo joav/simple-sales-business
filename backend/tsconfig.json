@@ -16,8 +16,11 @@
       "@App/*": [
         "src/App/*"
       ],
-      "@Components/*": [
-        "src/Components/*"
+      "@Shared/domain": [
+        "src/Components/Shared/domain/index.ts"
+      ],
+      "@Shared/infrastructure": [
+        "src/Components/Shared/infrastructure/index.ts"
       ],
       "@Metrics/Shared/domain": [
         "src/Components/Metrics/Shared/domain/index.ts"

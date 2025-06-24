@@ -1,5 +1,5 @@
 import { Container } from 'inversify';
-import { ConfigExecutor } from '@Components/Shared/infrastructure/config-executor';
+import { ConfigExecutor } from '@Shared/infrastructure';
 import appDiIdentifiers from '@App/Config/di-identifiers';
 import { MetricsRoutes } from '../web';
 import { aggregatesContainerModuleCreator } from '@Metrics/Aggregates/infrastructure';

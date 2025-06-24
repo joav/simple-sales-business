@@ -1,4 +1,4 @@
-import { DataSourceConfig } from "@Components/Shared/infrastructure/data/typeorm/data-source.config";
+import { DataSourceConfig } from "@Shared/infrastructure";
 import { DataSource } from "typeorm";
 
 export const configFactory = (...entities: Function[]) => ({
