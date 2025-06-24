@@ -5,6 +5,8 @@ import { Container } from 'inversify';
 import request from 'supertest';
 import { AggregatesInMemoryRepository, GetAggregatesController, GetAggregateValueController, AggregatesRoutes } from '@Metrics/Aggregates/infrastructure';
 import { sharedDiIdentifiers, QueryHandlersRepository, QueryBusInMemory } from '@Shared/infrastructure';
+import { GetTimeSeriesQueryHandler, TimeSeriesGetter } from '@Metrics/TimeSeries/application';
+import { GetTimeSeriesController, TimeSeriesInMemoryRepository, TimeSeriesRoutes } from '@Metrics/TimeSeries/infrastructure';
 
 describe('Metrics API', () => {
   let app: express.Express;
@@ -12,18 +14,24 @@ describe('Metrics API', () => {
   beforeEach(() => {
     const container = new Container();
 
-    const getter = new AggregatesGetter(new AggregatesInMemoryRepository());
-    const handler = new GetAggregatesQueryHandler(getter);
+    const aggregatesGetter = new AggregatesGetter(new AggregatesInMemoryRepository());
+    const aggregatesHandler = new GetAggregatesQueryHandler(aggregatesGetter);
     const getterValue = new AggregateValueGetter(new AggregatesInMemoryRepository());
     const handlerValue = new GetAggregateValueQueryHandler(getterValue);
-    container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(handler);
+    container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(aggregatesHandler);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(handlerValue);
-    container.bind(QueryHandlersRepository).toSelf();
-    container.bind(sharedDiIdentifiers.QUERY_BUS).to(QueryBusInMemory);
-
     container.bind(GetAggregatesController).toSelf();
     container.bind(GetAggregateValueController).toSelf();
     container.bind(AggregatesRoutes).toSelf();
+
+    const timeSeriesGetter = new TimeSeriesGetter(new TimeSeriesInMemoryRepository());
+    const timeSeriesHandler = new GetTimeSeriesQueryHandler(timeSeriesGetter);
+    container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(timeSeriesHandler);
+    container.bind(GetTimeSeriesController).toSelf();
+    container.bind(TimeSeriesRoutes).toSelf();
+
+    container.bind(QueryHandlersRepository).toSelf();
+    container.bind(sharedDiIdentifiers.QUERY_BUS).to(QueryBusInMemory);
     container.bind(MetricsRoutes).toSelf();
     app = express();
     app.use('/metrics', container.get(MetricsRoutes).getRouter());
@@ -48,6 +56,7 @@ describe('Metrics API', () => {
         ]
       });
     });
+
     it('should GET /metrics/products/aggregates/some-count return 200 with aggregate value', async () => {
       const response = await request(app).get('/metrics/products/aggregates/some-count');
       expect(response.status).toBe(200);
@@ -67,6 +76,26 @@ describe('Metrics API', () => {
         }
       });
     });
-  })
+  });
+
+  describe('TimeSeries API', () => {
+    it('should GET /metrics/products/series return 200 with series', async () => {
+      const response = await request(app).get('/metrics/products/series');
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({
+        status: {
+          statusCode: 0,
+          statusMessage: "Ok",
+          httpStatusCode: 200
+        },
+        data: [
+          {
+            timeSerieSlug: "some-time-serie",
+            category: "products"
+          }
+        ]
+      });
+    });
+  });
 
 });
