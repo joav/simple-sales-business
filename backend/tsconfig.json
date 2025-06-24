@@ -30,6 +30,9 @@
       ],
       "@Metrics/Aggregates/application": [
         "src/Components/Metrics/Aggregates/application/index.ts"
+      ],
+      "@Metrics/Aggregates/infrastructure": [
+        "src/Components/Metrics/Aggregates/infrastructure/index.ts"
       ]
     },
     "lib": [

@@ -3,8 +3,7 @@ import { metricsConfigExecutor } from '@Metrics/Shared/infrastructure';
 import { GetAggregatesQueryHandler, GetAggregateValueQueryHandler } from '@Metrics/Aggregates/application';
 import sharedIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
 import { metricsSharedDiIdentifiers } from '@Metrics/Shared/infrastructure';
-import { AggregatesInMemoryRepository } from '@Components/Metrics/infrastructure/data/in-memory/aggregates.in-memory.repository';
-import { AggregatesRoutes } from '@Components/Metrics/infrastructure/web/Routes/aggregates.routes';
+import { AggregatesInMemoryRepository, AggregatesRoutes } from '@Components/Metrics/Aggregates/infrastructure';
 
 class MyQueryBus { }
 

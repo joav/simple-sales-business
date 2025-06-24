@@ -2,7 +2,7 @@ import { Container } from 'inversify';
 import { ConfigExecutor } from '@Components/Shared/infrastructure/config-executor';
 import appDiIdentifiers from '@App/Config/di-identifiers';
 import { MetricsRoutes } from '../web';
-import aggregatesContainerModuleCreator from '@Components/Metrics/infrastructure/config/aggregates.container-module-creator';
+import { aggregatesContainerModuleCreator } from '@Metrics/Aggregates/infrastructure';
 
 export const metricsConfigExecutor = {
   config(container: Container) {

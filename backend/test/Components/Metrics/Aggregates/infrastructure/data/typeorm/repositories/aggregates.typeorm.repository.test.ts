@@ -1,11 +1,10 @@
 import { Aggregate, AggregateValue } from "@Metrics/Aggregates/domain";
 import { Category } from "@Metrics/Shared/domain";
-import { AggregateEntity } from "@Components/Metrics/infrastructure/data/typeorm/entities/aggregate.entity";
-import { AggregatesTypeormRepository } from "@Components/Metrics/infrastructure/data/typeorm/repositories/aggregates.typeorm.repository";
 import { DataSourceWrapper } from "@Components/Shared/infrastructure/data/typeorm/data-source-wrapper";
 import { TypeormRepository } from "@Components/Shared/infrastructure/data/typeorm/typeorm.repository";
 import { Container } from "inversify";
-import { configFactory } from "../../../../../../utils/typeorm/config";
+import { configFactory } from "../../../../../../../utils/typeorm/config";
+import { AggregatesTypeormRepository, AggregateEntity } from "@Metrics/Aggregates/infrastructure";
 
 describe("AggregateTypeormRepository", () => {
   let container: Container;
