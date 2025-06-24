@@ -1,7 +1,9 @@
-import { Aggregate } from '@Components/Metrics/domain/aggregate';
-import { AggregatesRepository } from '@Components/Metrics/domain/aggregates.repository';
-import { AggregateValue } from '@Components/Metrics/domain/aggregate-value';
-import { AggregateValuesRepository } from '@Components/Metrics/domain/aggregate-values.repository';
+import {
+  Aggregate,
+  AggregatesRepository,
+  AggregateValue,
+  AggregateValuesRepository
+} from '@Metrics/Aggregates/domain';
 
 export class AggregatesInMemoryRepository
   implements AggregatesRepository, AggregateValuesRepository

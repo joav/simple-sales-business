@@ -3,7 +3,7 @@ import { ContainerModuleCreator } from '@Components/Shared/infrastructure/contai
 import { AggregatesGetter } from '@Components/Metrics/application/get-aggregates/aggregates-getter';
 import { GetAggregatesQueryHandler } from '@Components/Metrics/application/get-aggregates/get-aggregates.query-handler';
 import sharedIdentifiers from '@Components/Shared/infrastructure/di-identifiers';
-import { AggregatesRepository } from '@Components/Metrics/domain/aggregates.repository';
+import { AggregatesRepository, AggregateValuesRepository } from '@Metrics/Aggregates/domain';
 import diIdentifiers from './di-identifiers';
 import { GetAggregatesController } from '@Components/Metrics/infrastructure/web/Controllers/get-aggregates.controller';
 import { GetAggregateValueController } from '@Components/Metrics/infrastructure/web/Controllers/get-aggregate-value.controller';
@@ -11,7 +11,6 @@ import { AggregatesRoutes } from '@Components/Metrics/infrastructure/web/Routes/
 import { AggregatesTypeormRepository } from '@Components/Metrics/infrastructure/data/typeorm/repositories/aggregates.typeorm.repository';
 import { AggregateValueGetter } from '@Components/Metrics/application/get-aggregate-value/aggregate-value-getter';
 import { GetAggregateValueQueryHandler } from '@Components/Metrics/application/get-aggregate-value/get-aggregate-value.query-handler';
-import { AggregateValuesRepository } from '@Components/Metrics/domain/aggregate-values.repository';
 
 export default {
   create() {

@@ -1,8 +1,7 @@
 import { GetAggregatesQuery } from '@Components/Metrics/application/get-aggregates/get-aggregates.query';
 import { GetAggregatesQueryHandler } from '@Components/Metrics/application/get-aggregates/get-aggregates.query-handler';
 import { AggregatesGetter } from '@Components/Metrics/application/get-aggregates/aggregates-getter';
-import { AggregatesRepository } from '@Components/Metrics/domain/aggregates.repository';
-import { Aggregate } from '@Components/Metrics/domain/aggregate';
+import { Aggregate, AggregatesRepository } from '@Metrics/Aggregates/domain';
 
 describe('Get Aggregates', () => {
   it('should handle query and get response', async () => {

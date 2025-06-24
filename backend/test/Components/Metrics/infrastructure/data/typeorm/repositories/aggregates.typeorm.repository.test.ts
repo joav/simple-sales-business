@@ -1,5 +1,4 @@
-import { Aggregate } from "@Components/Metrics/domain/aggregate";
-import { AggregateValue } from "@Components/Metrics/domain/aggregate-value";
+import { Aggregate, AggregateValue } from "@Metrics/Aggregates/domain";
 import { Category } from "@Metrics/Shared/domain";
 import { AggregateEntity } from "@Components/Metrics/infrastructure/data/typeorm/entities/aggregate.entity";
 import { AggregatesTypeormRepository } from "@Components/Metrics/infrastructure/data/typeorm/repositories/aggregates.typeorm.repository";

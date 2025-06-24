@@ -21,6 +21,9 @@
       ],
       "@Metrics/Shared/domain": [
         "src/Components/Metrics/Shared/domain/index.ts"
+      ],
+      "@Metrics/Aggregates/domain": [
+        "src/Components/Metrics/Aggregates/domain/index.ts"
       ]
     },
     "lib": [

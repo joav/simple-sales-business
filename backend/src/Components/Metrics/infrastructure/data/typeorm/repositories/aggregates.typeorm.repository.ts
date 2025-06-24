@@ -1,10 +1,12 @@
 import { TypeormRepository } from '@Components/Shared/infrastructure/data/typeorm/typeorm.repository';
 import { injectable, injectFromBase } from 'inversify';
 import { AggregateEntity } from '../entities/aggregate.entity';
-import { AggregatesRepository } from '@Components/Metrics/domain/aggregates.repository';
-import { AggregateValuesRepository } from '@Components/Metrics/domain/aggregate-values.repository';
-import { Aggregate } from '@Components/Metrics/domain/aggregate';
-import { AggregateValue } from '@Components/Metrics/domain/aggregate-value';
+import {
+  AggregatesRepository,
+  AggregateValuesRepository,
+  Aggregate,
+  AggregateValue
+} from '@Metrics/Aggregates/domain';
 import { Category } from '@Metrics/Shared/domain';
 
 @injectable()

@@ -1,5 +1,4 @@
-import { AggregateValue, AGGREGATE_VALUE_EXCEPTIONS } from "@Components/Metrics/domain/aggregate-value";
-import { AggregateFn } from "@Components/Metrics/domain/aggregate-fn";
+import { AggregateFn, AggregateValue, AGGREGATE_VALUE_EXCEPTIONS } from "@Metrics/Aggregates/domain";
 import { Category } from "@Metrics/Shared/domain";
 import { InvalidInputException } from "@Components/Shared/domain/exceptions/invalid-input.exception";
 

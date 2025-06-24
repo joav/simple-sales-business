@@ -1,5 +1,5 @@
 import { Response } from '@Components/Shared/domain/response';
-import { AggregateValue } from '@Components/Metrics/domain/aggregate-value';
+import { AggregateValue } from '@Metrics/Aggregates/domain';
 
 type AggregateValueResponse = {
   aggregateId: string;

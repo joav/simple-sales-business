@@ -1,8 +1,6 @@
 import { Entity, Column } from 'typeorm';
 import { Category } from '@Metrics/Shared/domain';
-import { AggregateFn } from '@Components/Metrics/domain/aggregate-fn';
-import { Aggregate } from '@Components/Metrics/domain/aggregate';
-import { AggregateValue } from '@Components/Metrics/domain/aggregate-value';
+import { Aggregate, AggregateValue, AggregateFn } from '@Metrics/Aggregates/domain';
 
 @Entity('metrics_aggregates')
 export class AggregateEntity {
