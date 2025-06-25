@@ -1,12 +1,14 @@
 import { Entity, Column } from 'typeorm';
-import { Category } from '@Metrics/Shared/domain';
 import { Aggregate, AggregateValue, AggregateFn } from '@Metrics/Aggregates/domain';
+import { CategoryColumn } from '@Metrics/Shared/infrastructure';
+
+console.log('jimny', CategoryColumn)
 
 @Entity('metrics_aggregates')
 export class AggregateEntity {
   @Column({ primary: true, type: 'varchar', length: 100 })
   aggregateId: string;
-  @Column({ primary: true, type: 'enum', enum: Category })
+  @Column({ primary: true, type: 'enum', enumName: 'metrics_category_enum' })
   category: string;
   @Column({ type: 'enum', enum: AggregateFn })
   aggregateFn: string;
