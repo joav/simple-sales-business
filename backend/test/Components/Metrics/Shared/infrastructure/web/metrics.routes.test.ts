@@ -6,7 +6,7 @@ import request from 'supertest';
 import { AggregatesInMemoryRepository, GetAggregatesController, GetAggregateValueController, AggregatesRoutes } from '@Metrics/Aggregates/infrastructure';
 import { sharedDiIdentifiers, QueryHandlersRepository, QueryBusInMemory } from '@Shared/infrastructure';
 import { GetTimeSerieQueryHandler, GetTimeSeriesQueryHandler, TimeSerieGetter, TimeSeriesGetter } from '@Metrics/TimeSeries/application';
-import { GetTimeSeriesController, TimeSeriesInMemoryRepository, TimeSeriesRoutes } from '@Metrics/TimeSeries/infrastructure';
+import { GetTimeSerieController, GetTimeSeriesController, TimeSeriesInMemoryRepository, TimeSeriesRoutes } from '@Metrics/TimeSeries/infrastructure';
 
 describe('Metrics API', () => {
   let app: express.Express;
@@ -27,6 +27,7 @@ describe('Metrics API', () => {
     const timeSeriesGetter = new TimeSeriesGetter(new TimeSeriesInMemoryRepository());
     const timeSeriesHandler = new GetTimeSeriesQueryHandler(timeSeriesGetter);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(timeSeriesHandler);
+    container.bind(GetTimeSerieController).toSelf();
     container.bind(GetTimeSeriesController).toSelf();
     container.bind(TimeSeriesRoutes).toSelf();
 
@@ -98,6 +99,25 @@ describe('Metrics API', () => {
             category: "products"
           }
         ]
+      });
+    });
+    it('should GET /metrics/products/series/some-time-serie return 200 with series', async () => {
+      const response = await request(app).get('/metrics/products/series/some-time-serie');
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({
+        status: {
+          statusCode: 0,
+          statusMessage: "Ok",
+          httpStatusCode: 200
+        },
+        data: {
+          timeSerieSlug: 'some-time-serie',
+          category: 'products',
+          data: [{
+            date: '2025-06-06T02:02:02.060Z',
+            value: 5
+          }]
+        }
       });
     });
   });

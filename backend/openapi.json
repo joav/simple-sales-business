@@ -554,6 +554,15 @@
             "$ref": "#/components/parameters/MetricsCategory"
           },
           {
+            "name": "serieSlug",
+            "in": "path",
+            "description": "The time serie slug",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "from",
             "in": "query",
             "allowEmptyValue": true,

@@ -9,7 +9,7 @@ import { TimeSeriesRepository } from '@Metrics/TimeSeries/domain';
 import { ContainerModuleCreator, sharedDiIdentifiers } from '@Shared/infrastructure';
 import { ContainerModule } from 'inversify';
 import { TimeSeriesTypeormRepository } from '../data';
-import { GetTimeSeriesController, TimeSeriesRoutes } from '../web';
+import { GetTimeSerieController, GetTimeSeriesController, TimeSeriesRoutes } from '../web';
 
 export const timeSeriesContainerModuleCreator = {
   create() {
@@ -48,6 +48,7 @@ export const timeSeriesContainerModuleCreator = {
         );
 
       options.bind(GetTimeSeriesController).toSelf();
+      options.bind(GetTimeSerieController).toSelf();
       options.bind(TimeSeriesRoutes).toSelf();
     });
   }

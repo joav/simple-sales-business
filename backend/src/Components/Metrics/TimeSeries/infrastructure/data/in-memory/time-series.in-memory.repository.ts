@@ -13,6 +13,17 @@ export class TimeSeriesInMemoryRepository implements TimeSeriesRepository {
   }
 
   get() {
-    return Promise.resolve(this.timeSeries[0]);
+    return Promise.resolve(
+      TimeSerie.fromPrimitives({
+        timeSerieSlug: 'some-time-serie',
+        category: 'products',
+        data: [
+          {
+            date: '2025-06-06T02:02:02.060Z',
+            value: 5
+          }
+        ]
+      })
+    );
   }
 }
