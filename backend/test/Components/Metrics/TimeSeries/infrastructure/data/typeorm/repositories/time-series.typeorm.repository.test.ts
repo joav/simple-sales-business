@@ -25,6 +25,14 @@ describe("TimeSerieTypeormRepository", () => {
     expect(timeSeries[0].category).toEqual(Category.SALES);
   });
 
+  it('should get TimeSeries', async () => {
+    const timeSerie = await timeSerieTypeormRepository.get(Category.SALES, 'monthly-sales');
+
+    expect(timeSerie).toBeDefined();
+    expect(timeSerie.constructor).toBe(TimeSerie);
+    expect(timeSerie.category).toEqual(Category.SALES);
+  });
+
   afterAll(async () => {
     (await container.get(DataSourceWrapper).dataSource).destroy();
   });

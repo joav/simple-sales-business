@@ -11,4 +11,8 @@ export class TimeSeriesInMemoryRepository implements TimeSeriesRepository {
   listTimeSeries(): Promise<TimeSerie[]> {
     return Promise.resolve(this.timeSeries);
   }
+
+  get() {
+    return Promise.resolve(this.timeSeries[0]);
+  }
 }

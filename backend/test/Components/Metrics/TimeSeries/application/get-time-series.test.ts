@@ -6,7 +6,8 @@ describe('Get TimeSeries', () => {
   it('should handle query and get response', async () => {
     const values = { timeSerieSlug: 'some', category: 'products' };
     const repo: TimeSeriesRepository = {
-      listTimeSeries: () => Promise.resolve([TimeSerie.fromPrimitives(values)])
+      listTimeSeries: () => Promise.resolve([TimeSerie.fromPrimitives(values)]),
+      get: () => Promise.resolve(TimeSerie.fromPrimitives(values))
     };
     const getter = new TimeSeriesGetter(repo);
     const handler = new GetTimeSeriesQueryHandler(getter);

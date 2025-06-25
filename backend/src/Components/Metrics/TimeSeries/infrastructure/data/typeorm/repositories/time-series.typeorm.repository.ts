@@ -21,4 +21,16 @@ export class TimeSeriesTypeormRepository
 
     return entities.map((e) => e.toDomain());
   }
+
+  async get(category: Category, timeSerieSlug: string): Promise<TimeSerie> {
+    const repository = await this.repository;
+    const timeSerie = await repository.findOneOrFail({
+      where: {
+        category,
+        timeSerieSlug
+      }
+    });
+
+    return timeSerie.toDomain();
+  }
 }
