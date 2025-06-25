@@ -5,7 +5,7 @@ import { Container } from 'inversify';
 import request from 'supertest';
 import { AggregatesInMemoryRepository, GetAggregatesController, GetAggregateValueController, AggregatesRoutes } from '@Metrics/Aggregates/infrastructure';
 import { sharedDiIdentifiers, QueryHandlersRepository, QueryBusInMemory } from '@Shared/infrastructure';
-import { GetTimeSeriesQueryHandler, TimeSeriesGetter } from '@Metrics/TimeSeries/application';
+import { GetTimeSerieQueryHandler, GetTimeSeriesQueryHandler, TimeSerieGetter, TimeSeriesGetter } from '@Metrics/TimeSeries/application';
 import { GetTimeSeriesController, TimeSeriesInMemoryRepository, TimeSeriesRoutes } from '@Metrics/TimeSeries/infrastructure';
 
 describe('Metrics API', () => {
@@ -29,6 +29,10 @@ describe('Metrics API', () => {
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(timeSeriesHandler);
     container.bind(GetTimeSeriesController).toSelf();
     container.bind(TimeSeriesRoutes).toSelf();
+
+    const timeSerieGetter = new TimeSerieGetter(new TimeSeriesInMemoryRepository());
+    const timeSerieHandler = new GetTimeSerieQueryHandler(timeSerieGetter);
+    container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(timeSerieHandler);
 
     container.bind(QueryHandlersRepository).toSelf();
     container.bind(sharedDiIdentifiers.QUERY_BUS).to(QueryBusInMemory);
