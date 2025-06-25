@@ -5,8 +5,9 @@ import { GetTimeSerieResponse } from './get-time-serie.response';
 import { TimeSerieGetter } from './time-serie-getter';
 
 export class GetTimeSerieQueryHandler
-  implements QueryHandler<GetTimeSerieQuery, GetTimeSerieResponse> {
-  constructor(private getter: TimeSerieGetter) { }
+  implements QueryHandler<GetTimeSerieQuery, GetTimeSerieResponse>
+{
+  constructor(private getter: TimeSerieGetter) {}
   async handle(query: GetTimeSerieQuery) {
     const category = categoryFromPrimitive(query.category);
     const timeSerie = await this.getter.run(category, query.timeSerieSlug);

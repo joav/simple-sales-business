@@ -1,5 +1,10 @@
 import { metricsSharedDiIdentifiers } from '@Metrics/Shared/infrastructure';
-import { GetTimeSerieQueryHandler, GetTimeSeriesQueryHandler, TimeSerieGetter, TimeSeriesGetter } from '@Metrics/TimeSeries/application';
+import {
+  GetTimeSerieQueryHandler,
+  GetTimeSeriesQueryHandler,
+  TimeSerieGetter,
+  TimeSeriesGetter
+} from '@Metrics/TimeSeries/application';
 import { TimeSeriesRepository } from '@Metrics/TimeSeries/domain';
 import { ContainerModuleCreator, sharedDiIdentifiers } from '@Shared/infrastructure';
 import { ContainerModule } from 'inversify';
@@ -28,10 +33,7 @@ export const timeSeriesContainerModuleCreator = {
         );
       options
         .bind(TimeSerieGetter)
-        .toResolvedValue(
-          (repo: TimeSeriesRepository) => new TimeSerieGetter(repo),
-          [repoSymbol]
-        );
+        .toResolvedValue((repo: TimeSeriesRepository) => new TimeSerieGetter(repo), [repoSymbol]);
       options
         .bind(GetTimeSerieQueryHandler)
         .toResolvedValue(
