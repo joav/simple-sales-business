@@ -3,14 +3,14 @@ import { GetTimeSeriesQueryHandler, TimeSeriesGetter } from '@Metrics/TimeSeries
 import { TimeSeriesRepository } from '@Metrics/TimeSeries/domain';
 import { ContainerModuleCreator, sharedDiIdentifiers } from '@Shared/infrastructure';
 import { ContainerModule } from 'inversify';
-import { TimeSeriesInMemoryRepository } from '../data';
+import { TimeSeriesTypeormRepository } from '../data';
 import { GetTimeSeriesController, TimeSeriesRoutes } from '../web';
 
 export const timeSeriesContainerModuleCreator = {
   create() {
     return new ContainerModule((options) => {
       const repoSymbol = metricsSharedDiIdentifiers.TIME_SERIES_REPOSITORY;
-      options.bind(repoSymbol).to(TimeSeriesInMemoryRepository);
+      options.bind(repoSymbol).to(TimeSeriesTypeormRepository);
       options
         .bind(TimeSeriesGetter)
         .toResolvedValue((repo: TimeSeriesRepository) => new TimeSeriesGetter(repo), [repoSymbol]);
