@@ -1,3 +1,1 @@
-export class Ranking {
-
-}
+export class Ranking {}
