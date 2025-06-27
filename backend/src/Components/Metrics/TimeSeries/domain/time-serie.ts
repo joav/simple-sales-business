@@ -1,7 +1,7 @@
 import { Category, categoryFromPrimitive } from '@Metrics/Shared/domain';
 import { InvalidInputException } from '@Shared/domain';
 import { DataValue } from './data-value';
-import { DataValuePrimitives } from './_data-value.primitives';
+import { DataValuePrimitives } from './data-value.primitives';
 
 export const TIME_SERIE_EXCEPTIONS = {
   InvalidTimeSerieSlug: {

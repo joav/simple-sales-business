@@ -1,6 +1,6 @@
 import { strToDateOrError } from '@Metrics/Shared/domain';
 import { InvalidInputException } from '@Shared/domain';
-import { DataValuePrimitives } from './_data-value.primitives';
+import { DataValuePrimitives } from './data-value.primitives';
 
 export const DATA_VALUE_EXCEPTIONS = {
   InvalidValue: {

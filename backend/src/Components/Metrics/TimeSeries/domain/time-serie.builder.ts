@@ -1,4 +1,4 @@
-import { DataValuePrimitives } from './_data-value.primitives';
+import { DataValuePrimitives } from './data-value.primitives';
 import { TimeSerie } from './time-serie';
 
 export class TimeSerieBuilder {

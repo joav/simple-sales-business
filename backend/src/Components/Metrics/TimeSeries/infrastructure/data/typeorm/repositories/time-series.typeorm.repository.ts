@@ -28,9 +28,12 @@ export class TimeSeriesTypeormRepository
       where: {
         category,
         timeSerieSlug
+      },
+      relations: {
+        data: true
       }
     });
 
-    return timeSerie.toDomain();
+    return timeSerie.toDomainWithData();
   }
 }
