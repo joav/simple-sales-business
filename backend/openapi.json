@@ -205,6 +205,10 @@
             "type": "string",
             "example": "some-ranking"
           },
+          "rankingValueTitle": {
+            "type": "string",
+            "example": "Ranking Metric"
+          },
           "category": {
             "$ref": "#/components/schemas/MetricsCategory"
           }
@@ -226,10 +230,6 @@
                   "properties": {
                     "lastUpdate": {
                       "$ref": "#/components/schemas/Date"
-                    },
-                    "valueTitle": {
-                      "type": "string",
-                      "example": "Ranking Metric"
                     },
                     "value": {
                       "type": "number",
