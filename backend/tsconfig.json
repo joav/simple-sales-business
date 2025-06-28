@@ -45,6 +45,9 @@
       ],
       "@Metrics/TimeSeries/infrastructure": [
         "src/Components/Metrics/TimeSeries/infrastructure/index.ts"
+      ],
+      "@Metrics/Rankings/domain": [
+        "src/Components/Metrics/Rankings/domain/index.ts"
       ]
     },
     "lib": [
