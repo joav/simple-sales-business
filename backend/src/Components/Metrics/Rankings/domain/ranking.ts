@@ -32,8 +32,8 @@ export class Ranking {
     rankingValueTitle: string;
     category: string;
   }) {
-    const rankingSlug = Ranking.verifRankingSlug(values.rankingSlug);
-    const rankingValueTitle = Ranking.verifRankingValueTitle(values.rankingValueTitle);
+    const rankingSlug = Ranking.verifyRankingSlug(values.rankingSlug);
+    const rankingValueTitle = Ranking.verifyRankingValueTitle(values.rankingValueTitle);
     const category = categoryFromPrimitive(values.category);
     return new Ranking(rankingSlug, rankingValueTitle, category);
   }
