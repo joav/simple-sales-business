@@ -1,10 +1,10 @@
-import { TimeSerie } from '@Metrics/TimeSeries/domain';
+import { Ranking } from '@Metrics/Rankings/domain';
 import { Response } from '@Shared/domain';
-import { TimeSerieResponse } from '../time-serie.response';
+import { RankingResponse } from '../ranking.response';
 
-export class GetTimeSeriesResponse implements Response {
-  public readonly timeSeries: TimeSerieResponse[];
-  constructor(timeSeries: TimeSerie[]) {
-    this.timeSeries = timeSeries.map((ts) => ts.toPrimitives());
+export class GetRankingsResponse implements Response {
+  public readonly rankings: RankingResponse[];
+  constructor(rankings: Ranking[]) {
+    this.rankings = rankings.map((rk) => rk.toPrimitives());
   }
 }

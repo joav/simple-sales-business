@@ -1,9 +1,9 @@
 import { Category } from '@Metrics/Shared/domain';
-import { TimeSeriesRepository } from '../../domain/time-series.repository';
+import { RankingsRepository } from '../../domain/rankings.repository';
 
-export class TimeSeriesGetter {
-  constructor(private readonly timeSeriesRepository: TimeSeriesRepository) {}
+export class RankingsGetter {
+  constructor(private readonly rankingsRepository: RankingsRepository) {}
   run(category: Category) {
-    return this.timeSeriesRepository.listTimeSeries(category);
+    return this.rankingsRepository.listRankings(category);
   }
 }

@@ -1,21 +1,21 @@
 import { QueryHandler } from '@Shared/domain';
-import { GetTimeSeriesQuery } from './get-time-series.query';
-import { GetTimeSeriesResponse } from './get-time-series.response';
+import { GetRankingsQuery } from './get-rankings.query';
+import { GetRankingsResponse } from './get-rankings.response';
 import { categoryFromPrimitive } from '@Metrics/Shared/domain';
-import { TimeSeriesGetter } from './time-series-getter';
+import { RankingsGetter } from './rankings-getter';
 
-export class GetTimeSeriesQueryHandler
-  implements QueryHandler<GetTimeSeriesQuery, GetTimeSeriesResponse>
+export class GetRankingsQueryHandler
+  implements QueryHandler<GetRankingsQuery, GetRankingsResponse>
 {
-  constructor(private readonly getter: TimeSeriesGetter) {}
+  constructor(private readonly getter: RankingsGetter) {}
 
   subscribedTo() {
-    return GetTimeSeriesQuery;
+    return GetRankingsQuery;
   }
 
-  async handle(query: GetTimeSeriesQuery): Promise<GetTimeSeriesResponse> {
+  async handle(query: GetRankingsQuery): Promise<GetRankingsResponse> {
     const category = categoryFromPrimitive(query.category);
-    const timeSeries = await this.getter.run(category);
-    return new GetTimeSeriesResponse(timeSeries);
+    const rankings = await this.getter.run(category);
+    return new GetRankingsResponse(rankings);
   }
 }

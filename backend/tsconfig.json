@@ -48,6 +48,9 @@
       ],
       "@Metrics/Rankings/domain": [
         "src/Components/Metrics/Rankings/domain/index.ts"
+      ],
+      "@Metrics/Rankings/application": [
+        "src/Components/Metrics/Rankings/application/index.ts"
       ]
     },
     "lib": [
