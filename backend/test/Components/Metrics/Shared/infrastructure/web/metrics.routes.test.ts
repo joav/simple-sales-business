@@ -7,6 +7,8 @@ import { AggregatesInMemoryRepository, GetAggregatesController, GetAggregateValu
 import { sharedDiIdentifiers, QueryHandlersRepository, QueryBusInMemory } from '@Shared/infrastructure';
 import { GetTimeSerieQueryHandler, GetTimeSeriesQueryHandler, TimeSerieGetter, TimeSeriesGetter } from '@Metrics/TimeSeries/application';
 import { GetTimeSerieController, GetTimeSeriesController, TimeSeriesInMemoryRepository, TimeSeriesRoutes } from '@Metrics/TimeSeries/infrastructure';
+import { GetRankingsQueryHandler, RankingsGetter } from '@Metrics/Rankings/application';
+import { GetRankingsController, RankingsInMemoryRepository, RankingsRoutes } from '@Metrics/Rankings/infrastructure';
 
 describe('Metrics API', () => {
   let app: express.Express;
@@ -34,6 +36,12 @@ describe('Metrics API', () => {
     const timeSerieGetter = new TimeSerieGetter(new TimeSeriesInMemoryRepository());
     const timeSerieHandler = new GetTimeSerieQueryHandler(timeSerieGetter);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(timeSerieHandler);
+
+    const rankingsGetter = new RankingsGetter(new RankingsInMemoryRepository());
+    const rankingsHandler = new GetRankingsQueryHandler(rankingsGetter);
+    container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(rankingsHandler);
+    container.bind(GetRankingsController).toSelf();
+    container.bind(RankingsRoutes).toSelf();
 
     container.bind(QueryHandlersRepository).toSelf();
     container.bind(sharedDiIdentifiers.QUERY_BUS).to(QueryBusInMemory);
@@ -122,4 +130,24 @@ describe('Metrics API', () => {
     });
   });
 
+  describe('TimeSeries API', () => {
+    it('should GET /metrics/products/rankings return 200 with series', async () => {
+      const response = await request(app).get('/metrics/products/rankings');
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({
+        status: {
+          statusCode: 0,
+          statusMessage: "Ok",
+          httpStatusCode: 200
+        },
+        data: [
+          {
+            rankingSlug: "some-ranking",
+            rankingValueTitle: "Ranking value title",
+            category: "products"
+          }
+        ]
+      });
+    });
+  });
 });

@@ -7,7 +7,7 @@ import { sharedDiIdentifiers } from '@Shared/infrastructure';
 import { GetTimeSerieQueryHandler, GetTimeSeriesQueryHandler } from '@Metrics/TimeSeries/application';
 import { TimeSeriesInMemoryRepository, TimeSeriesRoutes } from '@Metrics/TimeSeries/infrastructure';
 import { GetRankingsQueryHandler } from '@Metrics/Rankings/application';
-import { RankingsInMemoryRepository } from '@Metrics/Rankings/infrastructure';
+import { RankingsInMemoryRepository, RankingsRoutes } from '@Metrics/Rankings/infrastructure';
 
 class MyQueryBus { }
 
@@ -57,5 +57,9 @@ describe('Metrics Config', () => {
   it('should GetRankingsQueryHandler resolved', () => {
     const handler = container.get(GetRankingsQueryHandler);
     expect(handler).toBeTruthy();
+  });
+  it('should RankingsRoutes resolved', () => {
+    const routes = container.get(RankingsRoutes);
+    expect(routes).toBeTruthy();
   });
 });
