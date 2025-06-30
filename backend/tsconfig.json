@@ -51,6 +51,9 @@
       ],
       "@Metrics/Rankings/application": [
         "src/Components/Metrics/Rankings/application/index.ts"
+      ],
+      "@Metrics/Rankings/infrastructure": [
+        "src/Components/Metrics/Rankings/infrastructure/index.ts"
       ]
     },
     "lib": [
