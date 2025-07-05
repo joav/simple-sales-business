@@ -3,13 +3,14 @@ import { GetRankingsQueryHandler, RankingsGetter } from '@Metrics/Rankings/appli
 import { RankingsRepository } from '@Metrics/Rankings/domain';
 import { ContainerModuleCreator, sharedDiIdentifiers } from '@Shared/infrastructure';
 import { ContainerModule } from 'inversify';
+import { RankingsTypeormRepository } from '../data';
 import { GetRankingsController, RankingsRoutes } from '../web';
 
 export const rankingsContainerModuleCreator = {
   create() {
     return new ContainerModule((options) => {
       const repoSymbol = metricsSharedDiIdentifiers.RANKINGS_REPOSITORY;
-      options.bind(repoSymbol).toConstantValue({ listRankings: () => Promise.resolve([]) });
+      options.bind(repoSymbol).to(RankingsTypeormRepository);
       options
         .bind(RankingsGetter)
         .toResolvedValue((repo: RankingsRepository) => new RankingsGetter(repo), [repoSymbol]);
