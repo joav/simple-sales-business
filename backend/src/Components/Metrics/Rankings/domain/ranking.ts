@@ -1,5 +1,7 @@
 import { Category, categoryFromPrimitive } from '@Metrics/Shared/domain';
 import { InvalidInputException } from '@Shared/domain';
+import { RankingCompetitor } from './ranking-competitor';
+import { RankingCompetitorPrimitives } from './ranking-competitor.primitives';
 
 export const RANKING_EXCEPTIONS = {
   InvalidRankingSlug: {
@@ -16,14 +18,16 @@ export class Ranking {
   private constructor(
     public readonly rankingSlug: string,
     public readonly rankingValueTitle: string,
-    public readonly category: Category
+    public readonly category: Category,
+    public readonly data?: RankingCompetitor[]
   ) {}
 
   toPrimitives() {
     return {
       rankingSlug: this.rankingSlug,
       rankingValueTitle: this.rankingValueTitle,
-      category: this.category as string
+      category: this.category as string,
+      data: this.data?.map((rc) => rc.toPrimitives())
     };
   }
 
@@ -31,11 +35,13 @@ export class Ranking {
     rankingSlug: string;
     rankingValueTitle: string;
     category: string;
+    data?: RankingCompetitorPrimitives[];
   }) {
     const rankingSlug = Ranking.verifyRankingSlug(values.rankingSlug);
     const rankingValueTitle = Ranking.verifyRankingValueTitle(values.rankingValueTitle);
     const category = categoryFromPrimitive(values.category);
-    return new Ranking(rankingSlug, rankingValueTitle, category);
+    const data = Ranking.dataFactory(values.data);
+    return new Ranking(rankingSlug, rankingValueTitle, category, data);
   }
 
   protected static verifyRankingSlug(rankingSlug: string): string {
@@ -48,5 +54,10 @@ export class Ranking {
     if (!rankingValueTitle)
       throw InvalidInputException.fromStatusParams(RANKING_EXCEPTIONS.InvalidRankingValueTitle);
     return rankingValueTitle;
+  }
+
+  private static dataFactory(data?: RankingCompetitorPrimitives[]) {
+    if (!data) return undefined;
+    return data.map((rcp) => RankingCompetitor.fromPrimitives(rcp));
   }
 }
