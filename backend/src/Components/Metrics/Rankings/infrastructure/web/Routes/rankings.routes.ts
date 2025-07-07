@@ -1,12 +1,14 @@
 import { AbstractRoutes } from '@Shared/infrastructure';
 import { inject, injectable } from 'inversify';
-import { GetRankingsController } from '../Controllers';
+import { GetRankingController, GetRankingsController } from '../Controllers';
 
 @injectable('Singleton')
 export class RankingsRoutes extends AbstractRoutes {
   constructor(
     @inject(GetRankingsController)
-    private readonly getRankingsController: GetRankingsController
+    private readonly getRankingsController: GetRankingsController,
+    @inject(GetRankingController)
+    private readonly getRankingController: GetRankingController
   ) {
     super();
     this.setRoutes();
@@ -14,5 +16,6 @@ export class RankingsRoutes extends AbstractRoutes {
 
   protected setRoutes() {
     this.router.get('', this.getRankingsController.handleRequest);
+    this.router.get('/:rankingSlug', this.getRankingController.handleRequest);
   }
 }

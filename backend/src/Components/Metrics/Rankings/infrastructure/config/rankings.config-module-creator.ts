@@ -9,7 +9,7 @@ import { RankingsRepository } from '@Metrics/Rankings/domain';
 import { ContainerModuleCreator, sharedDiIdentifiers } from '@Shared/infrastructure';
 import { ContainerModule } from 'inversify';
 import { RankingsTypeormRepository } from '../data';
-import { GetRankingsController, RankingsRoutes } from '../web';
+import { GetRankingController, GetRankingsController, RankingsRoutes } from '../web';
 
 export const rankingsContainerModuleCreator = {
   create() {
@@ -42,6 +42,7 @@ export const rankingsContainerModuleCreator = {
         .toResolvedValue((handler: GetRankingQueryHandler) => handler, [GetRankingQueryHandler]);
 
       options.bind(GetRankingsController).toSelf();
+      options.bind(GetRankingController).toSelf();
       options.bind(RankingsRoutes).toSelf();
     });
   }

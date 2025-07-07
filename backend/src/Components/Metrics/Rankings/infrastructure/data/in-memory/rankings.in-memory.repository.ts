@@ -16,7 +16,7 @@ export class RankingsInMemoryRepository implements RankingsRepository {
   get() {
     return Promise.resolve(
       Ranking.fromPrimitives({
-        rankingSlug: 'some-time-serie',
+        rankingSlug: 'some-ranking',
         rankingValueTitle: 'Title',
         category: 'products',
         data: [

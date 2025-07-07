@@ -634,6 +634,15 @@
             "$ref": "#/components/parameters/MetricsCategory"
           },
           {
+            "name": "rankingSlug",
+            "in": "path",
+            "description": "The ranking slug",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
             "name": "top",
             "in": "query",
             "allowEmptyValue": true,

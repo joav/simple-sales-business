@@ -8,7 +8,7 @@ import { sharedDiIdentifiers, QueryHandlersRepository, QueryBusInMemory } from '
 import { GetTimeSerieQueryHandler, GetTimeSeriesQueryHandler, TimeSerieGetter, TimeSeriesGetter } from '@Metrics/TimeSeries/application';
 import { GetTimeSerieController, GetTimeSeriesController, TimeSeriesInMemoryRepository, TimeSeriesRoutes } from '@Metrics/TimeSeries/infrastructure';
 import { GetRankingQueryHandler, GetRankingsQueryHandler, RankingGetter, RankingsGetter } from '@Metrics/Rankings/application';
-import { GetRankingsController, RankingsInMemoryRepository, RankingsRoutes } from '@Metrics/Rankings/infrastructure';
+import { GetRankingController, GetRankingsController, RankingsInMemoryRepository, RankingsRoutes } from '@Metrics/Rankings/infrastructure';
 
 describe('Metrics API', () => {
   let app: express.Express;
@@ -44,6 +44,7 @@ describe('Metrics API', () => {
     const rankingHandler = new GetRankingQueryHandler(rankingGetter);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(rankingHandler);
     container.bind(GetRankingsController).toSelf();
+    container.bind(GetRankingController).toSelf();
     container.bind(RankingsRoutes).toSelf();
 
     container.bind(QueryHandlersRepository).toSelf();
@@ -150,6 +151,27 @@ describe('Metrics API', () => {
             category: "products"
           }
         ]
+      });
+    });
+    it('should GET /metrics/products/rankings/some-ranking return 200 with series', async () => {
+      const response = await request(app).get('/metrics/products/rankings/some-ranking');
+      expect(response.status).toBe(200);
+      expect(response.body).toEqual({
+        status: {
+          statusCode: 0,
+          statusMessage: "Ok",
+          httpStatusCode: 200
+        },
+        data: {
+          rankingSlug: 'some-ranking',
+          rankingValueTitle: 'Title',
+          category: 'products',
+          data: [{
+            name: 'Name',
+            lastUpdate: '2025-06-06T02:02:02.060Z',
+            value: 5
+          }]
+        }
       });
     });
   });
