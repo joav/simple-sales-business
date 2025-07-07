@@ -41,9 +41,9 @@ entity Ranking {
 }
 
 entity RankingCompetitor {
-  * ranking_competitor_id : number <<generated>>
-  --
+  * ranking_competitor_id : uuid
   * ranking_id : number <<FK>>
+  --
   * ranking_competitor_name : string
   * ranking_competitor_value : number
   * ranking_competitor_last_update : date
