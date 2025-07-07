@@ -12,4 +12,21 @@ export class RankingsInMemoryRepository implements RankingsRepository {
   listRankings(): Promise<Ranking[]> {
     return Promise.resolve(this.rankings);
   }
+
+  get() {
+    return Promise.resolve(
+      Ranking.fromPrimitives({
+        rankingSlug: 'some-time-serie',
+        rankingValueTitle: 'Title',
+        category: 'products',
+        data: [
+          {
+            name: 'Name',
+            lastUpdate: '2025-06-06T02:02:02.060Z',
+            value: 5
+          }
+        ]
+      })
+    );
+  }
 }

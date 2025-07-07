@@ -6,7 +6,7 @@ import { AggregatesInMemoryRepository, AggregatesRoutes } from '@Metrics/Aggrega
 import { sharedDiIdentifiers } from '@Shared/infrastructure';
 import { GetTimeSerieQueryHandler, GetTimeSeriesQueryHandler } from '@Metrics/TimeSeries/application';
 import { TimeSeriesInMemoryRepository, TimeSeriesRoutes } from '@Metrics/TimeSeries/infrastructure';
-import { GetRankingsQueryHandler } from '@Metrics/Rankings/application';
+import { GetRankingQueryHandler, GetRankingsQueryHandler } from '@Metrics/Rankings/application';
 import { RankingsInMemoryRepository, RankingsRoutes } from '@Metrics/Rankings/infrastructure';
 
 class MyQueryBus { }
@@ -61,5 +61,9 @@ describe('Metrics Config', () => {
   it('should RankingsRoutes resolved', () => {
     const routes = container.get(RankingsRoutes);
     expect(routes).toBeTruthy();
+  });
+  it('should GetRankingQueryHandler resolved', () => {
+    const handler = container.get(GetRankingQueryHandler);
+    expect(handler).toBeTruthy();
   });
 });

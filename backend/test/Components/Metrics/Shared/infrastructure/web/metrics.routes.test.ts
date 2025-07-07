@@ -7,7 +7,7 @@ import { AggregatesInMemoryRepository, GetAggregatesController, GetAggregateValu
 import { sharedDiIdentifiers, QueryHandlersRepository, QueryBusInMemory } from '@Shared/infrastructure';
 import { GetTimeSerieQueryHandler, GetTimeSeriesQueryHandler, TimeSerieGetter, TimeSeriesGetter } from '@Metrics/TimeSeries/application';
 import { GetTimeSerieController, GetTimeSeriesController, TimeSeriesInMemoryRepository, TimeSeriesRoutes } from '@Metrics/TimeSeries/infrastructure';
-import { GetRankingsQueryHandler, RankingsGetter } from '@Metrics/Rankings/application';
+import { GetRankingQueryHandler, GetRankingsQueryHandler, RankingGetter, RankingsGetter } from '@Metrics/Rankings/application';
 import { GetRankingsController, RankingsInMemoryRepository, RankingsRoutes } from '@Metrics/Rankings/infrastructure';
 
 describe('Metrics API', () => {
@@ -40,6 +40,9 @@ describe('Metrics API', () => {
     const rankingsGetter = new RankingsGetter(new RankingsInMemoryRepository());
     const rankingsHandler = new GetRankingsQueryHandler(rankingsGetter);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(rankingsHandler);
+    const rankingGetter = new RankingGetter(new RankingsInMemoryRepository());
+    const rankingHandler = new GetRankingQueryHandler(rankingGetter);
+    container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(rankingHandler);
     container.bind(GetRankingsController).toSelf();
     container.bind(RankingsRoutes).toSelf();
 

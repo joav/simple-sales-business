@@ -25,6 +25,14 @@ describe("RankingTypeormRepository", () => {
     expect(rankings[0].category).toEqual(Category.SALES);
   });
 
+  it('should get Rankings', async () => {
+    const ranking = await rankingTypeormRepository.get(Category.SALES, 'best-selling-products-all-time');
+
+    expect(ranking).toBeDefined();
+    expect(ranking.constructor).toBe(Ranking);
+    expect(ranking.category).toEqual(Category.SALES);
+  });
+
   afterAll(async () => {
     (await container.get(DataSourceWrapper).dataSource).destroy();
   });

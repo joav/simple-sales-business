@@ -21,4 +21,16 @@ export class RankingsTypeormRepository
 
     return entities.map((e) => e.toDomain());
   }
+
+  async get(category: Category, rankingSlug: string): Promise<Ranking> {
+    const repository = await this.repository;
+    const ranking = await repository.findOneOrFail({
+      where: {
+        category,
+        rankingSlug
+      }
+    });
+
+    return ranking.toDomain();
+  }
 }

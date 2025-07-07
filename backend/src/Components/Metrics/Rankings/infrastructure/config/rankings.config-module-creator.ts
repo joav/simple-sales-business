@@ -1,5 +1,10 @@
 import { metricsSharedDiIdentifiers } from '@Metrics/Shared/infrastructure';
-import { GetRankingsQueryHandler, RankingsGetter } from '@Metrics/Rankings/application';
+import {
+  GetRankingQueryHandler,
+  GetRankingsQueryHandler,
+  RankingGetter,
+  RankingsGetter
+} from '@Metrics/Rankings/application';
 import { RankingsRepository } from '@Metrics/Rankings/domain';
 import { ContainerModuleCreator, sharedDiIdentifiers } from '@Shared/infrastructure';
 import { ContainerModule } from 'inversify';
@@ -23,6 +28,18 @@ export const rankingsContainerModuleCreator = {
       options
         .bind(sharedDiIdentifiers.QUERY_HANDLER)
         .toResolvedValue((handler: GetRankingsQueryHandler) => handler, [GetRankingsQueryHandler]);
+      options
+        .bind(RankingGetter)
+        .toResolvedValue((repo: RankingsRepository) => new RankingGetter(repo), [repoSymbol]);
+      options
+        .bind(GetRankingQueryHandler)
+        .toResolvedValue(
+          (getter: RankingGetter) => new GetRankingQueryHandler(getter),
+          [RankingGetter]
+        );
+      options
+        .bind(sharedDiIdentifiers.QUERY_HANDLER)
+        .toResolvedValue((handler: GetRankingQueryHandler) => handler, [GetRankingQueryHandler]);
 
       options.bind(GetRankingsController).toSelf();
       options.bind(RankingsRoutes).toSelf();
