@@ -28,9 +28,12 @@ export class RankingsTypeormRepository
       where: {
         category,
         rankingSlug
+      },
+      relations: {
+        data: true
       }
     });
 
-    return ranking.toDomain();
+    return ranking.toDomainWithData();
   }
 }

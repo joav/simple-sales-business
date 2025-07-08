@@ -228,6 +228,10 @@
                 "items": {
                   "type": "object",
                   "properties": {
+                    "id": {
+                      "type": "string",
+                      "example": "ADADS123123"
+                    },
                     "lastUpdate": {
                       "$ref": "#/components/schemas/Date"
                     },
@@ -235,7 +239,7 @@
                       "type": "number",
                       "example": 5.3
                     },
-                    "competitor": {
+                    "name": {
                       "type": "string",
                       "example": "The First Competitor"
                     }

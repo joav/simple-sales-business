@@ -21,6 +21,7 @@ export class RankingsInMemoryRepository implements RankingsRepository {
         category: 'products',
         data: [
           {
+            id: 'some-id',
             name: 'Name',
             lastUpdate: '2025-06-06T02:02:02.060Z',
             value: 5

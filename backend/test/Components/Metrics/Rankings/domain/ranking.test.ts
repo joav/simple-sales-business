@@ -72,6 +72,7 @@ describe('Metrics Ranking', () => {
         .withRankingValueTitle('Title')
         .withCategory('sales')
         .withData([{
+          id: 'FAKE',
           name: 'Name',
           lastUpdate: lastUpdate.toISOString(),
           value: 4
@@ -87,6 +88,22 @@ describe('Metrics Ranking', () => {
       expect(ranking.data[0].value).toEqual(4);
       expect(ranking.toPrimitives()).toBeDefined();
     });
+    it('should throws InvalidInputException for empty data id', () => {
+      try {
+        builder
+          .withRankingSlug('some-slug')
+          .withRankingValueTitle('Title')
+          .withCategory('sales')
+          .withData([{
+            id: ''
+          } as any])
+          .build();
+      } catch (error) {
+        expect(error).toBeInstanceOf(InvalidInputException);
+        expect(error.status.statusCode).toBe(RANKING_COMPETITOR_EXCEPTIONS.InvalidId.statusCode);
+        expect(error.status.statusMessage).toBe(RANKING_COMPETITOR_EXCEPTIONS.InvalidId.statusMessage);
+      }
+    });
     it('should throws InvalidInputException for empty data name', () => {
       try {
         builder
@@ -94,6 +111,7 @@ describe('Metrics Ranking', () => {
           .withRankingValueTitle('Title')
           .withCategory('sales')
           .withData([{
+            id: 'FAKE',
             name: ''
           } as any])
           .build();
@@ -110,6 +128,7 @@ describe('Metrics Ranking', () => {
           .withRankingValueTitle('Title')
           .withCategory('sales')
           .withData([{
+            id: 'FAKE',
             name: 'Fake Competitor',
             lastUpdate: ''
           } as any])
@@ -127,6 +146,7 @@ describe('Metrics Ranking', () => {
           .withRankingValueTitle('Title')
           .withCategory('sales')
           .withData([{
+            id: 'FAKE',
             name: 'Fake Competitor',
             lastUpdate: 'fake fake'
           } as any])
@@ -144,6 +164,7 @@ describe('Metrics Ranking', () => {
           .withRankingValueTitle('Title')
           .withCategory('sales')
           .withData([{
+            id: 'FAKE',
             name: 'Fake Competitor',
             lastUpdate: '2025-06-21'
           } as any])
@@ -161,6 +182,7 @@ describe('Metrics Ranking', () => {
           .withRankingValueTitle('Title')
           .withCategory('sales')
           .withData([{
+            id: 'FAKE',
             name: 'Fake Competitor',
             lastUpdate: '2025-06-21T04:02:02.060Z'
           } as any])
@@ -178,6 +200,7 @@ describe('Metrics Ranking', () => {
           .withRankingValueTitle('Title')
           .withCategory('sales')
           .withData([{
+            id: 'FAKE',
             name: 'Fake Competitor',
             lastUpdate: '2025-06-21T04:02:02.060Z',
             value: NaN

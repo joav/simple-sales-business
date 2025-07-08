@@ -2,7 +2,7 @@ import { Ranking } from "@Metrics/Rankings/domain";
 import { Category } from "@Metrics/Shared/domain";
 import { Container } from "inversify";
 import { configFactory } from "../../../../../../../utils/typeorm/config";
-import { RankingsTypeormRepository, RankingEntity } from "@Metrics/Rankings/infrastructure";
+import { RankingsTypeormRepository, RankingEntity, RankingCompetitorEntity } from "@Metrics/Rankings/infrastructure";
 import { DataSourceWrapper, TypeormRepository } from "@Shared/infrastructure";
 
 describe("RankingTypeormRepository", () => {
@@ -10,7 +10,7 @@ describe("RankingTypeormRepository", () => {
   let rankingTypeormRepository: RankingsTypeormRepository;
   beforeAll(() => {
     container = new Container();
-    const dataSourceWrapper = new DataSourceWrapper(configFactory(RankingEntity));
+    const dataSourceWrapper = new DataSourceWrapper(configFactory(RankingEntity, RankingCompetitorEntity));
     container.bind(DataSourceWrapper).toConstantValue(dataSourceWrapper);
     container.bind(TypeormRepository).toSelf();
     container.bind(RankingsTypeormRepository).toSelf();
