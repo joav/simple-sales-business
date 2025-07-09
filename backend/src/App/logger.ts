@@ -1,20 +1,7 @@
-import winston from 'winston';
-import { commonsLogger } from '@Shared/infrastructure';
+import { addLogger } from '@Shared/infrastructure';
 import { appLoggers } from './loggers';
 
-winston.loggers.add(appLoggers.HTTP, {
-  level: 'http',
-  defaultMeta: {
-    component: 'App',
-    logger: appLoggers.HTTP
-  },
-  ...commonsLogger()
-});
-winston.loggers.add(appLoggers.DEFAULT, {
-  level: process.env.LOG_LEVEL || 'info',
-  defaultMeta: {
-    component: 'App',
-    logger: appLoggers.DEFAULT
-  },
-  ...commonsLogger()
-});
+const component = 'App';
+
+addLogger(component, appLoggers.HTTP, 'http');
+addLogger(component, appLoggers.DEFAULT, process.env.LOG_LEVEL || 'info');

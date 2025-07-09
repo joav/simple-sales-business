@@ -1,4 +1,5 @@
 export * from './Query-Bus';
+export * from './add-logger';
 export * from './commons-logger';
 export * from './config-executor';
 export * from './config';
