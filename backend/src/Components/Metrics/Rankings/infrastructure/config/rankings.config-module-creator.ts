@@ -6,14 +6,19 @@ import {
   RankingsGetter
 } from '@Metrics/Rankings/application';
 import { RankingsRepository } from '@Metrics/Rankings/domain';
-import { ContainerModuleCreator, sharedDiIdentifiers } from '@Shared/infrastructure';
+import { ContainerModuleCreator, sharedDiIdentifiers, getLogger } from '@Shared/infrastructure';
 import { ContainerModule } from 'inversify';
 import { RankingsTypeormRepository } from '../data';
 import { GetRankingController, GetRankingsController, RankingsRoutes } from '../web';
+import { LOGGER, configLogger } from '../logger';
+import { ApplicationLogger } from '@Shared/domain';
 
 export const rankingsContainerModuleCreator = {
   create() {
     return new ContainerModule((options) => {
+      configLogger();
+      const logger = getLogger(LOGGER);
+      options.bind(sharedDiIdentifiers.LOGGER).toConstantValue(logger).whenNamed(LOGGER);
       const repoSymbol = metricsSharedDiIdentifiers.RANKINGS_REPOSITORY;
       options.bind(repoSymbol).to(RankingsTypeormRepository);
       options
@@ -22,8 +27,9 @@ export const rankingsContainerModuleCreator = {
       options
         .bind(GetRankingsQueryHandler)
         .toResolvedValue(
-          (getter: RankingsGetter) => new GetRankingsQueryHandler(getter),
-          [RankingsGetter]
+          (getter: RankingsGetter, logger: ApplicationLogger) =>
+            new GetRankingsQueryHandler(getter, logger),
+          [RankingsGetter, { name: LOGGER, serviceIdentifier: sharedDiIdentifiers.LOGGER }]
         );
       options
         .bind(sharedDiIdentifiers.QUERY_HANDLER)
@@ -34,8 +40,9 @@ export const rankingsContainerModuleCreator = {
       options
         .bind(GetRankingQueryHandler)
         .toResolvedValue(
-          (getter: RankingGetter) => new GetRankingQueryHandler(getter),
-          [RankingGetter]
+          (getter: RankingGetter, logger: ApplicationLogger) =>
+            new GetRankingQueryHandler(getter, logger),
+          [RankingGetter, { name: LOGGER, serviceIdentifier: sharedDiIdentifiers.LOGGER }]
         );
       options
         .bind(sharedDiIdentifiers.QUERY_HANDLER)

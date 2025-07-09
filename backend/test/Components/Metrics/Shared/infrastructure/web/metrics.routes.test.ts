@@ -8,7 +8,7 @@ import { sharedDiIdentifiers, QueryHandlersRepository, QueryBusInMemory, getLogg
 import { GetTimeSerieQueryHandler, GetTimeSeriesQueryHandler, TimeSerieGetter, TimeSeriesGetter } from '@Metrics/TimeSeries/application';
 import { GetTimeSerieController, GetTimeSeriesController, TimeSeriesInMemoryRepository, TimeSeriesRoutes } from '@Metrics/TimeSeries/infrastructure';
 import { GetRankingQueryHandler, GetRankingsQueryHandler, RankingGetter, RankingsGetter } from '@Metrics/Rankings/application';
-import { GetRankingController, GetRankingsController, RankingsInMemoryRepository, RankingsRoutes } from '@Metrics/Rankings/infrastructure';
+import { GetRankingController, GetRankingsController, RankingsInMemoryRepository, RankingsRoutes, LOGGER as LOGGER_RANKINGS, configLogger as configRankingsLogger } from '@Metrics/Rankings/infrastructure';
 
 describe('Metrics API', () => {
   let app: express.Express;
@@ -40,12 +40,15 @@ describe('Metrics API', () => {
     const timeSerieHandler = new GetTimeSerieQueryHandler(timeSerieGetter);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(timeSerieHandler);
 
+    configRankingsLogger();
+    const loggerRankings = getLogger(LOGGER_RANKINGS);
     const rankingsGetter = new RankingsGetter(new RankingsInMemoryRepository());
-    const rankingsHandler = new GetRankingsQueryHandler(rankingsGetter);
+    const rankingsHandler = new GetRankingsQueryHandler(rankingsGetter, loggerRankings);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(rankingsHandler);
     const rankingGetter = new RankingGetter(new RankingsInMemoryRepository());
-    const rankingHandler = new GetRankingQueryHandler(rankingGetter);
+    const rankingHandler = new GetRankingQueryHandler(rankingGetter, loggerRankings);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(rankingHandler);
+    container.bind(sharedDiIdentifiers.LOGGER).toConstantValue(loggerRankings).whenNamed(LOGGER_RANKINGS);
     container.bind(GetRankingsController).toSelf();
     container.bind(GetRankingController).toSelf();
     container.bind(RankingsRoutes).toSelf();

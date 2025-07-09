@@ -1,9 +1,8 @@
-import { QueryHandler } from '@Shared/domain';
+import { QueryHandler, ApplicationLogger } from '@Shared/domain';
 import { AggregatesGetter } from './aggregates-getter';
 import { GetAggregatesResponse } from './get-aggregates.response';
 import { GetAggregatesQuery } from './get-aggregates.query';
 import { categoryFromPrimitive } from '@Metrics/Shared/domain';
-import { ApplicationLogger } from '@Shared/domain';
 
 export class GetAggregatesQueryHandler
   implements QueryHandler<GetAggregatesQuery, GetAggregatesResponse>
