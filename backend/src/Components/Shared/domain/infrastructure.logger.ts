@@ -1,3 +1,5 @@
+/* eslint @typescript-eslint/no-unsafe-function-type: 0 */
+// @typescript-eslint/no-unsafe-function-type
 import { ApplicationLogger } from './application.logger';
 
 export interface InfrastructureLogger extends ApplicationLogger {

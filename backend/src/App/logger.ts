@@ -5,14 +5,16 @@ import { appLoggers } from './loggers';
 winston.loggers.add(appLoggers.HTTP, {
   level: 'http',
   defaultMeta: {
-    component: 'App'
+    component: 'App',
+    logger: appLoggers.HTTP
   },
   ...commonsLogger()
 });
 winston.loggers.add(appLoggers.DEFAULT, {
   level: process.env.LOG_LEVEL || 'info',
   defaultMeta: {
-    component: 'App'
+    component: 'App',
+    logger: appLoggers.DEFAULT
   },
   ...commonsLogger()
 });
