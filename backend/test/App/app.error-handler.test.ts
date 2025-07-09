@@ -3,6 +3,7 @@ import { InvalidInputException } from "@Shared/domain";
 import { BadRequest, NotFound } from "express-openapi-validator/dist/openapi.validator";
 import { StatusCodes } from "http-status-codes";
 import { EntityNotFoundError } from "typeorm";
+import '@App/logger';
 
 describe('AppErrorHandler', () => {
   it('should return error response with message Bad Request', () => {

@@ -1,10 +1,15 @@
-import { inject, injectable } from 'inversify';
+/* eslint @typescript-eslint/no-explicit-any: 0 */
+import { inject, injectable, named } from 'inversify';
 import express, { Express } from 'express';
 import { Server } from 'node:http';
 import { AppRoutes } from './Routes/app.routes';
 import diIdentifiers from './Config/di-identifiers';
+import { sharedDiIdentifiers } from '@Shared/infrastructure';
 import { OpenApiRequestHandler } from 'express-openapi-validator/dist/framework/types';
 import { appErrorHandler } from './app.error-handler';
+import { appLoggers } from './loggers';
+import { InfrastructureLogger } from '@Shared/domain';
+import { MorganConfig } from './Morgan/morgan-config';
 
 @injectable('Singleton')
 export class App {
@@ -18,7 +23,11 @@ export class App {
   constructor(
     @inject(diIdentifiers.APP_PARAMS) params: Partial<AppParams>,
     @inject(AppRoutes) private readonly appRoutes: AppRoutes,
-    @inject(diIdentifiers.SWAGGER_CONFIG) private readonly swaggerConfig: SwaggerConfig
+    @inject(diIdentifiers.SWAGGER_CONFIG) private readonly swaggerConfig: SwaggerConfig,
+    @inject(sharedDiIdentifiers.LOGGER)
+    @named(appLoggers.HTTP)
+    private readonly logger: InfrastructureLogger,
+    @inject(diIdentifiers.MORGAN_CONFIG) private readonly morganConfig: MorganConfig
   ) {
     this.openapiPath = params.openapiPath ?? './openapi.json';
     this.webPort = params.webPort ?? 3500;
@@ -30,7 +39,8 @@ export class App {
 
   private initialize() {
     const swaggerValidator = this.initSwagger();
-    this.useMiddlewares(swaggerValidator);
+    const { middleware: morganMiddleware } = this.morganConfig.init(this.logger);
+    this.useMiddlewares(swaggerValidator, morganMiddleware);
     this.setRoutes();
     this.setErrorHandler();
   }
@@ -46,7 +56,8 @@ export class App {
     return swaggerHandlers.validator;
   }
 
-  private useMiddlewares(swaggerValidator: unknown) {
+  private useMiddlewares(swaggerValidator: unknown, morganMiddleware: any) {
+    this.app.use(morganMiddleware);
     this.app.use(
       express.urlencoded({
         extended: false,

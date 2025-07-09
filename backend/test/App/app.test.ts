@@ -2,10 +2,14 @@ import { App } from '@App';
 import appConfig from '@App/Config/app.config';
 import diIdentifiers from '@App/Config/di-identifiers';
 import { AppRoutes } from '@App/Routes/app.routes';
-import { AbstractRoutes, ComponentRoute } from '@Shared/infrastructure';
+import { AbstractRoutes, ComponentRoute, sharedDiIdentifiers } from '@Shared/infrastructure';
 import { Container, injectable } from 'inversify';
 import path from 'node:path';
 import request from 'supertest';
+import '@App/logger';
+import { appLoggers } from '@App/loggers';
+import winston from 'winston';
+import { morganConfigMiddleWare } from '@App/Morgan/config-middleware';
 
 @injectable('Singleton')
 class MyComponentRoute extends AbstractRoutes implements ComponentRoute {
@@ -121,6 +125,8 @@ describe('App', () => {
   });
 
   function setDefaultContainer(params: Partial<AppParams> = {}) {
+    container.bind(sharedDiIdentifiers.LOGGER).toConstantValue(winston.loggers.get(appLoggers.HTTP)).whenNamed(appLoggers.HTTP);
+    container.bind(diIdentifiers.MORGAN_CONFIG).toConstantValue(morganConfigMiddleWare);
     container.bind(AppRoutes).toConstantValue({
       setRoutes: jest.fn()
     } as any);

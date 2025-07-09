@@ -8,9 +8,19 @@ import swaggerConfig from '@App/Swagger/swagger.config';
 import { StatusController } from '@App/Controllers/status.controller';
 import { StatusRoutes } from '@App/Routes/status.routes';
 import { ApiRoutes } from '@App/Routes/api.routes';
+import '../logger';
+import { appLoggers } from '../loggers';
+import { sharedDiIdentifiers } from '@Shared/infrastructure';
+import winston from 'winston';
+import { morganConfigMiddleWare } from '../Morgan/config-middleware';
 
 export default {
   config(container: Container, appParams: Partial<AppParams>) {
+    container
+      .bind(sharedDiIdentifiers.LOGGER)
+      .toConstantValue(winston.loggers.get(appLoggers.HTTP))
+      .whenNamed(appLoggers.HTTP);
+    container.bind(diIdentifiers.MORGAN_CONFIG).toConstantValue(morganConfigMiddleWare);
     container.bind(HomeController).toSelf();
     container.bind(StatusController).toSelf();
     container.bind(HomeRoutes).toSelf();

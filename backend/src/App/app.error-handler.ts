@@ -5,6 +5,17 @@ import { NextFunction, Request, Response } from 'express';
 import { BadRequest, NotFound } from 'express-openapi-validator/dist/openapi.validator';
 import { StatusCodes } from 'http-status-codes';
 import { EntityNotFoundError } from 'typeorm';
+import winston from 'winston';
+import { InfrastructureLogger } from '@Shared/domain';
+import { appLoggers } from './loggers';
+
+let _logger: InfrastructureLogger;
+
+const logger = () => {
+  if (!_logger) _logger = winston.loggers.get(appLoggers.DEFAULT);
+  _logger.exitOnError = false;
+  return _logger;
+};
 
 export const appErrorHandler = (
   err: unknown,
@@ -12,7 +23,6 @@ export const appErrorHandler = (
   res: Response,
   _next: NextFunction
 ) => {
-  // TODO: Log error
   let response: StdResponse;
   const builder = new StdResponseBuilder();
   if (err instanceof BadRequest) {
@@ -21,6 +31,7 @@ export const appErrorHandler = (
       .withStatusMessage('Bad Request')
       .withHttpStatusCode(StatusCodes.BAD_REQUEST)
       .build();
+    logger().warn('Bad Request', err.errors);
   }
 
   if (err instanceof NotFound) {
@@ -29,6 +40,7 @@ export const appErrorHandler = (
       .withStatusMessage('Not Found Resource')
       .withHttpStatusCode(StatusCodes.NOT_FOUND)
       .build();
+    logger().warn('Not Found Resource', err.errors);
   }
 
   if (err instanceof EntityNotFoundError) {
@@ -37,6 +49,7 @@ export const appErrorHandler = (
       .withStatusMessage('Not Found Data')
       .withHttpStatusCode(StatusCodes.NOT_FOUND)
       .build();
+    logger().warn('Not Found Data', { message: err.message });
   }
 
   if (err instanceof InvalidInputException) {
@@ -44,6 +57,10 @@ export const appErrorHandler = (
       .withDomainStatus(err.status)
       .withHttpStatusCode(StatusCodes.BAD_REQUEST)
       .build();
+    logger().warn('Invalid Input', {
+      status: err.status.toPrimitives(),
+      exceptionType: err.exceptionType
+    });
   }
 
   if (!response && err instanceof Error) {
@@ -52,6 +69,7 @@ export const appErrorHandler = (
       .withStatusMessage('Unknown error')
       .withHttpStatusCode(StatusCodes.INTERNAL_SERVER_ERROR)
       .build();
+    logger().error(err);
   }
   if (!response) {
     response = builder
@@ -59,6 +77,7 @@ export const appErrorHandler = (
       .withStatusMessage('Unknown error')
       .withHttpStatusCode(StatusCodes.INTERNAL_SERVER_ERROR)
       .build();
+    logger().error('Not a Error instance', JSON.parse(JSON.stringify(err)));
   }
 
   res.status(response.status.httpStatusCode).json(response);
