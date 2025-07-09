@@ -4,7 +4,7 @@
   "description": "",
   "main": "dist/main.js",
   "scripts": {
-    "start:dev": "tsx watch ./src/main.ts",
+    "start:dev": "LOG_LEVEL=debug tsx watch ./src/main.ts",
     "test": "jest",
     "prettier": "prettier --check \"src/**/*.ts\"",
     "prettier:write": "prettier --write \"src/**/*.ts\"",

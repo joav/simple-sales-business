@@ -4,7 +4,7 @@ import { commonsLogger } from './commons-logger';
 export const addLogger = (
   component: string,
   logger: string,
-  level: string,
+  level = process.env.LOG_LEVEL || 'info',
   transports: winston.transport[] = []
 ) => {
   winston.loggers.add(logger, {

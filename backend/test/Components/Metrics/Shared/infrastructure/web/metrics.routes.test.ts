@@ -3,8 +3,8 @@ import { MetricsRoutes } from '@Metrics/Shared/infrastructure';
 import express from 'express';
 import { Container } from 'inversify';
 import request from 'supertest';
-import { AggregatesInMemoryRepository, GetAggregatesController, GetAggregateValueController, AggregatesRoutes } from '@Metrics/Aggregates/infrastructure';
-import { sharedDiIdentifiers, QueryHandlersRepository, QueryBusInMemory } from '@Shared/infrastructure';
+import { AggregatesInMemoryRepository, GetAggregatesController, GetAggregateValueController, AggregatesRoutes, LOGGER as LOGGER_AGGREGATES, configLogger as configAggregatesLogger } from '@Metrics/Aggregates/infrastructure';
+import { sharedDiIdentifiers, QueryHandlersRepository, QueryBusInMemory, getLogger } from '@Shared/infrastructure';
 import { GetTimeSerieQueryHandler, GetTimeSeriesQueryHandler, TimeSerieGetter, TimeSeriesGetter } from '@Metrics/TimeSeries/application';
 import { GetTimeSerieController, GetTimeSeriesController, TimeSeriesInMemoryRepository, TimeSeriesRoutes } from '@Metrics/TimeSeries/infrastructure';
 import { GetRankingQueryHandler, GetRankingsQueryHandler, RankingGetter, RankingsGetter } from '@Metrics/Rankings/application';
@@ -15,13 +15,16 @@ describe('Metrics API', () => {
 
   beforeEach(() => {
     const container = new Container();
-
+    
+    configAggregatesLogger();
+    const loggerAggregates = getLogger(LOGGER_AGGREGATES);
     const aggregatesGetter = new AggregatesGetter(new AggregatesInMemoryRepository());
-    const aggregatesHandler = new GetAggregatesQueryHandler(aggregatesGetter);
+    const aggregatesHandler = new GetAggregatesQueryHandler(aggregatesGetter, loggerAggregates);
     const getterValue = new AggregateValueGetter(new AggregatesInMemoryRepository());
-    const handlerValue = new GetAggregateValueQueryHandler(getterValue);
+    const handlerValue = new GetAggregateValueQueryHandler(getterValue, loggerAggregates);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(aggregatesHandler);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(handlerValue);
+    container.bind(sharedDiIdentifiers.LOGGER).toConstantValue(loggerAggregates).whenNamed(LOGGER_AGGREGATES);
     container.bind(GetAggregatesController).toSelf();
     container.bind(GetAggregateValueController).toSelf();
     container.bind(AggregatesRoutes).toSelf();

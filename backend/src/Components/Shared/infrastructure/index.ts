@@ -6,4 +6,5 @@ export * from './config';
 export * from './container-module-creator';
 export * from './data';
 export * from './di-identifiers';
+export * from './get-logger';
 export * from './web';

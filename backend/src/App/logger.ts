@@ -4,4 +4,4 @@ import { appLoggers } from './loggers';
 const component = 'App';
 
 addLogger(component, appLoggers.HTTP, 'http');
-addLogger(component, appLoggers.DEFAULT, process.env.LOG_LEVEL || 'info');
+addLogger(component, appLoggers.DEFAULT);
