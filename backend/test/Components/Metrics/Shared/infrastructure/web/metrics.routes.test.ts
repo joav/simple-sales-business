@@ -6,7 +6,7 @@ import request from 'supertest';
 import { AggregatesInMemoryRepository, GetAggregatesController, GetAggregateValueController, AggregatesRoutes, LOGGER as LOGGER_AGGREGATES, configLogger as configAggregatesLogger } from '@Metrics/Aggregates/infrastructure';
 import { sharedDiIdentifiers, QueryHandlersRepository, QueryBusInMemory, getLogger } from '@Shared/infrastructure';
 import { GetTimeSerieQueryHandler, GetTimeSeriesQueryHandler, TimeSerieGetter, TimeSeriesGetter } from '@Metrics/TimeSeries/application';
-import { GetTimeSerieController, GetTimeSeriesController, TimeSeriesInMemoryRepository, TimeSeriesRoutes } from '@Metrics/TimeSeries/infrastructure';
+import { GetTimeSerieController, GetTimeSeriesController, TimeSeriesInMemoryRepository, TimeSeriesRoutes, LOGGER as LOGGER_TIME_SERIES, configLogger as configTimeSeriesLogger } from '@Metrics/TimeSeries/infrastructure';
 import { GetRankingQueryHandler, GetRankingsQueryHandler, RankingGetter, RankingsGetter } from '@Metrics/Rankings/application';
 import { GetRankingController, GetRankingsController, RankingsInMemoryRepository, RankingsRoutes, LOGGER as LOGGER_RANKINGS, configLogger as configRankingsLogger } from '@Metrics/Rankings/infrastructure';
 
@@ -29,15 +29,18 @@ describe('Metrics API', () => {
     container.bind(GetAggregateValueController).toSelf();
     container.bind(AggregatesRoutes).toSelf();
 
+    configTimeSeriesLogger();
+    const loggerTimeSeries = getLogger(LOGGER_TIME_SERIES);
     const timeSeriesGetter = new TimeSeriesGetter(new TimeSeriesInMemoryRepository());
-    const timeSeriesHandler = new GetTimeSeriesQueryHandler(timeSeriesGetter);
+    const timeSeriesHandler = new GetTimeSeriesQueryHandler(timeSeriesGetter, loggerTimeSeries);
+    container.bind(sharedDiIdentifiers.LOGGER).toConstantValue(loggerTimeSeries).whenNamed(LOGGER_TIME_SERIES);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(timeSeriesHandler);
     container.bind(GetTimeSerieController).toSelf();
     container.bind(GetTimeSeriesController).toSelf();
     container.bind(TimeSeriesRoutes).toSelf();
 
     const timeSerieGetter = new TimeSerieGetter(new TimeSeriesInMemoryRepository());
-    const timeSerieHandler = new GetTimeSerieQueryHandler(timeSerieGetter);
+    const timeSerieHandler = new GetTimeSerieQueryHandler(timeSerieGetter, loggerTimeSeries);
     container.bind(sharedDiIdentifiers.QUERY_HANDLER).toConstantValue(timeSerieHandler);
 
     configRankingsLogger();
