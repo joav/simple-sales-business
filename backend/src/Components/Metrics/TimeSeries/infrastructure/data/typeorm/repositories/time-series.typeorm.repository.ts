@@ -22,17 +22,20 @@ export class TimeSeriesTypeormRepository
     return entities.map((e) => e.toDomain());
   }
 
-  async get(category: Category, timeSerieSlug: string): Promise<TimeSerie> {
+  async get(category: Category, timeSerieSlug: string, from: Date, to: Date): Promise<TimeSerie> {
     const repository = await this.repository;
-    const timeSerie = await repository.findOneOrFail({
-      where: {
-        category,
-        timeSerieSlug
-      },
-      relations: {
-        data: true
-      }
-    });
+    const timeSerie = await repository
+      .createQueryBuilder('timeSerie')
+      .leftJoinAndSelect(
+        'timeSerie.data',
+        'data',
+        'data.timeSerieId = timeSerie.id AND data.date > :from AND data.date <= :to'
+      )
+      .where('timeSerie.category = :category')
+      .andWhere('timeSerie.timeSerieSlug = :timeSerieSlug')
+      .orderBy('data.date', 'ASC')
+      .setParameters({ from: from.toISOString(), to: to.toISOString(), category, timeSerieSlug })
+      .getOneOrFail();
 
     return timeSerie.toDomainWithData();
   }

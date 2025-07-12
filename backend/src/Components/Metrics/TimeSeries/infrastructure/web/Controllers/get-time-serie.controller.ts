@@ -16,7 +16,13 @@ export class GetTimeSerieController implements Controller {
   handleRequest = async (req: Request, res: Response) => {
     this.logger.info('Processing GetTimeSerieController request...');
     this.logger.debug('params', { params: req.params });
-    const query = new GetTimeSerieQuery(req.params.category, req.params.timeSerieSlug);
+    this.logger.debug('http query', { query: req.query });
+    const query = new GetTimeSerieQuery(
+      req.params.category,
+      req.params.timeSerieSlug,
+      String(req.query.from ?? ''),
+      String(req.query.to ?? '')
+    );
     const result = await this.queryBus.ask<GetTimeSerieResponse>(query);
     const response = successResponse(result.timeSerie, StatusCodes.OK);
     this.logger.debug('response', { response });

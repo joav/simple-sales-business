@@ -26,7 +26,7 @@ describe("TimeSerieTypeormRepository", () => {
   });
 
   it('should get TimeSeries', async () => {
-    const timeSerie = await timeSerieTypeormRepository.get(Category.SALES, 'monthly-sales');
+    const timeSerie = await timeSerieTypeormRepository.get(Category.SALES, 'monthly-sales', new Date, new Date);
 
     expect(timeSerie).toBeDefined();
     expect(timeSerie.constructor).toBe(TimeSerie);

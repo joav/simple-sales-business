@@ -134,7 +134,7 @@
       },
       "Date": {
         "type": "string",
-        "example": "2025-06-05T03:29:00Z"
+        "example": "2025-06-05T03:29:00.000Z"
       },
       "AggregateValue": {
         "description": "An aggregate value",

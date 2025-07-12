@@ -13,7 +13,7 @@ describe('Get TimeSerie', () => {
     };
     const getter = new TimeSerieGetter(repo);
     const handler = new GetTimeSerieQueryHandler(getter, logger);
-    const query = new GetTimeSerieQuery(values.category, values.timeSerieSlug);
+    const query = new GetTimeSerieQuery(values.category, values.timeSerieSlug, values.data[0].date, values.data[0].date);
 
     const result = await handler.handle(query);
     expect(result.timeSerie).toBeTruthy();
