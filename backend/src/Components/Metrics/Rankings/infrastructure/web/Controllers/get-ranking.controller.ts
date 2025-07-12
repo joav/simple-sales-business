@@ -20,7 +20,7 @@ export class GetRankingController implements Controller {
     const query = new GetRankingQuery(
       req.params.category,
       req.params.rankingSlug,
-      Number(req.query.top)
+      Number(req.query.top ?? 0)
     );
     const result = await this.queryBus.ask<GetRankingResponse>(query);
     const response = successResponse(result.ranking, StatusCodes.OK);
