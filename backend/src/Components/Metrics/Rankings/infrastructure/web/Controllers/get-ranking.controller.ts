@@ -16,7 +16,12 @@ export class GetRankingController implements Controller {
   handleRequest = async (req: Request, res: Response) => {
     this.logger.info('Processing GetRankingController...');
     this.logger.debug('Params', { params: req.params });
-    const query = new GetRankingQuery(req.params.category, req.params.rankingSlug);
+    this.logger.debug('Http Query', { query: req.query });
+    const query = new GetRankingQuery(
+      req.params.category,
+      req.params.rankingSlug,
+      Number(req.query.top)
+    );
     const result = await this.queryBus.ask<GetRankingResponse>(query);
     const response = successResponse(result.ranking, StatusCodes.OK);
     this.logger.debug('Response', { response });

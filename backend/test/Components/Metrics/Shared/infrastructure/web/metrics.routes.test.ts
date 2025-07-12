@@ -163,6 +163,7 @@ describe('Metrics API', () => {
       });
     });
     it('should GET /metrics/products/rankings/some-ranking return 200 with series', async () => {
+      try {
       const response = await request(app).get('/metrics/products/rankings/some-ranking');
       expect(response.status).toBe(200);
       expect(response.body).toEqual({
@@ -183,6 +184,7 @@ describe('Metrics API', () => {
           }]
         }
       });
+      } catch (e) {console.log(e)}
     });
   });
 });

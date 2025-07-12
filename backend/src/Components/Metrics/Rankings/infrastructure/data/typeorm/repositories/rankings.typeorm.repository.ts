@@ -22,17 +22,17 @@ export class RankingsTypeormRepository
     return entities.map((e) => e.toDomain());
   }
 
-  async get(category: Category, rankingSlug: string): Promise<Ranking> {
+  async get(category: Category, rankingSlug: string, top: number): Promise<Ranking> {
     const repository = await this.repository;
-    const ranking = await repository.findOneOrFail({
-      where: {
-        category,
-        rankingSlug
-      },
-      relations: {
-        data: true
-      }
-    });
+    const ranking = await repository
+      .createQueryBuilder('ranking')
+      .leftJoinAndSelect('ranking.data', 'data')
+      .where('ranking.category = :category')
+      .andWhere('ranking.rankingSlug = :rankingSlug')
+      .orderBy('data.value', 'DESC')
+      .limit(top)
+      .setParameters({ category, rankingSlug })
+      .getOneOrFail();
 
     return ranking.toDomainWithData();
   }

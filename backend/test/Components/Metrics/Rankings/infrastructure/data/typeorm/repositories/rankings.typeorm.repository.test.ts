@@ -26,7 +26,7 @@ describe("RankingTypeormRepository", () => {
   });
 
   it('should get Rankings', async () => {
-    const ranking = await rankingTypeormRepository.get(Category.SALES, 'best-selling-products-all-time');
+    const ranking = await rankingTypeormRepository.get(Category.SALES, 'best-selling-products-all-time', 3);
 
     expect(ranking).toBeDefined();
     expect(ranking.constructor).toBe(Ranking);
