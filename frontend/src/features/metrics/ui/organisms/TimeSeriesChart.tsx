@@ -14,7 +14,7 @@ import Title from '../../../shared/ui/atoms/Title';
 import Spinner from '../../../shared/ui/atoms/Spinner';
 
 interface TimeSeriesData {
-  time: string;
+  time: string; // This will be the formatted date string
   value: number;
 }
 
