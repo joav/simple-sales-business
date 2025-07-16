@@ -8,6 +8,7 @@ const AggregatesSection: React.FC = () => {
   const { data: productsWithoutStock, loading: loadingWithoutStock } = useMetrics(useCallback(() => getAggregateValue('products', 'without-stock'), []));
   const { data: monthSales, loading: loadingMonthSales } = useMetrics(useCallback(() => getAggregateValue('sales', 'current-month'), []));
   const { data: monthEarnings, loading: loadingMonthEarnings } = useMetrics(useCallback(() => getAggregateValue('sales', 'current-month-earnings'), []));
+  const { data: currentBalance, loading: loadingCurrentBalance } = useMetrics(useCallback(() => getAggregateValue('transactions', 'current-balance'), []));
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
@@ -30,6 +31,11 @@ const AggregatesSection: React.FC = () => {
         title="Total ganancias Mes Actual"
         value={monthEarnings ? `$ ${monthEarnings.aggregateValue}` : '$ 0'}
         isLoading={loadingMonthEarnings}
+      />
+      <AggregateValueCard
+        title="Balance actual del negocio"
+        value={currentBalance ? `$ ${currentBalance.aggregateValue}` : '$ 0'}
+        isLoading={loadingCurrentBalance}
       />
     </div>
   );
