@@ -15,8 +15,8 @@ const DashboardPage: React.FC = () => {
   const { data: monthlySalesData, loading: loadingMonthlySales } = useMetrics(useCallback(() => getTimeSerie('sales', 'monthly-sales'), []));
   const { data: monthlyBalanceData, loading: loadingMonthlyBalance } = useMetrics(useCallback(() => getTimeSerie('transactions', 'monthly-balance'), []));
 
-  const { data: bestSellingAllTime, loading: loadingBestSellingAllTime } = useMetrics(useCallback(() => getRanking('products', 'best-selling-products-all-time'), []));
-  const { data: bestSellingCurrentMonth, loading: loadingBestSellingCurrentMonth } = useMetrics(useCallback(() => getRanking('products', 'best-selling-products-current-month'), []));
+  const { data: bestSellingAllTime, loading: loadingBestSellingAllTime } = useMetrics(useCallback(() => getRanking('sales', 'best-selling-products-all-time'), []));
+  const { data: bestSellingCurrentMonth, loading: loadingBestSellingCurrentMonth } = useMetrics(useCallback(() => getRanking('sales', 'best-selling-products-current-month'), []));
   // -----------------------------
 
   return (
