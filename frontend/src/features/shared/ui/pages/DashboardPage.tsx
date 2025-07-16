@@ -8,25 +8,25 @@ const aggregateValues = [
   { key: 'products-with-stock', title: 'Productos con stock', value: 150 },
   { key: 'products-without-stock', title: 'Productos sin stock', value: 20 },
   { key: 'current-month-sales', title: 'Total vendido Mes Actual', value: '$ 120.500' },
-  { key: 'current-month-earnings', title: 'Total ganancias Mes actual', value: '$ 45.000' },
+  { key: 'current-month-earnings', title: 'Total ganancias Mes Actual', value: '$ 45.000' },
   { key: 'current-balance', title: 'Balance de mi negocio', value: '-$ 80.000' },
   { key: 'current-cash-balance', title: 'Saldo de mi negocio', value: '$ 250.500' },
 ];
 
 const bestSellingProductsAllTime = [
-  { id: '1', name: 'Producto A', value: 1500 },
-  { id: '2', name: 'Producto C', value: 1250 },
-  { id: '3', name: 'Producto H', value: 980 },
-  { id: '4', name: 'Producto D', value: 750 },
-  { id: '5', name: 'Producto F', value: 600 },
+  { id: '1', name: 'Producto A', value: 100 },
+  { id: '2', name: 'Producto C', value: 80 },
+  { id: '3', name: 'Producto H', value: 30 },
+  { id: '4', name: 'Producto D', value: 30 },
+  { id: '5', name: 'Producto F', value: 10 },
 ];
 
 const bestSellingProductsCurrentMonth = [
-  { id: '1', name: 'Producto B', value: 125 },
-  { id: '2', name: 'Producto A', value: 110 },
-  { id: '3', name: 'Producto G', value: 95 },
-  { id: '4', name: 'Producto E', value: 80 },
-  { id: '5', name: 'Producto C', value: 70 },
+  { id: '1', name: 'Producto B', value: 30 },
+  { id: '2', name: 'Producto A', value: 10 },
+  { id: '3', name: 'Producto G', value: 10 },
+  { id: '4', name: 'Producto E', value: 5 },
+  { id: '5', name: 'Producto C', value: 2 },
 ];
 
 const monthlySalesData = [
