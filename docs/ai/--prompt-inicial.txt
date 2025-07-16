@@ -1,0 +1,38 @@
+Estoy creando un proyecto de negocios de ventas generalizado, es decir que le pueda servir a cualquier tipo de venta de productos, como primer ejemplo, tengo una clienta emprendedora, que se dedica a comprar productos para el cuidado del cabello, al por mayor y ella los vende cliente a cliente.
+Este proyecto lo inicie hace varias semanas.
+Ya tengo planeada una infrastructura aplicando el modelo C4(Contexto, Contenedores, Componentes, Código). Llegue solo hasta los componentes.
+A nivel de contenedores tengo planeados una Rest API y una single page application creada con React.
+Empece por el API, me centre en el componente de metricas, solo los endpoints tipo GET, ya que quería empezar por mostrar datos, en lugar de recolectarlos.
+Ahora quiero empezar la contraparte del componente de metricas en el front.
+En el backend aplique varias tecnicas y patrones de diseño, para hacer el codigo limpio y mantenible. Me enfoque en el uso de DDD.
+Para el caso del front quiero ir un poco más a los hechos pero conservando la mantenibilidad, por lo que habia pensado seguir utilizando screaming arquitecture y combinarlo con atomic design, es decir separar la UI, del negocio. Me imagino algo asi:
+src/
+ app.tsx
+ main.tsx
+ features/
+  shared/
+   ui/
+    atoms/
+    molecules/
+    organisms/
+    templates/
+    pages/
+   hooks/
+   models/
+   services/
+   state/
+   utils/
+  metrics/
+   ui/
+    ...
+   hooks/
+   ...
+  products/
+   ...
+  ...
+
+Puedes tener en cuenta los diagramas de plantuml de la SPA, por ejemplo docs/diagrams/components/spa.puml y docs/diagrams/components/spa-metrics.puml
+Quiero iniciar por el dashboard que contiene las metricas.
+
+Crea un plan de trabajo paso a paso para iniciar con la creación del proyecto de front y hacer el dashboard. Revisa la documentación que te herelacionado, en la cual puedes identificar que componentes irian en esa pantalla de dashboard.
+ 
