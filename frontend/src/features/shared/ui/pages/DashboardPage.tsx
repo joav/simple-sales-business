@@ -1,17 +1,12 @@
 import React, { useCallback } from 'react';
 import { useMetrics } from '../../../metrics/hooks/useMetrics';
-import { getAggregateValue, getTimeSerie, getRanking } from '../../../metrics/services/metrics.service';
-import AggregateValueCard from '../../../metrics/ui/organisms/AggregateValueCard';
+import { getTimeSerie, getRanking } from '../../../metrics/services/metrics.service';
 import RankingList from '../../../metrics/ui/organisms/RankingList';
 import TimeSeriesChart from '../../../metrics/ui/organisms/TimeSeriesChart';
+import AggregatesSection from '../../../metrics/ui/organisms/AggregatesSection';
 
 const DashboardPage: React.FC = () => {
   // --- Conexión a Datos Reales ---
-  const { data: productsWithStock, loading: loadingWithStock } = useMetrics(useCallback(() => getAggregateValue('products', 'with-stock'), []));
-  const { data: productsWithoutStock, loading: loadingWithoutStock } = useMetrics(useCallback(() => getAggregateValue('products', 'without-stock'), []));
-  const { data: monthSales, loading: loadingMonthSales } = useMetrics(useCallback(() => getAggregateValue('sales', 'current-month'), []));
-  const { data: monthEarnings, loading: loadingMonthEarnings } = useMetrics(useCallback(() => getAggregateValue('sales', 'current-month-earnings'), []));
-
   const { data: monthlySalesData, loading: loadingMonthlySales } = useMetrics(useCallback(() => getTimeSerie('sales', 'monthly-sales'), []));
   const { data: monthlyBalanceData, loading: loadingMonthlyBalance } = useMetrics(useCallback(() => getTimeSerie('transactions', 'monthly-balance'), []));
 
@@ -24,28 +19,7 @@ const DashboardPage: React.FC = () => {
       <h1 className="text-2xl font-bold text-gray-800 mb-6">Dashboard Principal</h1>
 
       {/* Sección de Agregados */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-        <AggregateValueCard
-          title="Productos con stock"
-          value={productsWithStock?.aggregateValue ?? 0}
-          isLoading={loadingWithStock}
-        />
-        <AggregateValueCard
-          title="Productos sin stock"
-          value={productsWithoutStock?.aggregateValue ?? 0}
-          isLoading={loadingWithoutStock}
-        />
-        <AggregateValueCard
-          title="Total vendido Mes Actual"
-          value={monthSales ? `$ ${monthSales.aggregateValue}` : '$ 0'}
-          isLoading={loadingMonthSales}
-        />
-        <AggregateValueCard
-          title="Total ganancias Mes Actual"
-          value={monthEarnings ? `$ ${monthEarnings.aggregateValue}` : '$ 0'}
-          isLoading={loadingMonthEarnings}
-        />
-      </div>
+      <AggregatesSection />
 
       {/* Sección de Rankings y Gráficos */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
