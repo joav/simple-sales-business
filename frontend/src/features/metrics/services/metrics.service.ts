@@ -57,8 +57,15 @@ export async function getAggregateValue(category: string, aggregateId: string): 
   return result.data;
 }
 
-export async function getTimeSerie(category: string, serieSlug: string): Promise<TimeSerie> {
-  const response = await fetch(`${API_BASE_URL}/metrics/${category}/series/${serieSlug}`);
+export async function getTimeSerie(category: string, serieSlug: string, from?: Date, to?: Date): Promise<TimeSerie> {
+  const url = new URL(`${API_BASE_URL}/metrics/${category}/series/${serieSlug}`);
+  if (from) {
+    url.searchParams.append('from', from.toISOString());
+  }
+  if (to) {
+    url.searchParams.append('to', to.toISOString());
+  }
+  const response = await fetch(url.toString());
   if (!response.ok) {
     throw new Error(`Failed to fetch time serie: ${response.statusText}`);
   }
@@ -66,7 +73,7 @@ export async function getTimeSerie(category: string, serieSlug: string): Promise
   return result.data;
 }
 
-export async function getRanking(category: string, rankingSlug: string, top = 3): Promise<Ranking> {
+export async function getRanking(category: string, rankingSlug: string, top = 5): Promise<Ranking> {
   const url = new URL(`${API_BASE_URL}/metrics/${category}/rankings/${rankingSlug}`);
   if (top) {
     url.searchParams.append('top', top.toString());
