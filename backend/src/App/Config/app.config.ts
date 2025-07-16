@@ -12,6 +12,7 @@ import '../logger';
 import { appLoggers } from '../loggers';
 import { sharedDiIdentifiers, getLogger } from '@Shared/infrastructure';
 import { morganConfigMiddleWare } from '../Morgan/config-middleware';
+import { corsConfig } from '../Cors/cors.config';
 
 export default {
   config(container: Container, appParams: Partial<AppParams>) {
@@ -28,6 +29,7 @@ export default {
     container.bind(AppRoutes).toSelf();
     container.bind<Partial<AppParams>>(diIdentifiers.APP_PARAMS).toConstantValue(appParams);
     container.bind<SwaggerConfig>(diIdentifiers.SWAGGER_CONFIG).toConstantValue(swaggerConfig);
+    container.bind<CorsConfig>(diIdentifiers.CORS_CONFIG).toConstantValue(corsConfig);
     container.bind(App).toSelf();
   }
 };

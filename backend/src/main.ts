@@ -14,7 +14,8 @@ appConfig.config(container, {
   openapiPath,
   webPort,
   closeTimeout: 5000,
-  process
+  process,
+  origins: ['http://localhost:5173', 'http://localhost:4173']
 });
 
 const app = container.get(App);

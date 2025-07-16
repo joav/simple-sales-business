@@ -3,4 +3,5 @@ type AppParams = {
   webPort: number;
   closeTimeout: number;
   process: NodeJS.Process;
+  origins: string[];
 };

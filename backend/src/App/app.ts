@@ -19,6 +19,7 @@ export class App {
   private httpServer?: Server;
   private closeTimeout: number;
   private process: NodeJS.Process;
+  private origins: string[];
 
   constructor(
     @inject(diIdentifiers.APP_PARAMS) params: Partial<AppParams>,
@@ -27,12 +28,14 @@ export class App {
     @inject(sharedDiIdentifiers.LOGGER)
     @named(appLoggers.HTTP)
     private readonly logger: InfrastructureLogger,
-    @inject(diIdentifiers.MORGAN_CONFIG) private readonly morganConfig: MorganConfig
+    @inject(diIdentifiers.MORGAN_CONFIG) private readonly morganConfig: MorganConfig,
+    @inject(diIdentifiers.CORS_CONFIG) private readonly corsConfig: CorsConfig
   ) {
     this.openapiPath = params.openapiPath ?? './openapi.json';
     this.webPort = params.webPort ?? 3500;
     this.closeTimeout = params.closeTimeout ?? 5000;
     this.process = params.process ?? process;
+    this.origins = params.origins;
     this.app = express();
     this.initialize();
   }
@@ -40,7 +43,8 @@ export class App {
   private initialize() {
     const swaggerValidator = this.initSwagger();
     const { middleware: morganMiddleware } = this.morganConfig.init(this.logger);
-    this.useMiddlewares(swaggerValidator, morganMiddleware);
+    const { middleware: corsMiddleware } = this.corsConfig.init({ origins: this.origins });
+    this.useMiddlewares(swaggerValidator, morganMiddleware, corsMiddleware);
     this.setRoutes();
     this.setErrorHandler();
   }
@@ -56,8 +60,9 @@ export class App {
     return swaggerHandlers.validator;
   }
 
-  private useMiddlewares(swaggerValidator: unknown, morganMiddleware: any) {
+  private useMiddlewares(swaggerValidator: unknown, morganMiddleware: any, corsMiddleware: any) {
     this.app.use(morganMiddleware);
+    this.app.use(corsMiddleware);
     this.app.use(
       express.urlencoded({
         extended: false,

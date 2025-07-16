@@ -137,6 +137,11 @@ describe('App', () => {
         validator: jest.fn()
       })
     } as any);
+    container.bind(diIdentifiers.CORS_CONFIG).toConstantValue({
+      init: () => ({
+        middleware: jest.fn()
+      })
+    });
     container.bind<Partial<AppParams>>(diIdentifiers.APP_PARAMS).toConstantValue(params);
     container.bind(App).toSelf();
     setApp();
