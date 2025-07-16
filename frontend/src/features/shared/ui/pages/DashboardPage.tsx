@@ -7,9 +7,9 @@ import TimeSeriesChart from '../../../metrics/ui/organisms/TimeSeriesChart';
 
 const DashboardPage: React.FC = () => {
   // --- Conexión a Datos Reales ---
-  const { data: productsWithStock, loading: loadingWithStock } = useMetrics(() => getAggregateValue('products', 'products-with-stock'));
-  const { data: productsWithoutStock, loading: loadingWithoutStock } = useMetrics(() => getAggregateValue('products', 'products-without-stock'));
-  const { data: monthSales, loading: loadingMonthSales } = useMetrics(() => getAggregateValue('sales', 'current-month-sales'));
+  const { data: productsWithStock, loading: loadingWithStock } = useMetrics(() => getAggregateValue('products', 'with-stock'));
+  const { data: productsWithoutStock, loading: loadingWithoutStock } = useMetrics(() => getAggregateValue('products', 'without-stock'));
+  const { data: monthSales, loading: loadingMonthSales } = useMetrics(() => getAggregateValue('sales', 'current-month'));
   const { data: monthEarnings, loading: loadingMonthEarnings } = useMetrics(() => getAggregateValue('sales', 'current-month-earnings'));
 
   const { data: monthlySalesData, loading: loadingMonthlySales } = useMetrics(() => getTimeSerie('sales', 'monthly-sales'));
