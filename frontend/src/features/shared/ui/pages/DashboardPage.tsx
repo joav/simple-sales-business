@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import { useMetrics } from '../../../metrics/hooks/useMetrics';
 import { getAggregateValue, getTimeSerie, getRanking } from '../../../metrics/services/metrics.service';
 import AggregateValueCard from '../../../metrics/ui/organisms/AggregateValueCard';
@@ -7,16 +7,16 @@ import TimeSeriesChart from '../../../metrics/ui/organisms/TimeSeriesChart';
 
 const DashboardPage: React.FC = () => {
   // --- Conexión a Datos Reales ---
-  const { data: productsWithStock, loading: loadingWithStock } = useMetrics(() => getAggregateValue('products', 'with-stock'));
-  const { data: productsWithoutStock, loading: loadingWithoutStock } = useMetrics(() => getAggregateValue('products', 'without-stock'));
-  const { data: monthSales, loading: loadingMonthSales } = useMetrics(() => getAggregateValue('sales', 'current-month'));
-  const { data: monthEarnings, loading: loadingMonthEarnings } = useMetrics(() => getAggregateValue('sales', 'current-month-earnings'));
+  const { data: productsWithStock, loading: loadingWithStock } = useMetrics(useCallback(() => getAggregateValue('products', 'with-stock'), []));
+  const { data: productsWithoutStock, loading: loadingWithoutStock } = useMetrics(useCallback(() => getAggregateValue('products', 'without-stock'), []));
+  const { data: monthSales, loading: loadingMonthSales } = useMetrics(useCallback(() => getAggregateValue('sales', 'current-month'), []));
+  const { data: monthEarnings, loading: loadingMonthEarnings } = useMetrics(useCallback(() => getAggregateValue('sales', 'current-month-earnings'), []));
 
-  const { data: monthlySalesData, loading: loadingMonthlySales } = useMetrics(() => getTimeSerie('sales', 'monthly-sales'));
-  const { data: monthlyBalanceData, loading: loadingMonthlyBalance } = useMetrics(() => getTimeSerie('transactions', 'monthly-balance'));
+  const { data: monthlySalesData, loading: loadingMonthlySales } = useMetrics(useCallback(() => getTimeSerie('sales', 'monthly-sales'), []));
+  const { data: monthlyBalanceData, loading: loadingMonthlyBalance } = useMetrics(useCallback(() => getTimeSerie('transactions', 'monthly-balance'), []));
 
-  const { data: bestSellingAllTime, loading: loadingBestSellingAllTime } = useMetrics(() => getRanking('products', 'best-selling-products-all-time'));
-  const { data: bestSellingCurrentMonth, loading: loadingBestSellingCurrentMonth } = useMetrics(() => getRanking('products', 'best-selling-products-current-month'));
+  const { data: bestSellingAllTime, loading: loadingBestSellingAllTime } = useMetrics(useCallback(() => getRanking('products', 'best-selling-products-all-time'), []));
+  const { data: bestSellingCurrentMonth, loading: loadingBestSellingCurrentMonth } = useMetrics(useCallback(() => getRanking('products', 'best-selling-products-current-month'), []));
   // -----------------------------
 
   return (
