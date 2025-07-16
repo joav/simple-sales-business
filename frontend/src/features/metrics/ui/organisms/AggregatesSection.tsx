@@ -24,17 +24,17 @@ const AggregatesSection: React.FC = () => {
       />
       <AggregateValueCard
         title="Total vendido Mes Actual"
-        value={monthSales ? `$ ${monthSales.aggregateValue}` : '$ 0'}
+        value={monthSales ? `$ ${monthSales.aggregateValue.toLocaleString('de')}` : '$ 0'}
         isLoading={loadingMonthSales}
       />
       <AggregateValueCard
         title="Total ganancias Mes Actual"
-        value={monthEarnings ? `$ ${monthEarnings.aggregateValue}` : '$ 0'}
+        value={monthEarnings ? `$ ${monthEarnings.aggregateValue.toLocaleString('de')}` : '$ 0'}
         isLoading={loadingMonthEarnings}
       />
       <AggregateValueCard
         title="Balance actual del negocio"
-        value={currentBalance ? `$ ${currentBalance.aggregateValue}` : '$ 0'}
+        value={currentBalance ? `$ ${currentBalance.aggregateValue.toLocaleString('de')}` : '$ 0'}
         isLoading={loadingCurrentBalance}
       />
     </div>
