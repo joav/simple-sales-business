@@ -9,6 +9,7 @@ const AggregatesSection: React.FC = () => {
   const { data: monthSales, loading: loadingMonthSales } = useMetrics(useCallback(() => getAggregateValue('sales', 'current-month'), []));
   const { data: monthEarnings, loading: loadingMonthEarnings } = useMetrics(useCallback(() => getAggregateValue('sales', 'current-month-earnings'), []));
   const { data: currentBalance, loading: loadingCurrentBalance } = useMetrics(useCallback(() => getAggregateValue('transactions', 'current-balance'), []));
+  const { data: currentCashBalance, loading: loadingCurrentCashBalance } = useMetrics(useCallback(() => getAggregateValue('transactions', 'current-cash-balance'), []));
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
@@ -36,6 +37,11 @@ const AggregatesSection: React.FC = () => {
         title="Balance actual del negocio"
         value={currentBalance ? `$ ${currentBalance.aggregateValue.toLocaleString('de')}` : '$ 0'}
         isLoading={loadingCurrentBalance}
+      />
+      <AggregateValueCard
+        title="Saldo actual del negocio"
+        value={currentCashBalance ? `$ ${currentCashBalance.aggregateValue.toLocaleString('de')}` : '$ 0'}
+        isLoading={loadingCurrentCashBalance}
       />
     </div>
   );

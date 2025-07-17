@@ -3,11 +3,12 @@ import { useMetrics } from '../../../metrics/hooks/useMetrics';
 import { getTimeSerie } from '../../../metrics/services/metrics.service';
 import TimeSeriesChart from '../../../metrics/ui/organisms/TimeSeriesChart';
 import { createMonthlyDateRange } from '../../../shared/utils/create-monthly-date-range';
+import { useDateRange } from '../../../shared/hooks/useDateRange';
 
 const TimeSeriesSection: React.FC = () => {
-  const [ from, to ] = useCallback(() => createMonthlyDateRange(), [])();
-  const { data: monthlySalesData, loading: loadingMonthlySales } = useMetrics(useCallback(() => getTimeSerie('sales', 'monthly-sales', from, to), []));
-  const { data: monthlyBalanceData, loading: loadingMonthlyBalance } = useMetrics(useCallback(() => getTimeSerie('transactions', 'monthly-balance', from, to), []));
+  const [ from, to ] = useDateRange(useCallback(() => createMonthlyDateRange(), []));
+  const { data: monthlySalesData, loading: loadingMonthlySales } = useMetrics(useCallback(() => getTimeSerie('sales', 'monthly-sales', from, to), [from, to]));
+  const { data: monthlyBalanceData, loading: loadingMonthlyBalance } = useMetrics(useCallback(() => getTimeSerie('transactions', 'monthly-balance', from, to), [from, to]));
 
   return (
     <>
