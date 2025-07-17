@@ -1,0 +1,16 @@
+' database/database-products.puml
+@startuml Database products tables
+
+entity Product {
+  * product_id : uuid <<generated>>
+  --
+  * product_last_update : date
+  * product_name : text
+  * product_stock : number
+  * product_cost : number
+  * product_price : number
+  product_has_been_sold : bool
+  product_materials : text
+}
+
+@enduml
