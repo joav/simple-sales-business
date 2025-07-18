@@ -1,6 +1,6 @@
 {
   "exclude": [
-    "test",
+    "**/*.spec.ts",
     "./vitest.config.ts"
   ],
   "compilerOptions": {
