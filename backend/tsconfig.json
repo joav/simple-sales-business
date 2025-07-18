@@ -3,6 +3,9 @@
     "**/*.spec.ts",
     "./vitest.config.ts"
   ],
+  "incluye": [
+    "src/**/*.ts"
+  ],
   "compilerOptions": {
     "baseUrl": "./",
     "target": "es6",
