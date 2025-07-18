@@ -58,6 +58,10 @@
     },
     "lib": [
       "es2022"
+    ],
+    "types": [
+      "@types/node",
+      "vitest/globals"
     ]
   }
 }

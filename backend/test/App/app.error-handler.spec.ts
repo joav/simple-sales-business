@@ -9,8 +9,8 @@ describe('AppErrorHandler', () => {
   it('should return error response with message Bad Request', () => {
     const req: any = {};
     const res: any = {
-      status: jest.fn(function () { return res }),
-      json: jest.fn(function () { return res })
+      status: vi.fn(function () { return res }),
+      json: vi.fn(function () { return res })
     };
     const err = new BadRequest({ path: '' });
 
@@ -28,8 +28,8 @@ describe('AppErrorHandler', () => {
   it('should return error response with message Not Found', () => {
     const req: any = {};
     const res: any = {
-      status: jest.fn(function () { return res }),
-      json: jest.fn(function () { return res })
+      status: vi.fn(function () { return res }),
+      json: vi.fn(function () { return res })
     };
     const err = new NotFound({ path: '' });
 
@@ -47,8 +47,8 @@ describe('AppErrorHandler', () => {
   it('should return error response with message Not Found Data', () => {
     const req: any = {};
     const res: any = {
-      status: jest.fn(function () { return res }),
-      json: jest.fn(function () { return res })
+      status: vi.fn(function () { return res }),
+      json: vi.fn(function () { return res })
     };
     const err = new EntityNotFoundError('SomeEntity', 'SomeCriteria');
 
@@ -66,8 +66,8 @@ describe('AppErrorHandler', () => {
   it('should return error response with message from InvalidInputException', () => {
     const req: any = {};
     const res: any = {
-      status: jest.fn(function () { return res }),
-      json: jest.fn(function () { return res })
+      status: vi.fn(function () { return res }),
+      json: vi.fn(function () { return res })
     };
     const domainStatus = {
       statusCode: 5655,
@@ -88,8 +88,8 @@ describe('AppErrorHandler', () => {
   it('should return error response with message Unknown error -1', () => {
     const req: any = {};
     const res: any = {
-      status: jest.fn(function () { return res }),
-      json: jest.fn(function () { return res })
+      status: vi.fn(function () { return res }),
+      json: vi.fn(function () { return res })
     };
     const err = new Error();
 
@@ -107,8 +107,8 @@ describe('AppErrorHandler', () => {
   it('should return error response with message Unknown error -2', () => {
     const req: any = {};
     const res: any = {
-      status: jest.fn(function () { return res }),
-      json: jest.fn(function () { return res })
+      status: vi.fn(function () { return res }),
+      json: vi.fn(function () { return res })
     };
     const err = {};
 

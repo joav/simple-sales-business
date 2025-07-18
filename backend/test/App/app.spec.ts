@@ -36,7 +36,7 @@ describe('App', () => {
   it('should stop and only exit', () => {
     setDefaultContainer({
       process: {
-        exit: jest.fn()
+        exit: vi.fn()
       } as any
     });
 
@@ -45,26 +45,26 @@ describe('App', () => {
     expect(container.get<any>(diIdentifiers.APP_PARAMS).process.exit).toHaveBeenCalledWith(0);
   });
   it('should start and stop with timeout', () => {
-    jest.useFakeTimers();
+    vi.useFakeTimers();
     setDefaultContainer({
       process: {
-        exit: jest.fn()
+        exit: vi.fn()
       } as any,
       closeTimeout: 0
     });
-    jest.spyOn(app.getApp(), 'listen').mockImplementation((_, callback) => {
+    vi.spyOn(app.getApp(), 'listen').mockImplementation((_, callback) => {
       callback();
       return {
-        close: jest.fn()
+        close: vi.fn()
       } as any;
     });
 
     app.start();
     app.stop();
 
-    jest.runAllTimers();
-    jest.clearAllTimers();
-    jest.useRealTimers();
+    vi.runAllTimers();
+    vi.clearAllTimers();
+    vi.useRealTimers();
 
     expect(container.get<any>(diIdentifiers.APP_PARAMS).process.exit).toHaveBeenCalledWith(1);
   });
@@ -73,7 +73,7 @@ describe('App', () => {
     beforeEach(() => {
       setDefaultContainer({
         process: {
-          exit: jest.fn()
+          exit: vi.fn()
         } as any
       });
     });
@@ -128,18 +128,18 @@ describe('App', () => {
     container.bind(sharedDiIdentifiers.LOGGER).toConstantValue(winston.loggers.get(appLoggers.HTTP)).whenNamed(appLoggers.HTTP);
     container.bind(diIdentifiers.MORGAN_CONFIG).toConstantValue(morganConfigMiddleWare);
     container.bind(AppRoutes).toConstantValue({
-      setRoutes: jest.fn()
+      setRoutes: vi.fn()
     } as any);
     container.bind(diIdentifiers.SWAGGER_CONFIG).toConstantValue({
       init: () => ({
-        serve: jest.fn(),
-        docsHandler: jest.fn(),
-        validator: jest.fn()
+        serve: vi.fn(),
+        docsHandler: vi.fn(),
+        validator: vi.fn()
       })
     } as any);
     container.bind(diIdentifiers.CORS_CONFIG).toConstantValue({
       init: () => ({
-        middleware: jest.fn()
+        middleware: vi.fn()
       })
     });
     container.bind<Partial<AppParams>>(diIdentifiers.APP_PARAMS).toConstantValue(params);
