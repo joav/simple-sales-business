@@ -3,7 +3,7 @@
     "**/*.spec.ts",
     "./vitest.config.ts"
   ],
-  "incluye": [
+  "include": [
     "src/**/*.ts"
   ],
   "compilerOptions": {
