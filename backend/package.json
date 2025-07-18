@@ -5,8 +5,7 @@
   "main": "dist/main.js",
   "scripts": {
     "start:dev": "LOG_LEVEL=debug tsx watch ./src/main.ts",
-    "test": "vitest run",
-    "test:cov": "vitest run --coverage",
+    "test": "vitest run --coverage",
     "prettier": "prettier --check \"src/**/*.ts\"",
     "prettier:write": "prettier --write \"src/**/*.ts\"",
     "build": "rm -rf dist; tsc",
